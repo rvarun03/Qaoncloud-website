@@ -212,7 +212,7 @@ export default function ContactUsPage() {
 
       // 2️⃣ Confirmation to sender — failure here does not block success
       try {
-        await emailjs.send('service_pe85kpk', 'template_lr226wc', {
+        await emailjs.send('service_pe85kpk', 'template_2s7nubr', {
           user_name: biz.firstName, user_email: biz.workEmail,
         });
       } catch (confirmErr) {
