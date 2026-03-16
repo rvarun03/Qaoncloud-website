@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-icons/fi';
@@ -7,6 +7,9 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import styles from './CareerPage.module.css';
 import PageHeader from '../Common/PageHeader/PageHeader';
+
+// Initialize EmailJS
+emailjs.init('8VzXZD4Cz9LhSvU54');
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -200,7 +203,7 @@ export default function CareerPage() {
 
   const handleFile = (file: File | null) => {
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { alert('File exceeds 5 MB'); return; }
+    if (file.size > 10 * 1024 * 1024) { alert('File exceeds 10 MB'); return; }
     const allowed = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!allowed.includes(file.type)) { alert('Only PDF or DOCX files accepted'); return; }
     setFile(file);
@@ -258,7 +261,6 @@ export default function CareerPage() {
 
       const fullName   = `${career.firstName} ${career.lastName}`;
       const resumeInfo = `${uploadedFile!.name} (${(uploadedFile!.size / 1024).toFixed(1)} KB)`;
-      const fileBase64 = await toBase64(uploadedFile!);
 
       // Upload resume to Cloudinary
       const uploadForm = new FormData();
@@ -282,9 +284,9 @@ export default function CareerPage() {
         name: fullName, from_name: fullName, first_name: career.firstName,
         last_name: career.lastName, email: career.email, from_email: career.email,
         reply_to: career.email, phone: career.phone, to_name: 'QAonCloud Team',
-        resume: resumeInfo, resume_name: uploadedFile!.name, resume_attachment: fileBase64,
-        document_link: document_link,
-        message: `New Career Application\n\nName: ${fullName}\nEmail: ${career.email}\nPhone: ${career.phone}\nResume: ${resumeInfo}`,
+        resume: resumeInfo, resume_name: uploadedFile!.name,
+        file_url: document_link,
+        message: `New Career Application\n\nName: ${fullName}\nEmail: ${career.email}\nPhone: ${career.phone}\nResume: ${resumeInfo}\nDownload Link: ${document_link}`,
       }, '8VzXZD4Cz9LhSvU54');
 
       // 2️⃣ Applicant confirmation — failure here should NOT block success
@@ -454,7 +456,7 @@ export default function CareerPage() {
 
               <div className={styles.uploadSection}>
                 <label className={styles.uploadLabel}>
-                  Upload Resume — PDF or DOCX only (max 5MB) <span className={styles.req}>*</span>
+                  Upload Resume — PDF or DOCX only (max 10MB) <span className={styles.req}>*</span>
                 </label>
                 <div
                   className={`${styles.dropZone} ${dragOver ? styles.dropZoneActive : ''}`}
@@ -489,7 +491,7 @@ export default function CareerPage() {
                   checked={privacyChecked} onChange={e => setPrivacy(e.target.checked)} />
                 <label htmlFor="priv-c" className={styles.privacyLabel}>
                   Your privacy is important to us. By filling this form you agree to our{' '}
-                  <Link href="/Privacy-policy" className={styles.privacyLink}>privacy policy</Link> *
+                  <Link href="/Privacy-policy" className={styles.privacyLink}>privacy policy</Link> <span className={styles.req}>*</span>
                 </label>
               </div>
 

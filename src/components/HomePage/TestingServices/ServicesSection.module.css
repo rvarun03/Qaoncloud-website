@@ -6,7 +6,6 @@
   position: relative;
   margin-top: var(--section-header-margin);
   padding-bottom: var(--padding-bottom);
-  
 }
 .section::before {
     content: "";
@@ -28,7 +27,6 @@
     filter: blur(80px);
 }
 
-
 /* ── Grid ── */
 .grid {
   display: grid;
@@ -36,30 +34,30 @@
   gap: 16px;
 }
 
-/* AI/ML card spans 2 cols */
-
-
 /* ── Card ── */
 .card {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  background: #0f0f0f;
+  background:
+    radial-gradient(ellipse 80% 75% at 110% 80%, #3093E84D, rgba(8, 30, 70, 0.5)  40%, transparent 70%),
+    #0f0f0f;
   border: 1px solid #292929;
   min-height: 220px;
-  
+  cursor: default !important;
   transition: transform 0.3s ease, border-color 0.3s ease;
-  grid-column: span 2; /* default = 3 cards per row */
+  grid-column: span 2;
 }
 .colSpan2 {
-  grid-column: span 3; /* AI/ML = 50% */
+  grid-column: span 3;
 }
 .card:last-child {
-  grid-column: span 3; /* 50% */
+  grid-column: span 3;
 }
 .card:hover {
   transform: translateY(-4px);
   border-color: rgba(59, 158, 255, 0.25);
+  cursor: default !important;
 }
 .cardTitle{
   margin-top: 0;
@@ -68,6 +66,7 @@
 .cardDesc{
   margin-top: 1rem;
 }
+
 /* ── Card inner content ── */
 .content {
   position: relative;
@@ -80,28 +79,25 @@
 }
 
 .cardTitle {
-  
   color: #3b9eff;
   letter-spacing: -0.01em;
   margin-bottom: 0;
 }
 
 .cardDesc {
-  
   color: #7a7a7a;
-  
   max-width: 290px;
 }
 .card:nth-child(4) .cardDesc,
 .card:nth-child(5) .cardDesc {
   max-width: 480px;
 }
+
 /* ── Decorative corner element ── */
 .corner {
   position: absolute;
   bottom: 0;
   right: 0;
-  /* push it half-way off the card so it bleeds */
   transform: translate(35%, 35%);
   pointer-events: none;
 }
@@ -150,22 +146,9 @@
   flex-shrink: 0;
 }
 
-/* Blue glow blob — sits at very bottom-right of the corner group */
+/* Blue glow blob */
 .blueGlow {
-  position: absolute;
-  bottom: -8px;
-  right: -8px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(30, 110, 255, 0.5) 0%,
-    rgba(30, 110, 255, 0.15) 50%,
-    transparent 70%
-  );
-  filter: blur(20px);
-  pointer-events: none;
+  display: none;
 }
 
 /* ── Hover inner glow on card ── */
@@ -185,11 +168,9 @@
 
 @media (max-width: 1247px) {
   .cardDesc {
-  
-  color: #7a7a7a;
-  
-  max-width: 230px;
-}
+    color: #7a7a7a;
+    max-width: 230px;
+  }
 }
 
 /* ── Responsive ── */
@@ -197,67 +178,30 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .card {
     grid-column: span 1;
   }
-
   .colSpan2 {
     grid-column: span 1;
   }
-   .cardDesc {
-  
-  color: #7a7a7a;
-  
-  max-width: 400px;
-}
+  .cardDesc {
+    color: #7a7a7a;
+    max-width: 400px;
+  }
   .card:last-child {
-    grid-column: 1 / -1; /* full width */
+    grid-column: 1 / -1;
   }
   .section::before {
-    content: "";
-    position: absolute;
     top: -20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1000px;
-    height: 400px;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(14, 165, 233, 0.19) 0%,
-        rgba(14, 165, 233, 0.12) 35%,
-        rgba(14, 165, 233, 0.04) 60%,
-        transparent 75%
-    );
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(80px);
-}
-.outerCircle {
-  width: 126px;
-  height: 126px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #181818 55%, #0f0f0f 100%);
-  border: 1px solid #262626;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* Inner circle — contains the grid pattern + icon */
-.innerCircle {
-  width: 102px;
-  height: 102px;
-  border-radius: 50%;
-  background: #141414;
-  border: 1px solid #242424;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  }
+  .outerCircle {
+    width: 126px;
+    height: 126px;
+  }
+  .innerCircle {
+    width: 102px;
+    height: 102px;
+  }
 }
 
 /* Below 788px — one per row */
@@ -266,24 +210,8 @@
     grid-template-columns: 1fr;
   }
   .section::before {
-    content: "";
-    position: absolute;
     top: -10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1000px;
-    height: 400px;
-    background: radial-gradient(
-        ellipse at center,
-        rgba(14, 165, 233, 0.19) 0%,
-        rgba(14, 165, 233, 0.12) 35%,
-        rgba(14, 165, 233, 0.04) 60%,
-        transparent 75%
-    );
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(80px);
-}
+  }
   .card,
   .colSpan2,
   .card:last-child {
@@ -292,37 +220,17 @@
 }
 
 @media (max-width: 500px) {
-   .cardDesc {
-    
+  .cardDesc {
     color: #7a7a7a;
-    
     max-width: 270px;
   }
-  /* Outer dark circle */
   .outerCircle {
     width: 96px;
     height: 96px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, #181818 55%, #0f0f0f 100%);
-    border: 1px solid #262626;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
   }
-
-/* Inner circle — contains the grid pattern + icon */
-.innerCircle {
+  .innerCircle {
     width: 62px;
     height: 62px;
-    border-radius: 50%;
-    background: #141414;
-    border: 1px solid #242424;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   .card:nth-child(4) .cardDesc,
   .card:nth-child(5) .cardDesc {
