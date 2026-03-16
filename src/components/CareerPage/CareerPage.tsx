@@ -283,7 +283,7 @@ export default function CareerPage() {
         last_name: career.lastName, email: career.email, from_email: career.email,
         reply_to: career.email, phone: career.phone, to_name: 'QAonCloud Team',
         resume: resumeInfo, resume_name: uploadedFile!.name, resume_attachment: fileBase64,
-        document_link: document_link,
+        file_url: document_link,
         message: `New Career Application\n\nName: ${fullName}\nEmail: ${career.email}\nPhone: ${career.phone}\nResume: ${resumeInfo}`,
       }, '8VzXZD4Cz9LhSvU54');
 

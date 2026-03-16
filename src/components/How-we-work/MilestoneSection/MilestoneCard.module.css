@@ -17,8 +17,8 @@
 .dayTitle {
   font-weight: 600;
   color: #ffffff;
-  font-size: var(--text-h4);
-  letter-spacing: -1px;
+  font-size: var(--text-h3);
+  
   margin: 0 0 20px 0;
   
 }
@@ -37,7 +37,7 @@
   align-items: flex-start;
   gap: 12px;
   color: #ffff;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 500;
   line-height: 1.60;
 }
