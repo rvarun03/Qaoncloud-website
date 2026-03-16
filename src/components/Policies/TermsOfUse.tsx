@@ -1,4 +1,5 @@
 'use client';
+import PageHeader from '../Common/PageHeader/PageHeader';
 import classes from './TermsOfUse.module.css';
 import { useRef, useState, useEffect } from 'react';
 
@@ -151,7 +152,7 @@ export default function TermsOfUsePage() {
   return (
     <div className={classes.page}>
 
-      {/* ── HERO (BlogPage style) ── */}
+      {/* ── HERO (BlogPage style) ── 
       <section ref={heroRef} className={classes.hero}>
        
         <div className={classes.heroOverlay} />
@@ -163,7 +164,12 @@ export default function TermsOfUsePage() {
             you agree to the terms and conditions stated below.
           </p>
         </div>
-      </section>
+      </section>*/}
+
+        <PageHeader
+              title="Terms of Use"
+              subtitle="Please read these terms carefully. Your use of our sites indicates that you agree to the terms and conditions stated below."
+            />
 
       {/* ── BODY ── */}
       <div className={classes.body}>

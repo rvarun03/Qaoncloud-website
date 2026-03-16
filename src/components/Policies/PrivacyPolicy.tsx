@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import classes from './PrivacyPolicy.module.css';
 import { useEffect, useRef, useState } from 'react';
+import PageHeader from '../Common/PageHeader/PageHeader';
 
 const sections = [
   {
@@ -130,7 +131,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className={classes.page}>
 
-      {/* ── HERO (BlogPage style) ── */}
+      {/* ── HERO (BlogPage style) ── }
       <section ref={heroRef} className={classes.hero}>
        
         <div className={classes.heroOverlay} />
@@ -142,7 +143,13 @@ export default function PrivacyPolicyPage() {
             use, and safeguard your personal information.
           </p>
         </div>
-      </section>
+      </section> */}
+
+      <PageHeader
+        title="Privacy Policy"
+        subtitle="QAonCloud is committed to protecting your privacy. Learn how we collect,
+            use, and safeguard your personal information"
+      />
 
       {/* ── BODY ── */}
       <div className={classes.body}>

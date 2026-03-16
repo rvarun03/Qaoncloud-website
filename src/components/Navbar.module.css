@@ -391,7 +391,7 @@
 
   .industryLink {
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.6);
+      color: #fff;
   }
   .logoWrapper {
     position: static;

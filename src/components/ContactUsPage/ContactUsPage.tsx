@@ -6,7 +6,9 @@ import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-
 import styles from './ContactUsPage.module.css';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
-import PageHeader from '../Common/PageHeader/PageHeader';
+
+// Initialize EmailJS
+emailjs.init('ud7uHNDNt2PuqT5zM');
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -120,7 +122,7 @@ export default function ContactUsPage() {
 
   /* ── Form state ── */
   const [biz, setBiz] = useState({
-    firstName: '', lastName: '', company: '', workEmail: '',
+    firstName: '', lastName: '', company: '', designation: '', workEmail: '',
     phone: '', country: '', services: [] as string[], howHeard: '', budgetRange: '', message: '',
   });
 
@@ -130,7 +132,7 @@ export default function ContactUsPage() {
 
   const computeBizErrors = (data: typeof biz) => ({
     workEmail: validateEmail(data.workEmail),
-    phone: validatePhone(data.phone),
+    phone: data.phone.trim() ? validatePhone(data.phone) : '',
   });
 
   useEffect(() => { setBizErrors(computeBizErrors(biz)); }, [biz.workEmail, biz.phone]);
@@ -193,51 +195,32 @@ export default function ContactUsPage() {
         return;
       }
 
-
-      let fileUrl = '';
-
-      if (uploadedFile) {
-        const uploadForm = new FormData();
-        uploadForm.append('file', uploadedFile);
-
-        const uploadRes = await fetch('/api/upload', {
-          method: 'POST',
-          body: uploadForm,
-        });
-
-        const uploadData = await uploadRes.json();
-
-        if (uploadData.url) {
-          fileUrl = uploadData.url;
-        }
-      }
-
       // 1️⃣ Team notification — must succeed
       await emailjs.send('service_pe85kpk', 'template_lr226wc', {
         name: biz.firstName,
         from_name: `${biz.firstName} ${biz.lastName}`,
         from_email: biz.workEmail,
         company: biz.company || 'Not provided',
+        designation: biz.designation || 'Not provided',
         phone: biz.phone,
         country: biz.country || 'Not provided',
         services: biz.services.join(', ') || 'Not provided',
         how_heard: biz.howHeard || 'Not provided',
         budget: biz.budgetRange || 'Not provided',
         message: biz.message || 'No message',
-        file_url: fileUrl || 'No file uploaded',
-      }, 'ud7uHNDNt2PuqT5zM');
+      });
 
       // 2️⃣ Confirmation to sender — failure here does not block success
       try {
-        await emailjs.send('service_pe85kpk', 'template_2s7nubr', {
+        await emailjs.send('service_pe85kpk', 'template_lr226wc', {
           user_name: biz.firstName, user_email: biz.workEmail,
-        }, 'ud7uHNDNt2PuqT5zM');
+        });
       } catch (confirmErr) {
         console.warn('Confirmation email failed (non-critical):', confirmErr);
       }
 
       setSubmitStatus('success');
-      setBiz({ firstName: '', lastName: '', company: '', workEmail: '', phone: '', country: '', services: [], howHeard: '', budgetRange: '', message: '' });
+      setBiz({ firstName: '', lastName: '', company: '', designation: '', workEmail: '', phone: '', country: '', services: [], howHeard: '', budgetRange: '', message: '' });
       setBizTouched({ workEmail: false, phone: false });
       setFile(null); setPrivacy(false); setCaptchaToken(null); setCaptchaError('');
       recaptchaRef.current?.reset();
@@ -279,11 +262,17 @@ export default function ContactUsPage() {
 
   return (
     <div className={styles.contactPage}>
-      <PageHeader
-        title="Let’s talk about your QA needs"
-        subtitle="We’d love to chat about your QA needs. Just leave us your details and we’ll get back to you in no time."
-      />
-      
+      <header className={styles.headerSection}>
+        <div className={styles.ellipse2017} />
+        <div className={styles.ellipse2018} />
+        <div className={styles.logoWrapper}>
+          <Link href="/"><Image src="/logos/qaoncloud3dlogo.png" alt="QAonCloud" width={220} height={220} priority /></Link>
+        </div>
+        <h1 className={styles.headerTitle}>Let’s talk about your QA needs </h1>
+        <p className={styles.heroSubtitle}>
+          We’d love to chat about your QA needs. Just leave us your details and we’ll get back to you in no time.
+        </p>
+      </header>
 
       <main className={styles.mainContent}>
         <div className={styles.contentContainer}>
@@ -368,7 +357,7 @@ export default function ContactUsPage() {
                 </div>
               </div>
 
-              {/* Row 2: Company + Work Email */}
+              {/* Row 2: Company + Designation */}
               <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Company</label>
@@ -376,21 +365,26 @@ export default function ContactUsPage() {
                     onChange={e => setBiz(p => ({ ...p, company: e.target.value }))} />
                 </div>
                 <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>Designation</label>
+                  <input className={styles.formInput} placeholder="Enter Here" value={biz.designation}
+                    onChange={e => setBiz(p => ({ ...p, designation: e.target.value }))} />
+                </div>
+              </div>
+
+              {/* Row 3: Work Email + Phone */}
+              <div className={styles.formGrid}>
+                <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Work Email <span className={styles.req}>*</span></label>
                   <input
                     className={`${styles.formInput}${showError('workEmail') ? ' ' + styles.inputError : ''}`}
-                    type="text" placeholder="Enter Here" value={biz.workEmail}
+                    type="email" placeholder="Enter Here" value={biz.workEmail}
                     onChange={e => { setBiz(p => ({ ...p, workEmail: e.target.value })); setBizTouched(p => ({ ...p, workEmail: true })); }}
                     onBlur={() => setBizTouched(p => ({ ...p, workEmail: true }))}
                   />
                   {showError('workEmail') && <span className={styles.fieldError}>{showError('workEmail')}</span>}
                 </div>
-              </div>
-
-              {/* Row 3: Phone + Country */}
-              <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Phone <span className={styles.req}>*</span></label>
+                  <label className={styles.formLabel}>Phone</label>
                   <input
                     className={`${styles.formInput}${showError('phone') ? ' ' + styles.inputError : ''}`}
                     type="tel" placeholder="Enter Here" value={biz.phone}
@@ -399,23 +393,22 @@ export default function ContactUsPage() {
                   />
                   {showError('phone') && <span className={styles.fieldError}>{showError('phone')}</span>}
                 </div>
+              </div>
+
+              {/* Row 4: Country + Services */}
+              <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Country</label>
                   <select className={styles.formSelect} value={biz.country}
                     onChange={e => setBiz(p => ({ ...p, country: e.target.value }))}>
                     <option value="">Select</option>
                     <option>United States</option>
-                    <option>United Kingdom</option>
                     <option>India</option>
                     <option>Australia</option>
                     <option>Canada</option>
                     <option>Other</option>
                   </select>
                 </div>
-              </div>
-
-              {/* Row 4: Services + How heard */}
-              <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Service I am interested in</label>
                   <div className={styles.multiSelectDropdown} ref={dropdownRef}>
@@ -440,6 +433,10 @@ export default function ContactUsPage() {
                     )}
                   </div>
                 </div>
+              </div>
+
+              {/* Row 5: How heard + My budget range */}
+              <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>How did you hear about us?</label>
                   <select className={styles.formSelect} value={biz.howHeard}
@@ -452,19 +449,17 @@ export default function ContactUsPage() {
                     <option>Other</option>
                   </select>
                 </div>
-              </div>
-
-              {/* Budget */}
-              <div className={styles.formGroupFull}>
-                <label className={styles.formLabel}>My budget range</label>
-                <select className={styles.formSelect} value={biz.budgetRange}
-                  onChange={e => setBiz(p => ({ ...p, budgetRange: e.target.value }))}>
-                  <option value="">Select</option>
-                  <option>Under $5,000</option>
-                  <option>$5,000 – $15,000</option>
-                  <option>$15,000 – $50,000</option>
-                  <option>$50,000+</option>
-                </select>
+                <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>My budget range</label>
+                  <select className={styles.formSelect} value={biz.budgetRange}
+                    onChange={e => setBiz(p => ({ ...p, budgetRange: e.target.value }))}>
+                    <option value="">Select</option>
+                    <option>Under $5,000</option>
+                    <option>$5,000 – $15,000</option>
+                    <option>$15,000 – $50,000</option>
+                    <option>$50,000+</option>
+                  </select>
+                </div>
               </div>
 
               {/* Message */}
@@ -487,7 +482,7 @@ export default function ContactUsPage() {
                   checked={privacyChecked} onChange={e => setPrivacy(e.target.checked)} />
                 <label htmlFor="priv-b" className={styles.privacyLabel}>
                   Your privacy is important to us. By filling this form you agree to our{' '}
-                  <Link href="/Privacy-policy" className={styles.privacyLink}>privacy policy</Link> <span className={styles.req}>*</span>
+                  <Link href="/Privacy-policy" className={styles.privacyLink}>privacy policy</Link>  <span className={styles.req}>*</span>
                 </label>
               </div>
 
@@ -510,7 +505,7 @@ export default function ContactUsPage() {
                 <StatusDialog status={submitStatus} onClose={() => setSubmitStatus('idle')} />
               )}
 
-            </form>
+            </form> 
           </section>
 
         </div>

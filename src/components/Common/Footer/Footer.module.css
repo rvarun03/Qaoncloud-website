@@ -46,10 +46,12 @@
   vertical-align: middle;
 }
 .qaoncloudLogo { height: 50px; width: 156px; }
+
 .description {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+    font-family: Inter;
+  font-size: 14px;
+  line-height: 22.75px;
+  color:  #FFFFFF;
   margin-bottom: 0.75rem;
   max-width: 350px;
   margin-top: 0;

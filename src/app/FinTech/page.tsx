@@ -33,8 +33,8 @@ const finTechData = {
    
     {
        
-      quote: "Our engineers used to spend 30% of their time on QA. Now they build. QAonCloud handles the rest.",
-      author: { name: "Quentin Mussche", role: "CTO, Digital Banking Platform", avatar: "/Images/Fintech/Quentin Mussche.png" },
+      quote: "QAonCloud team members are flexible and adaptive. The QA testers are collaborative and function effectively with the available data, and can easily adapt to the requirements as and when needed. The team manager maintains high efficiency and productivity among the teams while pushing them to be autonomous and self-sufficient.",
+      author: { name: "Ishansh Singh", role: "Product Specialist, Avanti", avatar: "/Images/Fintech/Ishansh_Avanti.png" },
     },
      {
         
@@ -196,7 +196,7 @@ export default function page() {
             highlight=""
             faqs={[
               { question: "How fast can you get started?", answer: "Most teams are up and running within 2-3 weeks. We start with a discovery call to understand your product and compliance requirements, then move into a focused pilot engagement." },
-              { question: "Are you familiar with industry-specific regulations?", answer: "We've worked with PCI-DSS, SOC 2 Type II, PSD2, state money transmitter requirements, GDPR, and more. If there's a regulation we haven't encountered, we'll tell you upfront, and we learn about it fast" },
+              { question: "Are you familiar with industry-specific regulations?", answer: "We've worked with PCI-DSS, SOC 2 Type II, PSD2, state money transmitter requirements, GDPR, and more. If there's a regulation we haven't encountered, we'll tell you upfront, and we learn about it fast." },
               { question: "What if we already have some QA in place?", answer: "We don’t expect you to change your processes, we integrate into your way of work. Most clients start by handing us their biggest pain point (compliance testing, regression suites, or a specific product surface) and expand from there." },
               { question: "How do you handle sensitive test data?", answer: "We use synthetic test data generation, so real customer data is never exposed. This keeps your compliance with data privacy regulations in check, removing a major security risk from your testing process." },
               { question: 'How do you manage to deliver 40% faster? ', answer: "We use synthetic test data generation, so real customer data is never exposed. This keeps your compliance with data If traditional QA takes 12 months, we’ll do it in 7. We save a lot of time with our AI handling repetitive work (test generation, execution, data creation), letting our engineers focus on judgment calls and edge cases.privacy regulations in check, removing a major security risk from your testing process." },
