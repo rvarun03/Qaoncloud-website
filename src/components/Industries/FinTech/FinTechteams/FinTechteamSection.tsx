@@ -82,8 +82,8 @@ function FinTechteamSection({
             <div className={styles.author}>
               <img src={featured.author.avatar} alt={featured.author.name} className={styles.avatar} />
               <div>
-                <div className={styles.authorName}>{featured.author.name}</div>
-                <div className={styles.authorRole}>{featured.author.role}</div>
+                <p className={styles.authorName}>{featured.author.name}</p>
+                <p className={styles.authorRole}>{featured.author.role}</p>
               </div>
             </div>
           ) : null}
@@ -102,9 +102,9 @@ function FinTechteamSection({
         {testimonials.map((item, index) => (
           <div key={index} className={styles.testimonialCard}>
            {/*<span className={styles.badge}>{item.label}</span> */}
-         <blockquote className={styles.testimonialQuote}>
-  {item.quote}
-</blockquote>
+            <blockquote className={styles.testimonialQuote}>
+              {item.quote}
+            </blockquote>
             <div className={styles.author}>
               <img src={item.author.avatar} alt={item.author.name} className={styles.avatar} />
               <div>

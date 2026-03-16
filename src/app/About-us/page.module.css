@@ -472,7 +472,7 @@
   display: block;
   flex-shrink: 0;
   border-radius: 20px 20px 0 0;
-  background: #0f0f0f;
+  background: #0f0f0f !important;
   isolation: isolate;
 }
 
@@ -480,36 +480,38 @@
 .memberInfo {
   width: 100%;
   height: auto;               
-  min-height: 186px;             
+  min-height: 200px;             
   padding: 16px 20px 40px 20px;
   display: flex;
   flex-direction: column;
   gap: 0;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;   /* ← add this */
 }
 
 /* Noise only on the info/background area, not the photo */
-.memberInfo::after {
-  content: "";
+.cardNoise {
   position: absolute;
   inset: 0;
+  top: 0; /* covers full card */
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 4 -2.4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
   mix-blend-mode: screen;
   opacity: 12%;
-  z-index: 0;
+  z-index: 3;
+  border-radius: 20px;
+  /* Only show noise on the info area, not the photo */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 55%, black 55%);
+  mask-image: linear-gradient(to bottom, transparent 55%, black 55%);
 }
 
 /* Figma: role — Inter 600, 20px, line-height 100%, letter-spacing -6% */
 .memberRole {
   font-family: 'Inter';
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 26px;
-  letter-spacing: -6%;
+  line-height: 30px;
   color: #FF8641;
   margin-bottom: 8px;
 }
@@ -525,12 +527,12 @@
 /* Figma: name — Inter 700, 30px, line-height 100%, letter-spacing -6% */
 .memberName {
   font-family: 'Inter';
-  font-weight: 700;
-  font-size: 30px;               
-  line-height: 100%;
-   letter-spacing: -6%;       
+  font-weight: 600;
+  font-size: var(--text-h3);               
+  line-height: 28px;
+        
   color: #fff; 
-  font-style: bold;
+  
 }
 
 .memberLinkedIn {
@@ -563,11 +565,8 @@
 
 /* Figma: bio — Inter 500, 20px, line-height 26px, letter-spacing -6% */
 .memberBio {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 15px;               
-  line-height: 26px;           
-  letter-spacing: -6%;       
+           
+      
   color: rgba(255, 255, 255, 0.5);
   margin: 0;
 }

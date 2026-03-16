@@ -40,12 +40,9 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  
   cursor: pointer;
+  isolation: isolate;  /* ← add this */
 }
 
 /* .card:hover {
@@ -67,7 +64,9 @@
   /* This gradient shows through wherever the image doesn't cover */
   background: linear-gradient(260.94deg, #002A8D -37.26%, #090C0E 100%);
   box-shadow: 0px 0.43px 1.08px 0px #7070700F;
+  border-radius: 16px 16px 0 0;  /* ← add this */
 }
+
 
 /* Monotone noise overlay on the image area only */
 .imageWrapper::after {

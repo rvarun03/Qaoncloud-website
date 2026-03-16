@@ -90,6 +90,7 @@
   text-align: left;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  color: #ffffff;
 }
 
 .thAlternative {
@@ -142,10 +143,11 @@
 .tdProblem,
 .tdDifference {
   padding: 24px;
-  font-size: 22px;
-  line-height: 1.6;
+  font-size: var(--text-h4);
+  line-height: 30px;
   vertical-align: top;
   font-weight: 500;
+  letter-spacing: var(--header-letter-spacing);
 }
 
 .tdAlternative {
@@ -156,17 +158,18 @@
 
 .tdProblem {
  background-color: #000000; 
-  color: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .tdDifference {
   background: linear-gradient(260.94deg, #002A8D -37.26%, #090C0E 90%);
-  color: rgba(255, 255, 255, 0.9);
+  color: #ffffff;
 }
 
 /*  RESPONSIVE — reflow table into stacked cards ≤768px  */
 @media (max-width: 768px) {
+  
   .section {
     padding: 48px 16px;
   }
@@ -204,6 +207,9 @@
   }
 
   /* Each cell becomes full-width block with a label */
+
+  
+  
   .tdAlternative,
   .tdProblem,
   .tdDifference {
@@ -211,7 +217,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 14px 16px;
-    font-size: 16px;
+    font-size: var(--text-h4);
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
@@ -255,14 +261,7 @@
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 20px;
-  }
+  
 
-  .tdAlternative,
-  .tdProblem,
-  .tdDifference {
-    padding: 12px 14px;
-    font-size: 13px;
-  }
+  
 }

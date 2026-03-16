@@ -12,9 +12,12 @@
 }
 
 .heading {
+  font-size: clamp(17.5px, 1.5vw, 24px);
   text-align: center;
   color: #fff;
   margin-bottom: 3rem;
+  letter-spacing: -1px;
+  line-height: 100%;
 }
 
 /* ── Slider Container (arrows + marquee) ── */

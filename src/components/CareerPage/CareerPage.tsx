@@ -6,6 +6,7 @@ import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-
 import ReCAPTCHA from 'react-google-recaptcha';
 import emailjs from '@emailjs/browser';
 import styles from './CareerPage.module.css';
+import PageHeader from '../Common/PageHeader/PageHeader';
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -259,12 +260,30 @@ export default function CareerPage() {
       const resumeInfo = `${uploadedFile!.name} (${(uploadedFile!.size / 1024).toFixed(1)} KB)`;
       const fileBase64 = await toBase64(uploadedFile!);
 
+      // Upload resume to Cloudinary
+      const uploadForm = new FormData();
+      uploadForm.append("file", uploadedFile!);
+
+      const uploadRes = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadForm,
+      });
+
+      const uploadData = await uploadRes.json();
+
+      if (!uploadData.url) {
+        throw new Error("Upload failed");
+      }
+
+      const document_link = uploadData.url;
+
       // 1️⃣ Team notification — must succeed
       await emailjs.send('service_ox6diqq', 'template_9f8xcmm', {
         name: fullName, from_name: fullName, first_name: career.firstName,
         last_name: career.lastName, email: career.email, from_email: career.email,
         reply_to: career.email, phone: career.phone, to_name: 'QAonCloud Team',
         resume: resumeInfo, resume_name: uploadedFile!.name, resume_attachment: fileBase64,
+        document_link: document_link,
         message: `New Career Application\n\nName: ${fullName}\nEmail: ${career.email}\nPhone: ${career.phone}\nResume: ${resumeInfo}`,
       }, '8VzXZD4Cz9LhSvU54');
 
@@ -303,14 +322,11 @@ export default function CareerPage() {
 
   return (
     <div className={styles.contactPage}>
-      <header className={styles.headerSection}>
-        <div className={styles.ellipse2017} />
-        <div className={styles.ellipse2018} />
-        <div className={styles.logoWrapper}>
-          <Link href="/"><Image src="/logos/qaoncloud3dlogo.png" alt="QAonCloud" width={220} height={220} priority /></Link>
-        </div>
-        <h1 className={styles.headerTitle}>Join Us</h1>
-      </header>
+      <PageHeader
+              title="Join Us"
+              
+            />
+      
 
       <main className={styles.mainContent}>
         <div className={styles.contentContainer}>

@@ -27,17 +27,21 @@
 }
 
 .sectionTitle {
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 700;
+  
   color: #fff;
   margin: 0;
-  line-height: 1.25;
+  
 }
-
+.sectionTitle span {
+  font-size: inherit;      /* ← forces span to match h2 exactly */
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
 .sectionDescription {
-  font-size: 0.95rem;
+  
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.75;
+  
   margin: 0;
   display: flex;
   flex-direction: column;

@@ -20,6 +20,7 @@ export default function HeroSection() {
         <div className={styles.textBlock}>
           <h1 className={styles.heading}>
             40% faster QA. Accelerated by AI,
+            <br className={styles.desktopBreak} />
             driven by experts.
           </h1>
           <p className={styles.subheading}>
@@ -43,7 +44,7 @@ export default function HeroSection() {
         <div className={styles.stats}>
           <div className={styles.statItem}>
             <h2 className={styles.statNumber}>40%</h2>
-            <p className={styles.statLabel}>Faster than in-house teams</p>
+            <p className={styles.statLabel}>faster than in-house teams</p>
           </div>
           <div className={styles.statItem}>
             <h2 className={styles.statNumber}>12+ years</h2>

@@ -6,6 +6,7 @@ import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-
 import styles from './ContactUsPage.module.css';
 import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
+import PageHeader from '../Common/PageHeader/PageHeader';
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -192,6 +193,25 @@ export default function ContactUsPage() {
         return;
       }
 
+
+      let fileUrl = '';
+
+      if (uploadedFile) {
+        const uploadForm = new FormData();
+        uploadForm.append('file', uploadedFile);
+
+        const uploadRes = await fetch('/api/upload', {
+          method: 'POST',
+          body: uploadForm,
+        });
+
+        const uploadData = await uploadRes.json();
+
+        if (uploadData.url) {
+          fileUrl = uploadData.url;
+        }
+      }
+
       // 1️⃣ Team notification — must succeed
       await emailjs.send('service_pe85kpk', 'template_lr226wc', {
         name: biz.firstName,
@@ -204,11 +224,12 @@ export default function ContactUsPage() {
         how_heard: biz.howHeard || 'Not provided',
         budget: biz.budgetRange || 'Not provided',
         message: biz.message || 'No message',
+        file_url: fileUrl || 'No file uploaded',
       }, 'ud7uHNDNt2PuqT5zM');
 
       // 2️⃣ Confirmation to sender — failure here does not block success
       try {
-        await emailjs.send('service_pe85kpk', 'template_lr226wc', {
+        await emailjs.send('service_pe85kpk', 'template_2s7nubr', {
           user_name: biz.firstName, user_email: biz.workEmail,
         }, 'ud7uHNDNt2PuqT5zM');
       } catch (confirmErr) {
@@ -258,17 +279,11 @@ export default function ContactUsPage() {
 
   return (
     <div className={styles.contactPage}>
-      <header className={styles.headerSection}>
-        <div className={styles.ellipse2017} />
-        <div className={styles.ellipse2018} />
-        <div className={styles.logoWrapper}>
-          <Link href="/"><Image src="/logos/qaoncloud3dlogo.png" alt="QAonCloud" width={220} height={220} priority className={styles.logoImage}/></Link>
-        </div>
-        <h1 className={styles.headerTitle}>Let’s talk about your QA needs </h1>
-        <p className={styles.heroSubtitle}>
-          We’d love to chat about your QA needs. Just leave us your details and we’ll get back to you in no time.
-        </p>
-      </header>
+      <PageHeader
+        title="Let’s talk about your QA needs"
+        subtitle="We’d love to chat about your QA needs. Just leave us your details and we’ll get back to you in no time."
+      />
+      
 
       <main className={styles.mainContent}>
         <div className={styles.contentContainer}>

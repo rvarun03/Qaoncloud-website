@@ -77,10 +77,10 @@ export default function page() {
           />
          <ContentWrapper>
            <TestimonialCard
-            quote="They understood our product faster than any vendor we've worked with"
-            name="Mark Johnson"
-            role="CTO at XYZ company"
-            avatarSrc="/avatars/mark.jpg"
+            quote="We went from zero to 100% test coverage without us investing practically any time. For small teams that can't afford dedicated testers, this synergy is great."
+            name="Miguel Romero Karam"
+            role="Netzo"
+            avatarSrc="/Miguel Romero Karam.jpg"
           />
          </ContentWrapper>
           <ContentWrapper>

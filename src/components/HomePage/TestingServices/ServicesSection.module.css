@@ -90,7 +90,7 @@
   
   color: #7a7a7a;
   
-  max-width: 320px;
+  max-width: 290px;
 }
 .card:nth-child(4) .cardDesc,
 .card:nth-child(5) .cardDesc {
@@ -183,6 +183,15 @@
   box-shadow: inset 0 0 0 1px rgba(59, 158, 255, 0.18);
 }
 
+@media (max-width: 1247px) {
+  .cardDesc {
+  
+  color: #7a7a7a;
+  
+  max-width: 230px;
+}
+}
+
 /* ── Responsive ── */
 @media (max-width: 1000px) {
   .grid {
@@ -196,7 +205,12 @@
   .colSpan2 {
     grid-column: span 1;
   }
-
+   .cardDesc {
+  
+  color: #7a7a7a;
+  
+  max-width: 400px;
+}
   .card:last-child {
     grid-column: 1 / -1; /* full width */
   }
@@ -218,6 +232,31 @@
     pointer-events: none;
     z-index: 0;
     filter: blur(80px);
+}
+.outerCircle {
+  width: 126px;
+  height: 126px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #181818 55%, #0f0f0f 100%);
+  border: 1px solid #262626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Inner circle — contains the grid pattern + icon */
+.innerCircle {
+  width: 102px;
+  height: 102px;
+  border-radius: 50%;
+  background: #141414;
+  border: 1px solid #242424;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 }
 
@@ -249,5 +288,44 @@
   .colSpan2,
   .card:last-child {
     grid-column: span 1;
+  }
+}
+
+@media (max-width: 500px) {
+   .cardDesc {
+    
+    color: #7a7a7a;
+    
+    max-width: 270px;
+  }
+  /* Outer dark circle */
+  .outerCircle {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #181818 55%, #0f0f0f 100%);
+    border: 1px solid #262626;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+/* Inner circle — contains the grid pattern + icon */
+.innerCircle {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #141414;
+    border: 1px solid #242424;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card:nth-child(4) .cardDesc,
+  .card:nth-child(5) .cardDesc {
+    max-width: 250px;
   }
 }

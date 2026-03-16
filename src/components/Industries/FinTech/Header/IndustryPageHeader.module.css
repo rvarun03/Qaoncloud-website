@@ -122,9 +122,9 @@
     margin-right: auto;
     color: #cbd5e1;
     margin-bottom: var(--button-top-margin);
-    max-width: 1050px; 
+    max-width: 1100px; 
     font-size: var(--text-h4);
-    letter-spacing: -2px;
+    letter-spacing: var( --header-letter-spacing);
     
  }
 
@@ -134,18 +134,18 @@
      justify-content: center;
  }
 
- .buttonContainer a,
- .buttonContainer button {
-     font-family: 'Inter', sans-serif;
-     font-weight: 600;
-     font-size: 18px;
-     line-height: 20px;
-     letter-spacing: -1px;
-     text-align: center;
-     color: #FFFFFF;
-     padding: 12px 10px;
-     border-radius: 12px;
- }
+
+  @media (max-width: 1200px) {
+     .description {
+
+   
+    margin-left: auto;
+    margin-right: auto;
+    color: #cbd5e1;
+    margin-bottom: var(--button-top-margin);
+    max-width: 900px; 
+  }
+}
  @media (max-width: 768px) {
   .container {
     padding: 0rem;

@@ -148,7 +148,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
    ================================================ */
 
 /* tablet/mobile shared — no bottom offset, no fixed height */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .container {
     height: auto;
     min-height: unset;
@@ -222,8 +222,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     margin-bottom: 0.75rem;
   }
   .description {
-    font-size: 15px;
-    line-height: 24px;
+    
   }
   .buttonContainer {
     margin-top: 1.25rem;
@@ -233,8 +232,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     font-size: 15px;
   }
   .linkDescription {
-    font-size: 14px;
-    line-height: 20px;
+    
   }
   /* imageWrapper stays right-anchored at 52% width — looks good on tablet */
 }
@@ -284,8 +282,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     text-align: center;
   }
   .linkDescription {
-    font-size: 14px;
-    line-height: 20px;
+    
     text-align: center;
   }
   .imageWrapper {
@@ -309,8 +306,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     text-align: center;
   }
   .title {
-    font-size: 19px;
-    line-height: 1.2;
+    
     text-align: center;
     margin-bottom: 0.6rem;
   }
@@ -319,8 +315,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     font-size: 19px;
   }
   .description {
-    font-size: 13px;
-    line-height: 21px;
+   
     text-align: center;
   }
   .buttonContainer {
@@ -334,8 +329,7 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     width: 100%;
   }
   .linkDescription {
-    font-size: 13px;
-    line-height: 19px;
+    
     text-align: center;
     margin-top: 0.75rem;
   }

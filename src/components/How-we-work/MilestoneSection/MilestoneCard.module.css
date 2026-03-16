@@ -15,10 +15,12 @@
 }
 
 .dayTitle {
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
+  font-size: var(--text-h4);
+  letter-spacing: -1px;
   margin: 0 0 20px 0;
-  letter-spacing: -0.02em;
+  
 }
 
 .list {
@@ -35,9 +37,9 @@
   align-items: flex-start;
   gap: 12px;
   color: #ffff;
-  font-size: var(--text-h5);
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.55;
+  line-height: 1.60;
 }
 
 .checkIcon {

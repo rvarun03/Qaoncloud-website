@@ -1,7 +1,7 @@
 .container{
     margin-top: var(--section-header-margin);
     position: relative;
-    padding: 1rem;
+    padding: 2rem;
     
 }
 .container::before {

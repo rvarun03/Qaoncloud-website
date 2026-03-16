@@ -30,7 +30,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2.5vw, 2rem);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -39,7 +39,7 @@
 
 /* ── Text block ── */
 .textBlock {
-  max-width: 960px;
+  max-width: 990px;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -49,13 +49,14 @@
   max-width: 800px;
   letter-spacing: -0.02em;
   margin: 0;
+  
 }
 
 .subheading {
   color: #ffffff;
   font-size: var(--text-h4);
   max-width: 660px;
-  letter-spacing: -0.1px;
+  letter-spacing: var(--header-letter-spacing);
   margin: 0;
 }
 
@@ -123,9 +124,11 @@
   gap: 1.5rem 2rem;
   max-width: 600px;
   margin-top: auto;
-  margin-bottom: 0rem;
+  margin-bottom: 0.8rem;
 }
-
+.desktopBreak {
+  display: block; /* shows on desktop */
+}
 .stats .statItem:nth-child(3) {
   grid-column: 1 / -1;
   margin-top: 0.5rem;
@@ -262,7 +265,7 @@
   .glowWrapper {
     opacity: 0.45;
   }
-
+ 
   .content {
     padding: 2rem 1.25rem 2rem;
   }
@@ -298,6 +301,9 @@
    SMALL MOBILE  (≤ 480px)
 ───────────────────────────────────────── */
 @media (max-width: 480px) {
+   .desktopBreak {
+    display: none; /* natural wrap on mobile */
+  }
   .hero {
     padding-top: 2rem;
     min-height: unset !important;
@@ -321,7 +327,7 @@
 
   .heading {
     max-width: 340px;
-    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    
   }
 
   .subheading {

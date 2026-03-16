@@ -45,7 +45,7 @@ const FeatureShowcase: React.FC = () => (
       {/* ── Communication card ── */}
       <div className={styles.cardOuter}>
         <div className={`${styles.card} ${styles.cardDark}`}>
-          <h2 className={styles.title}>{features[0].title}</h2>
+          <h3 className={styles.title}>{features[0].title}</h3>
           <ul className={styles.list}>
             {features[0].items.map((item, i) => (
               <li key={i} className={styles.listItem}>{item}</li>

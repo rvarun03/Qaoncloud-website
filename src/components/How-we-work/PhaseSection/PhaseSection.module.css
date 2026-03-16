@@ -76,6 +76,7 @@
   justify-content: center;
   flex-shrink: 0;
   min-width: 28px;
+  
 }
 
 .card {
@@ -105,13 +106,15 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .sectionTitle {
-  font-size: 0.9rem;
+  font-size: var(--text-h4);
+  line-height: 20px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #ffffff;
+  
 }
 
 .list {
@@ -120,13 +123,16 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
+  
 }
 
 .list li {
-  font-size: 0.875rem;
-  color: #94a3b8;
-  line-height: 1.5;
+  font-size: var(--text-para);
+  color: #ffffff;
+  line-height: 30px;
+  font-weight: 500;
+  
 }
 
 .divider {

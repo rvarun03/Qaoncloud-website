@@ -4,6 +4,8 @@ import React from 'react'
 import classes from "./page.module.css"
 import Image from 'next/image'
 import ContentSection from '@/components/About-Us/ContentSection'
+import SectionHeader from '@/components/Common/SectionHeader/SectionHeader'
+import PageHeader from '@/components/Common/PageHeader/PageHeader'
 
 const boardMembers = [
   {
@@ -48,7 +50,11 @@ export default function AboutPage() {
     <div className={classes.pageWrapper}>
 
       {/* HEADER */}
-      <header className={classes.headerSection}>
+      <PageHeader
+              title="We are QAonCloud"
+              subtitle="The preferred AI-accelerated QA partner for teams looking to ship faster, without cutting corners."
+            />
+      {/* <header className={classes.headerSection}>
         <div className={classes.logoWrapper}>
           <div className={classes.ellipse2017} />
           <div className={classes.ellipse2018} />
@@ -58,7 +64,7 @@ export default function AboutPage() {
         <p className={classes.heroSubtitle}>
           The preferred AI-accelerated QA partner for teams looking to ship faster, without cutting corners.
         </p>
-      </header>
+      </header> */}
 
       {/* BUILT BY DESICREW */}
       <ContentSection
@@ -103,7 +109,7 @@ export default function AboutPage() {
           {/* Vision card */}
           <div className={classes.vmCard}>
             <div className={classes.vmCardText}>
-              <div className={classes.vmCardLabel}>Our Vision</div>
+              <h3 className={classes.vmCardLabel}>Our Vision</h3>
               <p className={classes.vmCardDescription}>
                 To help you deliver the best customer experience for your applications and empower business
                 for every entrepreneur.
@@ -121,7 +127,7 @@ export default function AboutPage() {
           {/* Mission card */}
           <div className={classes.vmCard}>
             <div className={classes.vmCardText}>
-              <div className={classes.vmCardLabel}>Our Mission</div>
+              <h3 className={classes.vmCardLabel}>Our Mission</h3>
               <p className={classes.vmCardDescription}>
                 At QAonCloud, we endeavor to bring high tech jobs to rural India, to create job opportunities
                 for the rural youth, and also to create a positive impact on their economic status by working
@@ -141,14 +147,15 @@ export default function AboutPage() {
       </section>
 
       {/* BOARD MEMBERS */}
+      
       <section className={classes.boardSection}>
         <div className={classes.boardInner}>
-          <h2 className={classes.boardTitle}>
-            Our <span className={classes.boardTitleHighlight}>Board Members</span>
-          </h2>
+          <SectionHeader title='Our' highlight='Board Members' />
+          
           <div className={classes.boardGrid}>
             {boardMembers.map((member) => (
               <div key={member.name} className={classes.memberCard}>
+                <div className={classes.cardNoise} />
                 <Image
                   src={member.photo}
                   alt={member.name}
@@ -157,7 +164,7 @@ export default function AboutPage() {
                   className={classes.memberPhoto}
                 />
                 <div className={classes.memberInfo}>
-                  <div className={classes.memberRole}>{member.role}</div>
+                  <h4 className={classes.memberRole}>{member.role}</h4>
                   <div className={classes.memberNameRow}>
                     <div className={classes.memberName}>{member.name}</div>
                     {member.linkedin && (
@@ -186,8 +193,9 @@ export default function AboutPage() {
       {/* COMPLIANCE & CERTIFICATIONS */}
       <section className={classes.certSection}>
         <div className={classes.certInner}>
+          <SectionHeader title='Compliance &amp;' highlight='Certifications' />
           <h2 className={classes.certTitle}>
-            Compliance &amp; <span className={classes.certTitleHighlight}>Certifications</span>
+             <span className={classes.certTitleHighlight}></span>
           </h2>
           <div className={classes.certGrid}>
             {[

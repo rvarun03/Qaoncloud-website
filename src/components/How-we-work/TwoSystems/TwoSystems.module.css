@@ -35,10 +35,10 @@
 }
 
 .title {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 600;
+  
+  font-weight: 900;
   color: #ffffff;
-  line-height: 1.2;
+  
   margin-bottom: 16px;
 }
 
@@ -99,7 +99,7 @@
   padding: 32px 28px 24px;
   position: relative;
   z-index: 1;
-  max-width: 62%;
+  max-width: 92%;
 }
 
 /* ─── Card title ──────────────────────────────────────────────── */
@@ -107,7 +107,8 @@
   color: #ffffff;
   margin-top: 0;
   margin-bottom: 24px;
-  letter-spacing: 0.01em;
+  letter-spacing: -1px;
+  
 }
 
 /* ─── List ────────────────────────────────────────────────────── */
@@ -124,9 +125,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 18px;
+  font-size: var(--text-h4);
+  line-height: 30px;
+  letter-spacing: var( --header-letter-spacing);
+  font-weight: 500;
   color: #ffffff;
-  line-height: 1.5;
+  
 }
 
 /* ─── Sparkle icon ────────────────────────────────────────────── */
@@ -210,16 +214,22 @@ transform-origin: center center;
 
 @media (max-width: 1024px) {
   
-  .imageWrapAI {
-    display: none;
-  }
-
-  .imageWrapEngineers {
-    display: none;
-  }
+  
 
   .cardContent {
-    max-width: 58%;
+    max-width: 98%;
+    
+  }
+}
+
+@media (max-width: 900px) {
+  .imageWrapAI {
+    display: none;
+     
+  }
+  .imageWrapEngineers {
+    display: none;
+   
   }
 }
 
@@ -227,19 +237,26 @@ transform-origin: center center;
   .card {
     min-height: 340px;
   }
-
   .imageWrapAI {
-    width: 260px;
-    height: 260px;
-    bottom: -50px;
-    right: -40px;
+    display: block;
+     
+  }
+  .imageWrapEngineers {
+    display: block;
+   
+  }
+  .imageWrapAI {
+    width: 300px;
+    height: 300px;
+    bottom: -90px;
+    right: -120px;
   }
 
   .imageWrapEngineers {
-    width: 280px;
-    height: 280px;
-    bottom: -50px;
-    right: -70px;
+    width: 250px;
+    height: 250px;
+    bottom: -90px;
+    right: -120px;
     transform: rotate(12deg);
   }
 
@@ -252,24 +269,17 @@ transform-origin: center center;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .card {
     min-height: 300px;
   }
 
   .imageWrapAI {
-    width: 200px;
-    height: 200px;
-    bottom: -35px;
-    right: -30px;
+    display: none;
   }
 
   .imageWrapEngineers {
-    width: 210px;
-    height: 210px;
-    bottom: -35px;
-    right: -55px;
-    transform: rotate(12deg);
+    display: none;
   }
 
   .cardContent {

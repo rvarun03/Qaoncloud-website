@@ -33,11 +33,11 @@
 }
 
 .description {
-  font-size: 16px;
+  
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.6);
   margin: 0;
-  max-width: 480px;
+  max-width: 40px;
 }
 
 .buttonContainer {

@@ -131,9 +131,11 @@
 
 .quote {
   font-size: var(--text-h4);
+  letter-spacing: var(--header-letter-spacing);
   color: #ffffff;
-  
+  font-weight: 500;
   margin: 0;
+  line-height: 30px;
   font-style: normal;
 }
 
@@ -160,13 +162,16 @@
 }
 
 .authorName {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: var(--text-h4);
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: var(--header-letter-spacing);
   color: #ffffff;
 }
 
 .authorRole {
-  font-size: 0.78rem;
+  font-size: 14px;
+  font-weight: 500;
   color: #5e6a80;
   margin-top: 2px;
 }
@@ -176,8 +181,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: #ffffff;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -261,11 +266,12 @@
 }
 
 .testimonialQuote {
-  font-size: 0.99rem;
+  font-size: var(--text-h4);
+  letter-spacing: var(--header-letter-spacing);
   color: #ffffff;
-  
+  font-weight: 500;
   margin: 0;
-  
+  line-height: 30px;
   font-style: normal;
   display: block;
 }
@@ -280,7 +286,7 @@
 
 .testimonialQuote::after {
   content: '\201D';
-  font-size: 1.6rem;
+  
   
   vertical-align: 0.em;
   margin-left: 3px;
@@ -363,7 +369,7 @@
 
   .logoWrap { max-width: 120px; min-height: 36px; }
 
-  .stat { font-size: 0.88rem; }
+  
 
   .statHighlight { display: inline; }
 
@@ -375,7 +381,7 @@
     max-width: 34px; max-height: 34px;
   }
 
-  .authorName { font-size: 0.8rem; }
+  
 
   .authorRole { font-size: 0.7rem; }
 
@@ -392,7 +398,7 @@
 
 @media (max-width: 360px) {
   .heading { font-size: 1rem; }
-  .stat { font-size: 0.82rem; }
-  .quote, .testimonialQuote { font-size: 0.8rem; }
+  
+  
   .featuredImage { height: 160px; }
 }

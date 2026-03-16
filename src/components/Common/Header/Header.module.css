@@ -125,9 +125,9 @@
     margin-right: auto;
     color: #cbd5e1;
     margin-bottom: var(--button-top-margin);
-    max-width: 1050px; 
+    max-width: 850px; 
     font-size: var(--text-h4);
-    letter-spacing: -2px; 
+    letter-spacing: -1px; 
  }
 
  /* Button container */
