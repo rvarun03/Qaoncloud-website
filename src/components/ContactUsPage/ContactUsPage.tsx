@@ -195,6 +195,24 @@ export default function ContactUsPage() {
         return;
       }
 
+      let fileUrl = '';
+
+      if (uploadedFile) {
+        const uploadForm = new FormData();
+        uploadForm.append('file', uploadedFile);
+
+        const uploadRes = await fetch('/api/upload', {
+          method: 'POST',
+          body: uploadForm,
+        });
+
+        const uploadData = await uploadRes.json();
+
+        if (uploadData.url) {
+          fileUrl = uploadData.url;
+        }
+      }
+
       // 1️⃣ Team notification — must succeed
       await emailjs.send('service_pe85kpk', 'template_lr226wc', {
         name: biz.firstName,
@@ -208,6 +226,7 @@ export default function ContactUsPage() {
         how_heard: biz.howHeard || 'Not provided',
         budget: biz.budgetRange || 'Not provided',
         message: biz.message || 'No message',
+        file_url: fileUrl || 'No file uploaded',
       });
 
       // 2️⃣ Confirmation to sender — failure here does not block success
