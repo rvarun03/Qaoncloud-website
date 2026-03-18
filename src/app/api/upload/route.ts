@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       cloudinary.uploader.upload_stream(
          {
             folder: "uploads",
-            resource_type: "raw",
+            resource_type: "auto",
             public_id: file.name, 
             use_filename: true,
             unique_filename: false
