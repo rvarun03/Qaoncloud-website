@@ -461,7 +461,7 @@ export default function CareerPage() {
 
               <div className={styles.uploadSection}>
                 <label className={styles.uploadLabel}>
-                  Upload Resume — DOCX only (max 10MB) <span className={styles.req}>*</span>
+                  Upload Resume — .docx only (max 10MB) <span className={styles.req}>*</span>
                 </label>
                 <div
                   className={`${styles.dropZone} ${dragOver ? styles.dropZoneActive : ''}`}
@@ -469,7 +469,7 @@ export default function CareerPage() {
                   onDragLeave={() => setDragOver(false)}
                   onDrop={handleDrop}
                 >
-                  {uploadedFile ? (
+                  {uploadedFile ?  (
                     <div className={styles.uploadedFile}>
                       <span>{uploadedFile.name}</span>
                       <button type="button" className={styles.removeFile}
