@@ -151,6 +151,7 @@ function validatePhone(value: string): string {
 export default function CareerPage() {
   const [privacyChecked, setPrivacy] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [fileError, setFileError] = useState('');
   const [uploadedFile, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -203,6 +204,10 @@ export default function CareerPage() {
 
   const handleFile = (file: File | null) => {
     if (!file) return;
+    if (!file.name.toLowerCase().endsWith('.docx')) {
+    setFileError('Please upload only .docx file');
+    return;
+  }
     if (file.size > 10 * 1024 * 1024) { alert('File exceeds 10 MB'); return; }
     const allowed = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!allowed.includes(file.type)) { alert('Only PDF or DOCX files accepted'); return; }
@@ -456,7 +461,7 @@ export default function CareerPage() {
 
               <div className={styles.uploadSection}>
                 <label className={styles.uploadLabel}>
-                  Upload Resume — PDF or DOCX only (max 10MB) <span className={styles.req}>*</span>
+                  Upload Resume — DOCX only (max 10MB) <span className={styles.req}>*</span>
                 </label>
                 <div
                   className={`${styles.dropZone} ${dragOver ? styles.dropZoneActive : ''}`}
@@ -478,12 +483,13 @@ export default function CareerPage() {
                     </>
                   )}
                   <input ref={fileInputRef} type="file"
-                    accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    accept=".docx"
                     hidden 
                     onChange={e => handleFile(e.target.files?.[0] ?? null)}
                     capture={false}
                   />
                 </div>
+                {fileError && <p className={styles.fieldError}>{fileError}</p>}
               </div>
 
               <div className={styles.privacyRow}>

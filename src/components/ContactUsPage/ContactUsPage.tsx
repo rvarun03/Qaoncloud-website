@@ -164,6 +164,10 @@ export default function ContactUsPage() {
   /* ── File handling ── */
   const handleFile = (file: File | null) => {
     if (!file) return;
+    if (!file.name.toLowerCase().endsWith('.docx')) {
+    setFileError('Please upload only .docx file');
+    return;
+  }
     if (file.size > 5 * 1024 * 1024) { setFileError('File exceeds 5 MB. Please upload a smaller file.'); return; }
     setFileError('');
     setFile(file);
@@ -490,7 +494,7 @@ export default function ContactUsPage() {
 
               {/* Upload */}
               <div className={styles.uploadSection}>
-                <label className={styles.uploadLabel}>Upload Document (max 5MB)</label>
+                <label className={styles.uploadLabel}>Upload Document (.docx, max 5MB)</label>
                 <UploadZone />
                 {fileError && <p className={styles.fieldError}>{fileError}</p>}
               </div>
