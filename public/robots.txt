@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+AI Crawlers for GEO / AI Visibility
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap
+
+Sitemap: https://www.qaoncloud.com/sitemap.xml
