@@ -21,7 +21,7 @@ const cards: TeamCard[] = [
     description: 'Compliance-ready from day one',
     imageSrc: '/Images/HomePage/CaseStudies/FinTech.png',
     imageAlt: 'FinTech - glowing credit card',
-     link: '/FinTech',
+     link: '/fintech-testing-services',
   },
   {
     id: 'healthtech',
@@ -29,7 +29,7 @@ const cards: TeamCard[] = [
     description: 'HIPAA-compliant by design.',
     imageSrc: '/Images/HomePage/CaseStudies/HealthTech.png',
     imageAlt: 'HealthTech - medical capsule visualization',
-    link: '/HealthTech',
+    link: '/healthcare-testing-services',
 
   },
   {
@@ -38,7 +38,7 @@ const cards: TeamCard[] = [
     description: 'Ship continuously, without breaking things',
     imageSrc: '/Images/HomePage/CaseStudies/Saas.png',
     imageAlt: 'SaaS - data bar chart visualization',
-     link: '/Saas',
+     link: '/saas-testing-services',
   },
 ]
 
