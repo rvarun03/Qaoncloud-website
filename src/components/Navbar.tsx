@@ -107,13 +107,13 @@ const Navbar = () => {
                 </button>
 
                 <div className={`${styles.industriesMenu} ${showIndustries ? styles.show : ''}`}>
-                  <Link href="/FinTech" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/fintech-testing-services" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
                     FinTech
                   </Link>
-                  <Link href="/HealthTech" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/healthcare-testing-services" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
                     HealthTech
                   </Link>
-                  <Link href="/Saas" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/saas-testing-services" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
                     SaaS
                   </Link>
                   
