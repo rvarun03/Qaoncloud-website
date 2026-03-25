@@ -105,9 +105,9 @@ export default function Footer() {
 
           <div className={styles.column}>
             <h4>Industries</h4>
-            <Link href="/fintech-testing-services">FinTech</Link>
-            <Link href="/healthcare-testing-services">HealthTech</Link>
-            <Link href="/saas-testing-services">SaaS</Link>
+            <Link href="/fintech-software-testing">FinTech</Link>
+            <Link href="/healthtech-software-testing">HealthTech</Link>
+            <Link href="/saas-software-testing">SaaS</Link>
           </div>
         </div>
       </div>

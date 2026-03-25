@@ -18,6 +18,12 @@ import { Code2, Sparkles, Zap } from "lucide-react";
 import QABanner from "@/components/Common/SmallBanner/Banner";
 
 
+
+
+export const metadata = {
+  title: "Software Testing & Quality Assurance Services | QAonCloud",
+  description: "QAonCloud provides AI-accelerated QA software testing services including automation, functional, performance, and security testing to deliver reliable releases faster.",
+};
 export default function Home() {
   return (
     <div>

@@ -15,6 +15,12 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 
+
+
+export const metadata = {
+  title: "FinTech Software Testing Services | QAonCloud",
+  description: "QAonCloud provides fintech and banking software testing services including security, compliance, API, and performance testing for reliable financial applications.",
+};
 const finTechData = {
   title: "FinTech teams",
   highlight: "ship faster with QAonCloud",

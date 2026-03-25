@@ -13,8 +13,8 @@ import type { Metadata } from 'next'
 import { TestimonialCard } from '@/components/Common/TestimonialCard/TestimonialCard'
 
 export const metadata: Metadata = {
-  title: 'How We Work | QAonCloud',
-  description: 'See how QAonCloud delivers QA 40% faster — AI handles the repetitive tasks while our engineers make the strategic calls, so you ship faster with confidence.',
+  title: "How QAonCloud Works | Our QA Approach",
+  description: "Explore how QAonCloud provides reliable QA testing services with expert teams, flexible engagement models, and proven processes for faster product releases.",
 }
 
 export default function page() {

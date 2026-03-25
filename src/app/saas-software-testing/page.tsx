@@ -17,8 +17,8 @@ import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'QA for SaaS Teams | QAonCloud',
-  description: 'AI-accelerated QA for SaaS teams. Ship 40% faster with fewer bugs, faster releases, and QA that keeps up with your deployment schedule.',
+  title: "SaaS Application Testing Services | QAonCloud",
+  description: "Ensure reliable SaaS applications with QAonCloud’s SaaS application testing services, including automation, functional, regression, and performance testing.",
 }
 
 export const saasData = {

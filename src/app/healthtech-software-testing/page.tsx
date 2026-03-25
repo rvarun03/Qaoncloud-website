@@ -18,8 +18,8 @@ import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'QA for HealthTech Teams | QAonCloud',
-  description: 'HIPAA-compliant QA for HealthTech teams. Ship 40% faster with synthetic test data, audit-ready documentation, and engineers experienced in EMR, FHIR, and HealthTech compliance.',
+  title: "Healthcare Software Testing Services | QAonCloud",
+  description: "QAonCloud provides healthcare software testing services for HealthTech applications, ensuring security, compliance, and performance through functional and automation testing.",
 }
 export const healthcareData = {
   title: "HealthTech teams",

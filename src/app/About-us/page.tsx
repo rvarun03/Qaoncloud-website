@@ -7,6 +7,12 @@ import ContentSection from '@/components/About-Us/ContentSection'
 import SectionHeader from '@/components/Common/SectionHeader/SectionHeader'
 import PageHeader from '@/components/Common/PageHeader/PageHeader'
 
+
+
+export const metadata = {
+  title: "About us – Trusted QA & Software Testing Partner",
+  description: "Meet the leadership team and the people behind QAonCloud, a global software testing company delivering reliable QA services to help businesses release high-quality software faster.",
+};
 const boardMembers = [
   {
     name: 'Rajiv Kuchhal',
