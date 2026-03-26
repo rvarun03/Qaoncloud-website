@@ -20,9 +20,30 @@ import QABanner from "@/components/Common/SmallBanner/Banner";
 
 
 
+const pageTitle = "Software Testing & Quality Assurance Services | QAonCloud";
+const pageDescription =
+  "QAonCloud provides AI-accelerated QA software testing services including automation, functional, performance, and security testing to deliver reliable releases faster.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata = {
-  title: "Software Testing & Quality Assurance Services | QAonCloud",
-  description: "QAonCloud provides AI-accelerated QA software testing services including automation, functional, performance, and security testing to deliver reliable releases faster.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      "x-default": "/",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 };
 export default function Home() {
   return (

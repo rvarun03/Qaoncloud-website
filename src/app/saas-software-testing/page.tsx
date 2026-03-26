@@ -16,9 +16,30 @@ import WorkWell from '@/components/Industries/WorkWell/WorkWell'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import type { Metadata } from 'next'
 
+const pageTitle = "SaaS Application Testing Services | QAonCloud";
+const pageDescription =
+  "Ensure reliable SaaS applications with QAonCloud’s SaaS application testing services, including automation, functional, regression, and performance testing.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata: Metadata = {
-  title: "SaaS Application Testing Services | QAonCloud",
-  description: "Ensure reliable SaaS applications with QAonCloud’s SaaS application testing services, including automation, functional, regression, and performance testing.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/saas-software-testing",
+    languages: {
+      en: "/saas-software-testing",
+      "x-default": "/saas-software-testing",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/saas-software-testing",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 }
 
 export const saasData = {

@@ -17,9 +17,30 @@ import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 
 
 
+const pageTitle = "FinTech Software Testing Services | QAonCloud";
+const pageDescription =
+  "QAonCloud provides fintech and banking software testing services including security, compliance, API, and performance testing for reliable financial applications.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata = {
-  title: "FinTech Software Testing Services | QAonCloud",
-  description: "QAonCloud provides fintech and banking software testing services including security, compliance, API, and performance testing for reliable financial applications.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/fintech-software-testing",
+    languages: {
+      en: "/fintech-software-testing",
+      "x-default": "/fintech-software-testing",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/fintech-software-testing",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 };
 const finTechData = {
   title: "FinTech teams",

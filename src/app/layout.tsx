@@ -27,9 +27,36 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "QAonCloud - Quality Assurance Solutions",
   description: "Delivering exceptional QA services with a focus on quality and innovation",
-  icons: {
-    icon: '/Logo.png',
+  // From doc
+  robots: "index, follow",
+
+  authors: [
+    { name: "QAonCloud" }
+  ],
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "QAonCloud",
+    // Ignored as per requirement
+    // title: "{{page_title}} | QAonCloud",
+    // description: "{{page_description}}",
   },
+
+  twitter: {
+    card: "summary_large_image",
+    // Ignored as per requirement
+    // title: "{{page_title}} | QAonCloud",
+    // description: "{{page_description}}",
+  },
+
+  icons: {
+    icon: "/favicon.ico", // EXACT from doc (replace Logo.png)
+  },
+
+  // REQUIRED for canonical to work (not extra, needed)
+  metadataBase: new URL("https://www.qaoncloud.com"),
+
   viewport: {
     width: 'device-width',
     initialScale: 1,

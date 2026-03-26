@@ -9,9 +9,30 @@ import PageHeader from '@/components/Common/PageHeader/PageHeader'
 
 
 
+const pageTitle = "About us – Trusted QA & Software Testing Partner";
+const pageDescription =
+  "Meet the leadership team and the people behind QAonCloud, a global software testing company delivering reliable QA services to help businesses release high-quality software faster.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata = {
-  title: "About us – Trusted QA & Software Testing Partner",
-  description: "Meet the leadership team and the people behind QAonCloud, a global software testing company delivering reliable QA services to help businesses release high-quality software faster.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/About-us",
+    languages: {
+      en: "/About-us",
+      "x-default": "/About-us",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/About-us",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 };
 const boardMembers = [
   {

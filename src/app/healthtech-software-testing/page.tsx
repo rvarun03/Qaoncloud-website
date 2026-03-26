@@ -17,9 +17,30 @@ import WorkWell from '@/components/Industries/WorkWell/WorkWell'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import type { Metadata } from 'next'
 
+const pageTitle = "Healthcare Software Testing Services | QAonCloud";
+const pageDescription =
+  "QAonCloud provides healthcare software testing services for HealthTech applications, ensuring security, compliance, and performance through functional and automation testing.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata: Metadata = {
-  title: "Healthcare Software Testing Services | QAonCloud",
-  description: "QAonCloud provides healthcare software testing services for HealthTech applications, ensuring security, compliance, and performance through functional and automation testing.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/healthtech-software-testing",
+    languages: {
+      en: "/healthtech-software-testing",
+      "x-default": "/healthtech-software-testing",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/healthtech-software-testing",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 }
 export const healthcareData = {
   title: "HealthTech teams",

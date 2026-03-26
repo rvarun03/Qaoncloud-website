@@ -12,9 +12,30 @@ import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import type { Metadata } from 'next'
 import { TestimonialCard } from '@/components/Common/TestimonialCard/TestimonialCard'
 
+const pageTitle = "How QAonCloud Works | Our QA Approach";
+const pageDescription =
+  "Explore how QAonCloud provides reliable QA testing services with expert teams, flexible engagement models, and proven processes for faster product releases.";
+const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
+
 export const metadata: Metadata = {
-  title: "How QAonCloud Works | Our QA Approach",
-  description: "Explore how QAonCloud provides reliable QA testing services with expert teams, flexible engagement models, and proven processes for faster product releases.",
+  title: pageTitle,
+  description: pageDescription,
+  alternates: {
+    canonical: "/How-we-work",
+    languages: {
+      en: "/How-we-work",
+      "x-default": "/How-we-work",
+    },
+  },
+  openGraph: {
+    title: socialTitle,
+    description: pageDescription,
+    url: "/How-we-work",
+  },
+  twitter: {
+    title: socialTitle,
+    description: pageDescription,
+  },
 }
 
 export default function page() {
