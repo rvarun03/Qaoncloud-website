@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     // Ignored as per requirement
     // title: "{{page_title}} | QAonCloud",
     // description: "{{page_description}}",
+    images: ["/og-image.png"],
   },
 
   twitter: {
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/favicon.ico", // EXACT from doc (replace Logo.png)
+    icon: "/icon.png", // EXACT from doc (replace Logo.png)
   },
 
   // REQUIRED for canonical to work (not extra, needed)
@@ -73,6 +74,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${raleway.variable} ${poppins.variable} ${inter.variable}`}>
     <head>
+      <meta property="og:image" content="/og-image.png" />
         {/* Google Tag Manager Script */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`
