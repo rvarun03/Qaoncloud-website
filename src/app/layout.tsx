@@ -52,11 +52,10 @@ export const metadata: Metadata = {
   },
 
   icons: {
-  icon: [
-    { url: "/icon.png", sizes: "48x48", type: "image/png" },
-  ],
-  shortcut: ["/icon.png"],
-},
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    
+  },
 
   // REQUIRED for canonical to work (not extra, needed)
   metadataBase: new URL("https://www.qaoncloud.com"),
