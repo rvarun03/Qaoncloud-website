@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>QAonCloud-Nextjs-AppRouter-Documentation</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#qaoncloud-website-technical-documentation"
+id="toc-qaoncloud-website-technical-documentation">QAonCloud Website
+Technical Documentation</a>
+<ul>
+<li><a href="#table-of-contents" id="toc-table-of-contents">Table of
+Contents</a></li>
+<li><a href="#project-overview" id="toc-project-overview">1. Project
+Overview</a>
+<ul>
+<li><a href="#what-the-application-does"
+id="toc-what-the-application-does">What the application does</a></li>
+<li><a href="#key-business-features-implemented"
+id="toc-key-business-features-implemented">Key business features
+implemented</a></li>
+</ul></li>
+<li><a href="#tech-stack-runtime-model"
+id="toc-tech-stack-runtime-model">2. Tech Stack &amp; Runtime Model</a>
+<ul>
+<li><a href="#framework-and-libraries"
+id="toc-framework-and-libraries">Framework and libraries</a></li>
+<li><a href="#rendering-model" id="toc-rendering-model">Rendering
+model</a></li>
+</ul></li>
+<li><a href="#repository-structure" id="toc-repository-structure">3.
+Repository Structure</a></li>
+<li><a href="#setup-installation" id="toc-setup-installation">4. Setup
+&amp; Installation</a>
+<ul>
+<li><a href="#prerequisites"
+id="toc-prerequisites">Prerequisites</a></li>
+<li><a href="#install" id="toc-install">Install</a></li>
+<li><a href="#required-environment-variables"
+id="toc-required-environment-variables">Required environment
+variables</a></li>
+<li><a href="#run-locally" id="toc-run-locally">Run locally</a></li>
+<li><a href="#production-buildstart"
+id="toc-production-buildstart">Production build/start</a></li>
+</ul></li>
+<li><a href="#app-router-deep-dive" id="toc-app-router-deep-dive">5. App
+Router Deep Dive</a>
+<ul>
+<li><a href="#current-app-router-implementation"
+id="toc-current-app-router-implementation">Current App Router
+implementation</a></li>
+<li><a href="#semantics-in-this-project"
+id="toc-semantics-in-this-project">Semantics in this project</a></li>
+<li><a href="#server-vs-client-boundaries"
+id="toc-server-vs-client-boundaries">Server vs Client
+boundaries</a></li>
+<li><a href="#nested-routing-behavior"
+id="toc-nested-routing-behavior">Nested routing behavior</a></li>
+</ul></li>
+<li><a href="#route-by-route-documentation"
+id="toc-route-by-route-documentation">6. Route-by-Route
+Documentation</a></li>
+<li><a href="#api-route-documentation"
+id="toc-api-route-documentation">7. API Route Documentation</a>
+<ul>
+<li><a href="#requestresponse-handling-notes"
+id="toc-requestresponse-handling-notes">Request/response handling
+notes</a></li>
+<li><a href="#middleware" id="toc-middleware">Middleware</a></li>
+</ul></li>
+<li><a href="#components-architecture"
+id="toc-components-architecture">8. Components Architecture</a>
+<ul>
+<li><a href="#high-level-structure"
+id="toc-high-level-structure">High-level structure</a></li>
+<li><a href="#reuse-pattern" id="toc-reuse-pattern">Reuse
+pattern</a></li>
+<li><a href="#client-heavy-components"
+id="toc-client-heavy-components">Client-heavy components</a></li>
+</ul></li>
+<li><a href="#data-flow-state-management"
+id="toc-data-flow-state-management">9. Data Flow &amp; State
+Management</a>
+<ul>
+<li><a href="#state-management-model"
+id="toc-state-management-model">State management model</a></li>
+<li><a href="#primary-runtime-data-flows"
+id="toc-primary-runtime-data-flows">Primary runtime data flows</a></li>
+<li><a href="#important-architecture-note"
+id="toc-important-architecture-note">Important architecture
+note</a></li>
+</ul></li>
+<li><a href="#file-by-file-explanation-important-files"
+id="toc-file-by-file-explanation-important-files">10. File-by-File
+Explanation (Important Files)</a>
+<ul>
+<li><a href="#rootconfigruntime-files"
+id="toc-rootconfigruntime-files">10.1 Root/config/runtime files</a></li>
+<li><a href="#app-router-core-files" id="toc-app-router-core-files">10.2
+App Router core files</a></li>
+<li><a href="#route-files-srcapppage.tsx"
+id="toc-route-files-srcapppage.tsx">10.3 Route files
+(<code>src/app/**/page.tsx</code>)</a></li>
+<li><a href="#api-route-files" id="toc-api-route-files">10.4 API route
+files</a></li>
+<li><a href="#critical-uibusiness-components"
+id="toc-critical-uibusiness-components">10.5 Critical UI/business
+components</a></li>
+<li><a href="#shared-primitives-frequently-composed-by-routes"
+id="toc-shared-primitives-frequently-composed-by-routes">10.6 Shared
+primitives frequently composed by routes</a></li>
+<li><a href="#page-specific-section-components-used-in-active-routes"
+id="toc-page-specific-section-components-used-in-active-routes">10.7
+Page-specific section components (used in active routes)</a></li>
+<li><a
+href="#files-currently-present-but-not-actively-wired-into-route-tree-as-of-this-audit"
+id="toc-files-currently-present-but-not-actively-wired-into-route-tree-as-of-this-audit">10.8
+Files currently present but not actively wired into route tree (as of
+this audit)</a></li>
+</ul></li>
+<li><a href="#common-errors-debugging-guide"
+id="toc-common-errors-debugging-guide">11. Common Errors &amp; Debugging
+Guide</a>
+<ul>
+<li><a href="#build-error-google-fonts-fetch-failure"
+id="toc-build-error-google-fonts-fetch-failure">11.1 Build error: Google
+Fonts fetch failure</a></li>
+<li><a href="#hydration-mismatch-around-navbar"
+id="toc-hydration-mismatch-around-navbar">11.2 Hydration mismatch around
+navbar</a></li>
+<li><a href="#use-client-errors" id="toc-use-client-errors">11.3 “use
+client” errors</a></li>
+<li><a href="#environment-variable-not-loading"
+id="toc-environment-variable-not-loading">11.4 Environment variable not
+loading</a></li>
+<li><a href="#api-400500-for-captcha-or-upload"
+id="toc-api-400500-for-captcha-or-upload">11.5 API 400/500 for captcha
+or upload</a></li>
+<li><a href="#routing-issues-404-wrong-path-casing"
+id="toc-routing-issues-404-wrong-path-casing">11.6 Routing issues (404 /
+wrong path casing)</a></li>
+<li><a href="#real-lint-findings-in-this-repository"
+id="toc-real-lint-findings-in-this-repository">11.7 Real lint findings
+in this repository</a></li>
+</ul></li>
+<li><a href="#performance-best-practices"
+id="toc-performance-best-practices">12. Performance &amp; Best
+Practices</a>
+<ul>
+<li><a href="#current-strengths" id="toc-current-strengths">Current
+strengths</a></li>
+<li><a href="#improvements-recommended"
+id="toc-improvements-recommended">Improvements recommended</a></li>
+<li><a href="#seo-and-metadata" id="toc-seo-and-metadata">SEO and
+metadata</a></li>
+</ul></li>
+<li><a href="#deployment-guide" id="toc-deployment-guide">13. Deployment
+Guide</a>
+<ul>
+<li><a href="#standard-process" id="toc-standard-process">Standard
+process</a></li>
+<li><a href="#platform-requirements"
+id="toc-platform-requirements">Platform requirements</a></li>
+<li><a href="#common-production-issues"
+id="toc-common-production-issues">Common production issues</a></li>
+<li><a href="#recommended-ci-checks"
+id="toc-recommended-ci-checks">Recommended CI checks</a></li>
+</ul></li>
+<li><a href="#appendix-styleasset-files-and-notes"
+id="toc-appendix-styleasset-files-and-notes">14. Appendix: Style/Asset
+Files and Notes</a>
+<ul>
+<li><a href="#styling-system" id="toc-styling-system">Styling
+system</a></li>
+<li><a href="#static-content" id="toc-static-content">Static
+content</a></li>
+<li><a href="#security-and-architecture-observations"
+id="toc-security-and-architecture-observations">Security and
+architecture observations</a></li>
+</ul></li>
+<li><a href="#quick-start-for-new-developers"
+id="toc-quick-start-for-new-developers">Quick Start for New
+Developers</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="qaoncloud-website-technical-documentation">QAonCloud Website
+Technical Documentation</h1>
+<p><strong>Project:</strong> <code>company-website</code><br />
+<strong>Framework:</strong> Next.js App Router
+(<code>src/app</code>)<br />
+<strong>Audit Date:</strong> May 4, 2026<br />
+<strong>Repository Root:</strong>
+<code>/home/varun/Desktop/Projects/QAonCloud/company-website</code></p>
+<div style="page-break-after: always;">
+
+</div>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><a href="#1-project-overview">Project Overview</a></li>
+<li><a href="#2-tech-stack--runtime-model">Tech Stack &amp; Runtime
+Model</a></li>
+<li><a href="#3-repository-structure">Repository Structure</a></li>
+<li><a href="#4-setup--installation">Setup &amp; Installation</a></li>
+<li><a href="#5-app-router-deep-dive">App Router Deep Dive</a></li>
+<li><a href="#6-route-by-route-documentation">Route-by-Route
+Documentation</a></li>
+<li><a href="#7-api-route-documentation">API Route
+Documentation</a></li>
+<li><a href="#8-components-architecture">Components
+Architecture</a></li>
+<li><a href="#9-data-flow--state-management">Data Flow &amp; State
+Management</a></li>
+<li><a href="#10-file-by-file-explanation-important-files">File-by-File
+Explanation (Important Files)</a></li>
+<li><a href="#11-common-errors--debugging-guide">Common Errors &amp;
+Debugging Guide</a></li>
+<li><a href="#12-performance--best-practices">Performance &amp; Best
+Practices</a></li>
+<li><a href="#13-deployment-guide">Deployment Guide</a></li>
+<li><a href="#14-appendix-styleasset-files-and-notes">Appendix:
+Style/Asset Files and Notes</a></li>
+</ol>
+<hr />
+<h2 id="project-overview">1. Project Overview</h2>
+<p>This project is the QAonCloud marketing website and service funnel.
+It is a content-driven site with route-specific landing pages for
+industries and service offerings, plus form-based lead capture and
+hiring workflows.</p>
+<h3 id="what-the-application-does">What the application does</h3>
+<ul>
+<li>Renders SEO-oriented pages for core routes (<code>/</code>,
+<code>/How-we-work</code>, <code>/services</code>, industry pages, legal
+pages).</li>
+<li>Collects business inquiries and career applications.</li>
+<li>Verifies reCAPTCHA tokens server-side.</li>
+<li>Uploads user documents to Cloudinary.</li>
+<li>Sends email notifications through EmailJS (client-side) and
+optionally through server APIs (<code>/api/contact</code>,
+<code>/api/career</code>).</li>
+</ul>
+<h3 id="key-business-features-implemented">Key business features
+implemented</h3>
+<ul>
+<li>Industry landing pages: FinTech, HealthTech, SaaS.</li>
+<li>CTA-driven conversion flow to <code>/Contact-us</code>.</li>
+<li>Career form with file upload and anti-bot verification.</li>
+<li>Shared branding components (hero/header/banner/testimonials/FAQ
+blocks).</li>
+<li>Metadata and canonical URLs for major routes.</li>
+</ul>
+<hr />
+<h2 id="tech-stack-runtime-model">2. Tech Stack &amp; Runtime Model</h2>
+<h3 id="framework-and-libraries">Framework and libraries</h3>
+<ul>
+<li>Next.js <code>16.1.1</code></li>
+<li>React <code>19.2.3</code></li>
+<li>TypeScript <code>^5</code></li>
+<li>CSS Modules + global CSS (no Tailwind)</li>
+<li><code>next/font/google</code> for Raleway/Poppins/Inter</li>
+<li><code>swiper</code> for testimonial carousel</li>
+<li><code>react-icons</code> and <code>lucide-react</code> for
+iconography</li>
+<li><code>react-google-recaptcha</code> for CAPTCHA widget</li>
+<li><code>@emailjs/browser</code> for client-side email sending</li>
+<li><code>cloudinary</code> for document uploads</li>
+<li><code>resend</code> and <code>nodemailer</code> in API handlers</li>
+</ul>
+<h3 id="rendering-model">Rendering model</h3>
+<ul>
+<li><strong>Server Components by default</strong> in
+<code>src/app</code> routes.</li>
+<li><strong>Client Components</strong> explicitly marked with
+<code>'use client'</code> for interactivity.</li>
+<li>Navbar is loaded via <code>dynamic(..., { ssr: false })</code> in
+<code>ClientLayout</code> to avoid hydration mismatch.</li>
+</ul>
+<hr />
+<h2 id="repository-structure">3. Repository Structure</h2>
+<pre class="text"><code>company-website/
+  src/
+    app/                    # App Router pages, root layout, API route handlers
+    components/             # Feature and shared UI components
+    styles/                 # global tokens/typography
+    assets/                 # imported local logo assets
+  public/                   # static images, icons, robots, sitemap
+  scripts/                  # utility script for metadata updates
+  package.json              # scripts + deps
+  next.config.ts            # Next config (minimal)
+  tsconfig.json             # TS config + @/* alias
+  eslint.config.mjs         # ESLint flat config
+  .env.local                # runtime secrets (local)</code></pre>
+<hr />
+<h2 id="setup-installation">4. Setup &amp; Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Node.js <code>20+</code> recommended for Next.js 16.</li>
+<li>npm (project ships with <code>package-lock.json</code>).</li>
+</ul>
+<h3 id="install">Install</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span></code></pre></div>
+<h3 id="required-environment-variables">Required environment
+variables</h3>
+<p>Detected from code and <code>.env.local</code> keys:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contact API / Resend</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">RESEND_API_KEY</span><span class="op">=</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># reCAPTCHA</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">NEXT_PUBLIC_RECAPTCHA_SITE_KEY</span><span class="op">=</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="va">RECAPTCHA_SECRET_KEY</span><span class="op">=</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Cloudinary upload API</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="va">CLOUDINARY_CLOUD_NAME</span><span class="op">=</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="va">CLOUDINARY_API_KEY</span><span class="op">=</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="va">CLOUDINARY_API_SECRET</span><span class="op">=</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Career API (nodemailer route)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="va">SMTP_HOST</span><span class="op">=</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="va">SMTP_PORT</span><span class="op">=</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="va">SMTP_USER</span><span class="op">=</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="va">SMTP_PASS</span><span class="op">=</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="va">CAREER_TO_EMAIL</span><span class="op">=</span></span></code></pre></div>
+<h3 id="run-locally">Run locally</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div>
+<p>Open: <code>http://localhost:3000</code></p>
+<h3 id="production-buildstart">Production build/start</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run start</span></code></pre></div>
+<p>Note: in this audit environment, <code>npm run build</code> failed
+because <code>next/font/google</code> could not fetch Google Fonts
+(network-restricted runtime).</p>
+<hr />
+<h2 id="app-router-deep-dive">5. App Router Deep Dive</h2>
+<h3 id="current-app-router-implementation">Current App Router
+implementation</h3>
+<ul>
+<li>Uses <code>src/app/layout.tsx</code> as root layout.</li>
+<li>Uses route-level <code>page.tsx</code> files for each page.</li>
+<li>Uses <code>app/api/**/route.ts</code> for HTTP handlers.</li>
+<li>Does <strong>not</strong> currently define:
+<ul>
+<li><code>template.tsx</code></li>
+<li><code>loading.tsx</code></li>
+<li><code>error.tsx</code></li>
+<li><code>not-found.tsx</code></li>
+<li>route groups like <code>(marketing)</code></li>
+<li>dynamic segments like <code>[id]</code></li>
+</ul></li>
+</ul>
+<h3 id="semantics-in-this-project">Semantics in this project</h3>
+<ul>
+<li><code>layout.tsx</code>: wraps all pages with fonts, GTM script,
+<code>ClientLayout</code> (navbar), <code>Footer</code>,
+<code>BackToTop</code>.</li>
+<li><code>page.tsx</code>: route content + route metadata.</li>
+<li><code>route.ts</code>: API endpoints for POST handlers.</li>
+</ul>
+<h3 id="server-vs-client-boundaries">Server vs Client boundaries</h3>
+<ul>
+<li>Server components: all route pages by default.</li>
+<li>Client components:
+<ul>
+<li>forms (<code>ContactUsPage</code>, <code>CareerPage</code>)</li>
+<li>navbar/menu state (<code>Navbar</code>)</li>
+<li>sliders/carousels (<code>Common/Slider</code>, testimonial
+slider)</li>
+<li>accordion FAQs, policy TOC behavior, back-to-top</li>
+</ul></li>
+</ul>
+<h3 id="nested-routing-behavior">Nested routing behavior</h3>
+<p>No nested layout tree currently beyond root layout. Each route folder
+in <code>src/app/*</code> has a single <code>page.tsx</code>.</p>
+<hr />
+<h2 id="route-by-route-documentation">6. Route-by-Route
+Documentation</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Route</th>
+<th>File</th>
+<th>Purpose</th>
+<th>Metadata strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/</code></td>
+<td><code>src/app/page.tsx</code></td>
+<td>Homepage composition (hero, process, services, testimonials,
+industry links, CTA banners)</td>
+<td>explicit <code>metadata</code> export</td>
+</tr>
+<tr class="even">
+<td><code>/services</code></td>
+<td><code>src/app/services/page.tsx</code></td>
+<td>Services landing page and FAQ</td>
+<td><code>generateMetadata</code> derived from parent</td>
+</tr>
+<tr class="odd">
+<td><code>/How-we-work</code></td>
+<td><code>src/app/How-we-work/page.tsx</code></td>
+<td>Process/methodology page with phases, milestones, FAQs</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="even">
+<td><code>/About-us</code></td>
+<td><code>src/app/About-us/page.tsx</code></td>
+<td>Company story, board members, certifications</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="odd">
+<td><code>/Blogs</code></td>
+<td><code>src/app/Blogs/page.tsx</code></td>
+<td>Case-study style blog page wrapper</td>
+<td><code>generateMetadata</code> derived from parent</td>
+</tr>
+<tr class="even">
+<td><code>/Contact-us</code></td>
+<td><code>src/app/Contact-us/page.tsx</code></td>
+<td>Lead capture form page</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="odd">
+<td><code>/Careers</code></td>
+<td><code>src/app/Careers/page.tsx</code></td>
+<td>Career application form page</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="even">
+<td><code>/fintech-software-testing</code></td>
+<td><code>src/app/fintech-software-testing/page.tsx</code></td>
+<td>FinTech industry page</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="odd">
+<td><code>/healthtech-software-testing</code></td>
+<td><code>src/app/healthtech-software-testing/page.tsx</code></td>
+<td>HealthTech industry page</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="even">
+<td><code>/saas-software-testing</code></td>
+<td><code>src/app/saas-software-testing/page.tsx</code></td>
+<td>SaaS industry page</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="odd">
+<td><code>/Privacy-policy</code></td>
+<td><code>src/app/Privacy-policy/page.tsx</code></td>
+<td>Legal policy page wrapper</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+<tr class="even">
+<td><code>/Terms-of-use</code></td>
+<td><code>src/app/Terms-of-use/page.tsx</code></td>
+<td>Terms page wrapper</td>
+<td>explicit <code>metadata</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="api-route-documentation">7. API Route Documentation</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Endpoint</th>
+<th>File</th>
+<th>Method</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/api/contact</code></td>
+<td><code>src/app/api/contact/route.ts</code></td>
+<td>POST</td>
+<td>Accepts JSON inquiry payload and sends HTML email through
+Resend</td>
+</tr>
+<tr class="even">
+<td><code>/api/career</code></td>
+<td><code>src/app/api/career/route.ts</code></td>
+<td>POST</td>
+<td>Accepts <code>formData</code>, optional resume attachment, sends
+team + applicant emails via nodemailer</td>
+</tr>
+<tr class="odd">
+<td><code>/api/upload</code></td>
+<td><code>src/app/api/upload/route.ts</code></td>
+<td>POST</td>
+<td>Uploads received file to Cloudinary and returns
+<code>secure_url</code></td>
+</tr>
+<tr class="even">
+<td><code>/api/verify-captcha</code></td>
+<td><code>src/app/api/verify-captcha/route.ts</code></td>
+<td>POST</td>
+<td>Sends token to Google reCAPTCHA verify endpoint and returns
+<code>{success}</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="requestresponse-handling-notes">Request/response handling
+notes</h3>
+<ul>
+<li>Validation exists but is minimal in <code>/api/contact</code> and
+<code>/api/upload</code>.</li>
+<li><code>/api/career</code> enforces required fields and sets
+<code>runtime = 'nodejs'</code>.</li>
+<li><code>/api/verify-captcha</code> handles missing token and secret
+misconfiguration explicitly.</li>
+</ul>
+<h3 id="middleware">Middleware</h3>
+<p>No <code>middleware.ts</code> found.</p>
+<hr />
+<h2 id="components-architecture">8. Components Architecture</h2>
+<h3 id="high-level-structure">High-level structure</h3>
+<ul>
+<li><code>components/Common/*</code>: shared primitives
+(<code>Banner</code>, <code>SectionHeader</code>, <code>Button</code>,
+wrappers, slider, footer).</li>
+<li><code>components/HomePage/*</code>: homepage section blocks.</li>
+<li><code>components/ServicePage/*</code>: <code>/services</code> page
+sections.</li>
+<li><code>components/Industries/*</code>: reusable industry page
+building blocks.</li>
+<li><code>components/How-we-work/*</code>: methodology timeline/cards
+sections.</li>
+<li><code>components/Policies/*</code>: legal content with in-page TOC
+behavior.</li>
+</ul>
+<h3 id="reuse-pattern">Reuse pattern</h3>
+<ul>
+<li>Route pages compose sections from these directories.</li>
+<li>Shared section primitives (<code>SectionHeader</code>,
+<code>ContentWrapper</code>, <code>Banner</code>) enforce visual
+consistency.</li>
+<li>Industry pages share the same section template and differ by data
+constants defined in page files.</li>
+</ul>
+<h3 id="client-heavy-components">Client-heavy components</h3>
+<ul>
+<li><code>Navbar.tsx</code></li>
+<li><code>ContactUsPage.tsx</code></li>
+<li><code>CareerPage.tsx</code></li>
+<li><code>Common/Slider/Slider.tsx</code></li>
+<li><code>HomePage/TestimonialsSection/ClientSlider.tsx</code></li>
+<li>both FAQ components</li>
+<li>legal policy pages (TOC/scroll behavior)</li>
+</ul>
+<hr />
+<h2 id="data-flow-state-management">9. Data Flow &amp; State
+Management</h2>
+<h3 id="state-management-model">State management model</h3>
+<ul>
+<li>No Redux/Zustand/Context state container.</li>
+<li>Local component state via <code>useState</code> and
+<code>useEffect</code>.</li>
+<li>Data is mostly static constants in route files and section
+components.</li>
+</ul>
+<h3 id="primary-runtime-data-flows">Primary runtime data flows</h3>
+<h4 id="contact-form-flow-contactuspage">Contact form flow
+(<code>ContactUsPage</code>)</h4>
+<ol type="1">
+<li>User enters form fields + reCAPTCHA.</li>
+<li>Client validates email/phone + required fields.</li>
+<li>Calls <code>POST /api/verify-captcha</code>.</li>
+<li>If file present, calls <code>POST /api/upload</code> to
+Cloudinary.</li>
+<li>Sends team email via EmailJS template.</li>
+<li>Sends confirmation email via EmailJS template.</li>
+</ol>
+<h4 id="career-form-flow-careerpage">Career form flow
+(<code>CareerPage</code>)</h4>
+<ol type="1">
+<li>User enters candidate data + resume + reCAPTCHA.</li>
+<li>Client validates fields.</li>
+<li>Calls <code>POST /api/verify-captcha</code>.</li>
+<li>Uploads resume via <code>POST /api/upload</code>.</li>
+<li>Sends team and candidate notifications via EmailJS templates.</li>
+</ol>
+<h3 id="important-architecture-note">Important architecture note</h3>
+<ul>
+<li><code>/api/contact</code> and <code>/api/career</code> exist
+server-side but current UI forms are primarily wired to EmailJS +
+<code>/api/upload</code> + <code>/api/verify-captcha</code>.</li>
+<li>This creates two parallel email delivery approaches in one
+codebase.</li>
+</ul>
+<hr />
+<h2 id="file-by-file-explanation-important-files">10. File-by-File
+Explanation (Important Files)</h2>
+<h3 id="rootconfigruntime-files">10.1 Root/config/runtime files</h3>
+<ul>
+<li><code>package.json</code>: scripts (<code>dev</code>,
+<code>build</code>, <code>start</code>, <code>lint</code>) and
+dependency graph.</li>
+<li><code>next.config.ts</code>: currently default/no custom Next
+config.</li>
+<li><code>tsconfig.json</code>: strict TS, <code>@/* -&gt; src/*</code>
+alias, <code>moduleResolution: bundler</code>.</li>
+<li><code>eslint.config.mjs</code>: Next core-web-vitals + TS lint
+rules.</li>
+<li><code>.env.local</code>: runtime keys for reCAPTCHA, Cloudinary,
+Resend.</li>
+<li><code>scripts/update-page-metadata.mjs</code>: offline utility that
+updates <code>metadata</code> in <code>src/app/**/page.*</code> from
+spreadsheet/CSV mapping.</li>
+</ul>
+<h3 id="app-router-core-files">10.2 App Router core files</h3>
+<ul>
+<li><code>src/app/layout.tsx</code>: root HTML shell, metadata base, GTM
+script, fonts, footer and back-to-top injection.</li>
+<li><code>src/app/ClientLayout.tsx</code>: client wrapper that mounts
+Navbar with SSR disabled.</li>
+<li><code>src/app/globals.css</code>: imports token/typography CSS and
+global body/headings defaults.</li>
+</ul>
+<h3 id="route-files-srcapppage.tsx">10.3 Route files
+(<code>src/app/**/page.tsx</code>)</h3>
+<ul>
+<li><code>src/app/page.tsx</code>: homepage section composition and
+homepage metadata.</li>
+<li><code>src/app/services/page.tsx</code>: service page assembly and
+inherited metadata generator.</li>
+<li><code>src/app/How-we-work/page.tsx</code>: process timeline + FAQs +
+CTA.</li>
+<li><code>src/app/About-us/page.tsx</code>: board/certification story
+page.</li>
+<li><code>src/app/Blogs/page.tsx</code>: wraps <code>BlogPage</code> and
+emits canonical/social metadata.</li>
+<li><code>src/app/Contact-us/page.tsx</code>: route-level metadata +
+contact form mount.</li>
+<li><code>src/app/Careers/page.tsx</code>: route-level metadata + career
+form mount.</li>
+<li><code>src/app/fintech-software-testing/page.tsx</code>: FinTech page
+data and section composition.</li>
+<li><code>src/app/healthtech-software-testing/page.tsx</code>:
+HealthTech page data and section composition.</li>
+<li><code>src/app/saas-software-testing/page.tsx</code>: SaaS page data
+and section composition.</li>
+<li><code>src/app/Privacy-policy/page.tsx</code>: wraps policy client
+component.</li>
+<li><code>src/app/Terms-of-use/page.tsx</code>: wraps terms client
+component.</li>
+</ul>
+<h3 id="api-route-files">10.4 API route files</h3>
+<ul>
+<li><code>src/app/api/contact/route.ts</code>: Resend-driven email
+dispatch endpoint.</li>
+<li><code>src/app/api/career/route.ts</code>: nodemailer endpoint with
+attachment support.</li>
+<li><code>src/app/api/upload/route.ts</code>: Cloudinary upload
+adapter.</li>
+<li><code>src/app/api/verify-captcha/route.ts</code>: server-side
+captcha verifier.</li>
+</ul>
+<h3 id="critical-uibusiness-components">10.5 Critical UI/business
+components</h3>
+<ul>
+<li><code>src/components/Navbar.tsx</code>: responsive navigation +
+industries dropdown logic.</li>
+<li><code>src/components/ContactUsPage/ContactUsPage.tsx</code>: full
+business inquiry workflow (validation, captcha, upload, EmailJS
+dispatch).</li>
+<li><code>src/components/CareerPage/CareerPage.tsx</code>: full hiring
+workflow (validation, captcha, upload, EmailJS dispatch).</li>
+<li><code>src/components/BlogPage/BlogPage.tsx</code>: case-study style
+content page.</li>
+<li><code>src/components/Policies/PrivacyPolicy.tsx</code>: legal
+sections + TOC scrolling.</li>
+<li><code>src/components/Policies/TermsOfUse.tsx</code>: legal sections
++ TOC scrolling.</li>
+</ul>
+<h3 id="shared-primitives-frequently-composed-by-routes">10.6 Shared
+primitives frequently composed by routes</h3>
+<ul>
+<li><code>src/components/Common/SectionHeader/SectionHeader.tsx</code>:
+title/highlight/description pattern.</li>
+<li><code>src/components/Common/ContentWrapper/ContentWrapper.tsx</code>:
+max-width section wrapper.</li>
+<li><code>src/components/Common/Banner/Banner.tsx</code>: CTA
+banner.</li>
+<li><code>src/components/Common/Button/Button.tsx</code>: typed link
+button variants.</li>
+<li><code>src/components/Common/Slider/Slider.tsx</code>: client-logo
+slider.</li>
+<li><code>src/components/Common/Footer/Footer.tsx</code>: global footer
+links and social.</li>
+<li><code>src/components/Common/BackToTop/BackToTop.tsx</code>: scroll
+visibility and smooth top action.</li>
+</ul>
+<h3 id="page-specific-section-components-used-in-active-routes">10.7
+Page-specific section components (used in active routes)</h3>
+<ul>
+<li>Home: <code>HeroSection</code>, <code>ServicesSection</code>,
+<code>CaseStudies</code>, <code>Testimonials</code>,
+<code>WhyQAonCloud</code>, <code>PartnershipSection</code>.</li>
+<li>Service page: <code>ServicePageHeader</code>,
+<code>QualityAssurance</code>, <code>QualityServices</code>,
+<code>SmoothReleases</code>, <code>CaseStudiesSection</code>,
+<code>GreenLineCard</code>, <code>UnmatchedExpertise</code>,
+<code>ServicePage/FAQS</code>.</li>
+<li>Industry pages: <code>IndustryPageHeader</code>,
+<code>Mistakes</code>, <code>ReleaseRegulations</code>,
+<code>WorkWell</code>, <code>FinTechteamSection</code>,
+<code>Comparisontable</code>, <code>Industries/FAQS</code>.</li>
+<li>How-we-work: <code>TwoSystems</code>, <code>PhaseSection</code>,
+<code>FeatureShowcase</code>, <code>MilestoneSection</code>,
+<code>TestimonialCard</code>.</li>
+<li>About page: <code>About-Us/ContentSection</code>,
+<code>PageHeader</code>, <code>SectionHeader</code>.</li>
+</ul>
+<h3
+id="files-currently-present-but-not-actively-wired-into-route-tree-as-of-this-audit">10.8
+Files currently present but not actively wired into route tree (as of
+this audit)</h3>
+<ul>
+<li><code>src/components/HomePage/TeamServices/WideFeatureSection.tsx</code></li>
+<li><code>src/components/HomePage/TeamServices/WideFeatureCard.tsx</code></li>
+<li><code>src/components/HomePage/Stats/Stats.tsx</code></li>
+<li><code>src/components/HomePage/PartnerSection/*</code></li>
+<li><code>src/components/Industries/Benefits/Benefits.tsx</code></li>
+<li><code>src/components/Industries/Partnership/Partnership.tsx</code></li>
+<li><code>src/components/Industries/SaasHeader/Header/ServicePageHeader.tsx</code></li>
+<li><code>src/components/Industries/SmoothReleases/SmoothReleases.tsx</code></li>
+<li><code>src/components/Industries/QualityServices/QualityServices.tsx</code></li>
+<li><code>src/components/How-we-work/WorkingTogether/*</code></li>
+<li><code>src/components/How-we-work/HighlightCards/HighlightCards.tsx</code></li>
+<li><code>src/components/Common/CaseStudyCard/CaseCard.tsx</code></li>
+</ul>
+<p>These appear to be retained experiments/legacy variants.</p>
+<hr />
+<h2 id="common-errors-debugging-guide">11. Common Errors &amp; Debugging
+Guide</h2>
+<h3 id="build-error-google-fonts-fetch-failure">11.1 Build error: Google
+Fonts fetch failure</h3>
+<p><strong>Symptom</strong>: <code>next/font</code> fails fetching
+Inter/Poppins/Raleway during <code>next build</code>.<br />
+<strong>Cause</strong>: no outbound internet or blocked Google Fonts
+endpoint.<br />
+<strong>Fix</strong>:</p>
+<ul>
+<li>Allow egress to <code>fonts.googleapis.com</code> +
+<code>fonts.gstatic.com</code>, or</li>
+<li>switch to local font files (<code>next/font/local</code>) for build
+isolation.</li>
+</ul>
+<h3 id="hydration-mismatch-around-navbar">11.2 Hydration mismatch around
+navbar</h3>
+<p><strong>Symptom</strong>: menu state mismatch/warnings in SSR
+pages.<br />
+<strong>Cause</strong>: client-only resize/body class logic in
+Navbar.<br />
+<strong>Current mitigation</strong>: Navbar is dynamically imported with
+<code>ssr: false</code> in <code>ClientLayout</code>.</p>
+<h3 id="use-client-errors">11.3 “use client” errors</h3>
+<p><strong>Symptom</strong>: hooks/event handlers not allowed in server
+component.<br />
+<strong>Cause</strong>: missing <code>'use client'</code> directive in
+interactive components.<br />
+<strong>Fix</strong>: ensure top-level <code>'use client'</code> in
+components using hooks or browser APIs.</p>
+<h3 id="environment-variable-not-loading">11.4 Environment variable not
+loading</h3>
+<p><strong>Symptom</strong>: reCAPTCHA/server upload/email
+failures.<br />
+<strong>Cause</strong>: missing <code>.env.local</code> key or using
+non-<code>NEXT_PUBLIC_</code> var in client.<br />
+<strong>Fix</strong>:</p>
+<ul>
+<li>client-exposed key must be prefixed <code>NEXT_PUBLIC_</code>.</li>
+<li>restart dev server after env changes.</li>
+<li>verify keys used by <code>/api/upload</code> and
+<code>/api/verify-captcha</code>.</li>
+</ul>
+<h3 id="api-400500-for-captcha-or-upload">11.5 API 400/500 for captcha
+or upload</h3>
+<p><strong>Symptom</strong>: form fails with dialog error.<br />
+<strong>Likely causes</strong>:</p>
+<ul>
+<li>captcha token missing/expired</li>
+<li><code>RECAPTCHA_SECRET_KEY</code> missing</li>
+<li>Cloudinary credentials invalid</li>
+</ul>
+<p><strong>Fix path</strong>:</p>
+<ul>
+<li>check browser network calls in order:
+<code>/api/verify-captcha</code> then <code>/api/upload</code>.</li>
+<li>verify server console logs from route handlers.</li>
+</ul>
+<h3 id="routing-issues-404-wrong-path-casing">11.6 Routing issues (404 /
+wrong path casing)</h3>
+<p>Routes are case-sensitive as generated from folder names
+(<code>/How-we-work</code>, <code>/Contact-us</code>, etc.).<br />
+Use exact casing in links and metadata canonicals.</p>
+<h3 id="real-lint-findings-in-this-repository">11.7 Real lint findings
+in this repository</h3>
+<p>From <code>npm run lint</code> during this audit:</p>
+<ul>
+<li>many <code>react/no-unescaped-entities</code> errors
+(apostrophes/quotes in JSX text)</li>
+<li><code>@typescript-eslint/no-explicit-any</code> in upload route</li>
+<li>many <code>@next/next/no-img-element</code> warnings</li>
+<li>some unused imports/vars and hook dependency warnings</li>
+</ul>
+<p>These currently block <code>npm run lint</code> from succeeding.</p>
+<hr />
+<h2 id="performance-best-practices">12. Performance &amp; Best
+Practices</h2>
+<h3 id="current-strengths">Current strengths</h3>
+<ul>
+<li>App Router server-rendered pages by default.</li>
+<li>Reusable section primitives reduce duplicated logic.</li>
+<li>Static assets in <code>public/</code> and imported local images for
+logos.</li>
+</ul>
+<h3 id="improvements-recommended">Improvements recommended</h3>
+<ul>
+<li>Replace <code>&lt;img&gt;</code> with <code>next/image</code> where
+practical (many lint warnings).</li>
+<li>Consolidate duplicate slider implementations if both are not
+required.</li>
+<li>Reduce large inline static data in route files by moving to
+<code>lib/content/*.ts</code>.</li>
+<li>Add <code>loading.tsx</code> per heavy routes for perceived
+performance.</li>
+<li>Add explicit <code>not-found.tsx</code> and route-level
+<code>error.tsx</code>.</li>
+<li>Add request throttling/rate limiting for public APIs
+(<code>upload</code>, <code>verify-captcha</code>).</li>
+</ul>
+<h3 id="seo-and-metadata">SEO and metadata</h3>
+<ul>
+<li>Good use of per-route metadata/canonical/openGraph.</li>
+<li>Ensure consistent titles for routes using parent-derived metadata
+(<code>/Blogs</code>, <code>/services</code>) to avoid inherited generic
+title risk.</li>
+</ul>
+<hr />
+<h2 id="deployment-guide">13. Deployment Guide</h2>
+<h3 id="standard-process">Standard process</h3>
+<ol type="1">
+<li>Set environment variables in deployment platform.</li>
+<li>Install dependencies: <code>npm ci</code>.</li>
+<li>Build: <code>npm run build</code>.</li>
+<li>Start: <code>npm run start</code>.</li>
+</ol>
+<h3 id="platform-requirements">Platform requirements</h3>
+<ul>
+<li>Node runtime for Next.js 16.</li>
+<li>External network access for <code>next/font/google</code> at build
+time (unless migrated to local fonts).</li>
+<li>Runtime access for:
+<ul>
+<li>Google reCAPTCHA verify endpoint</li>
+<li>Cloudinary API</li>
+<li>Email providers (EmailJS client-side, Resend/Nodemailer if those
+APIs are used)</li>
+</ul></li>
+</ul>
+<h3 id="common-production-issues">Common production issues</h3>
+<ul>
+<li>Missing secrets causing silent client-side form failures.</li>
+<li>CORS/network restrictions to third-party APIs.</li>
+<li>Build breakage from strict lint if lint is added to CI gate.</li>
+</ul>
+<h3 id="recommended-ci-checks">Recommended CI checks</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run lint</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span></code></pre></div>
+<p>Add a smoke test that submits mocked payloads to:</p>
+<ul>
+<li><code>/api/verify-captcha</code></li>
+<li><code>/api/upload</code></li>
+</ul>
+<hr />
+<h2 id="appendix-styleasset-files-and-notes">14. Appendix: Style/Asset
+Files and Notes</h2>
+<h3 id="styling-system">Styling system</h3>
+<ul>
+<li><code>src/app/globals.css</code> imports:
+<ul>
+<li><code>src/styles/tokens.css</code></li>
+<li><code>src/styles/typography.css</code></li>
+</ul></li>
+<li>Route/components use CSS modules (<code>*.module.css</code>)
+extensively.</li>
+</ul>
+<h3 id="static-content">Static content</h3>
+<ul>
+<li><code>public/Images/**</code> and <code>public/logos/**</code>
+provide route-specific visual assets.</li>
+<li><code>public/robots.txt</code>, <code>public/sitemap.xml</code>,
+<code>public/site.webmanifest</code> are present.</li>
+</ul>
+<h3 id="security-and-architecture-observations">Security and
+architecture observations</h3>
+<ul>
+<li>EmailJS public keys are hardcoded in client components; this is
+expected for EmailJS public keys, but review template/service IDs and
+abuse protections.</li>
+<li><code>/api/contact</code> and <code>/api/career</code> overlap with
+client EmailJS flow. Consider selecting one backend email strategy to
+simplify operations and observability.</li>
+</ul>
+<hr />
+<h2 id="quick-start-for-new-developers">Quick Start for New
+Developers</h2>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.local.example .env.local   <span class="co"># if you create an example file</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run dev</span></code></pre></div>
+<p>Then validate:</p>
+<ul>
+<li>open <code>/Contact-us</code> and test captcha + upload
+pipeline</li>
+<li>open <code>/Careers</code> and test resume upload path</li>
+<li>run <code>npm run lint</code> and review known lint debt above</li>
+</ul>
+</body>
+</html>
