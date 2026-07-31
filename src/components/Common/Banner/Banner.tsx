@@ -71,6 +71,8 @@ export const Banner: React.FC<BannerProps> = ({
                 href={linkDescriptionHref}
                 className={styles.linkDescriptionAnchor}
                 onClick={linkDescriptionOnClick}
+                target={linkDescriptionHref.startsWith("http") ? "_blank" : undefined}
+                rel={linkDescriptionHref.startsWith("http") ? "noopener noreferrer" : undefined}
               >
                 {linkDescriptionText}
               </a>
