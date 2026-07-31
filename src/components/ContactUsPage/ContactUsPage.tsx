@@ -114,11 +114,18 @@ export default function ContactUsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const lastNameRef = useRef<HTMLInputElement>(null);
+  const workEmailRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const privacyRef = useRef<HTMLInputElement>(null);
 
   /* ── reCAPTCHA ── */
   const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaWrapRef = useRef<HTMLDivElement>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState('');
+  const [privacyError, setPrivacyError] = useState('');
 
   /* ── Form state ── */
   const [biz, setBiz] = useState({
@@ -127,25 +134,35 @@ export default function ContactUsPage() {
   });
 
   /* ── Validation ── */
-  const [bizTouched, setBizTouched] = useState({ workEmail: false, phone: false });
-  const [bizErrors, setBizErrors] = useState({ workEmail: '', phone: '' });
-
+  const [bizTouched, setBizTouched] = useState({
+    firstName: false,
+    lastName: false,
+    workEmail: false,
+    phone: false,
+  });
   const computeBizErrors = (data: typeof biz) => ({
+    firstName: data.firstName.trim() ? '' : 'First name is required',
+    lastName: data.lastName.trim() ? '' : 'Last name is required',
     workEmail: validateEmail(data.workEmail),
     phone: data.phone.trim() ? validatePhone(data.phone) : '',
   });
 
-  useEffect(() => { setBizErrors(computeBizErrors(biz)); }, [biz.workEmail, biz.phone]);
+  const bizErrors = computeBizErrors(biz);
 
   const isFormValid =
     !Object.values(computeBizErrors(biz)).some(e => e !== '') &&
-    !!biz.firstName.trim() &&
-    !!biz.lastName.trim() &&
     privacyChecked &&
     !!captchaToken;
 
   const showError = (field: keyof typeof bizTouched) =>
     bizTouched[field] ? bizErrors[field] : '';
+
+  const focusAndScrollTo = (element: HTMLElement | null) => {
+    requestAnimationFrame(() => {
+      element?.focus({ preventScroll: true });
+      element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  };
 
   /* ── Services dropdown ── */
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
@@ -181,8 +198,22 @@ export default function ContactUsPage() {
   /* ── Submit ── */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBizTouched({ workEmail: true, phone: true });
-    if (!isFormValid) return;
+    setBizTouched({ firstName: true, lastName: true, workEmail: true, phone: true });
+    setPrivacyError(privacyChecked ? '' : 'Privacy policy agreement is required');
+    if (!captchaToken) setCaptchaError('Please complete the reCAPTCHA');
+
+    const firstInvalidField =
+      (bizErrors.firstName && firstNameRef.current) ||
+      (bizErrors.lastName && lastNameRef.current) ||
+      (bizErrors.workEmail && workEmailRef.current) ||
+      (bizErrors.phone && phoneRef.current) ||
+      (!privacyChecked && privacyRef.current) ||
+      (!captchaToken && recaptchaWrapRef.current);
+
+    if (!isFormValid) {
+      focusAndScrollTo(firstInvalidField || null);
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -195,6 +226,7 @@ export default function ContactUsPage() {
         setCaptchaToken(null);
         recaptchaRef.current?.reset();
         setCaptchaError('reCAPTCHA verification failed. Please complete it again to submit.');
+        focusAndScrollTo(recaptchaWrapRef.current);
         setIsSubmitting(false);
         return;
       }
@@ -244,8 +276,8 @@ export default function ContactUsPage() {
 
       setSubmitStatus('success');
       setBiz({ firstName: '', lastName: '', company: '', designation: '', workEmail: '', phone: '', country: '', services: [], howHeard: '', budgetRange: '', message: '' });
-      setBizTouched({ workEmail: false, phone: false });
-      setFile(null); setPrivacy(false); setCaptchaToken(null); setCaptchaError('');
+      setBizTouched({ firstName: false, lastName: false, workEmail: false, phone: false });
+      setFile(null); setPrivacy(false); setPrivacyError(''); setCaptchaToken(null); setCaptchaError('');
       recaptchaRef.current?.reset();
       if (fileInputRef.current) fileInputRef.current.value = '';
 
@@ -370,13 +402,33 @@ export default function ContactUsPage() {
               <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>First Name <span className={styles.req}>*</span></label>
-                  <input className={styles.formInput} placeholder="Enter Here" value={biz.firstName}
-                    onChange={e => setBiz(p => ({ ...p, firstName: e.target.value }))} />
+                  <input
+                    ref={firstNameRef}
+                    className={`${styles.formInput}${showError('firstName') ? ' ' + styles.inputError : ''}`}
+                    placeholder="Enter Here"
+                    value={biz.firstName}
+                    onChange={e => {
+                      setBiz(p => ({ ...p, firstName: e.target.value }));
+                      setBizTouched(p => ({ ...p, firstName: true }));
+                    }}
+                    onBlur={() => setBizTouched(p => ({ ...p, firstName: true }))}
+                  />
+                  {showError('firstName') && <span className={styles.fieldError}>{showError('firstName')}</span>}
                 </div>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Last Name <span className={styles.req}>*</span></label>
-                  <input className={styles.formInput} placeholder="Enter Here" value={biz.lastName}
-                    onChange={e => setBiz(p => ({ ...p, lastName: e.target.value }))} />
+                  <input
+                    ref={lastNameRef}
+                    className={`${styles.formInput}${showError('lastName') ? ' ' + styles.inputError : ''}`}
+                    placeholder="Enter Here"
+                    value={biz.lastName}
+                    onChange={e => {
+                      setBiz(p => ({ ...p, lastName: e.target.value }));
+                      setBizTouched(p => ({ ...p, lastName: true }));
+                    }}
+                    onBlur={() => setBizTouched(p => ({ ...p, lastName: true }))}
+                  />
+                  {showError('lastName') && <span className={styles.fieldError}>{showError('lastName')}</span>}
                 </div>
               </div>
 
@@ -399,6 +451,7 @@ export default function ContactUsPage() {
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Work Email <span className={styles.req}>*</span></label>
                   <input
+                    ref={workEmailRef}
                     className={`${styles.formInput}${showError('workEmail') ? ' ' + styles.inputError : ''}`}
                     type="email" placeholder="Enter Here" value={biz.workEmail}
                     onChange={e => { setBiz(p => ({ ...p, workEmail: e.target.value })); setBizTouched(p => ({ ...p, workEmail: true })); }}
@@ -409,6 +462,7 @@ export default function ContactUsPage() {
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Phone</label>
                   <input
+                    ref={phoneRef}
                     className={`${styles.formInput}${showError('phone') ? ' ' + styles.inputError : ''}`}
                     type="tel" placeholder="Enter Here" value={biz.phone}
                     onChange={e => { setBiz(p => ({ ...p, phone: e.target.value.replace(/[^\d+\s\-]/g, '') })); setBizTouched(p => ({ ...p, phone: true })); }}
@@ -501,16 +555,21 @@ export default function ContactUsPage() {
 
               {/* Privacy */}
               <div className={styles.privacyRow}>
-                <input type="checkbox" id="priv-b" className={styles.checkbox}
-                  checked={privacyChecked} onChange={e => setPrivacy(e.target.checked)} />
+                <input ref={privacyRef} type="checkbox" id="priv-b" className={styles.checkbox}
+                  checked={privacyChecked}
+                  onChange={e => {
+                    setPrivacy(e.target.checked);
+                    if (e.target.checked) setPrivacyError('');
+                  }} />
                 <label htmlFor="priv-b" className={styles.privacyLabel}>
                   Your privacy is important to us. By filling this form you agree to our{' '}
                   <Link href="/Privacy-policy" className={styles.privacyLink}>privacy policy</Link>  <span className={styles.req}>*</span>
                 </label>
               </div>
+              {privacyError && <p className={styles.fieldError}>{privacyError}</p>}
 
               {/* reCAPTCHA */}
-              <div className={styles.recaptchaWrap}>
+              <div ref={recaptchaWrapRef} className={styles.recaptchaWrap} tabIndex={-1}>
                 <ReCAPTCHA ref={recaptchaRef} sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                   theme="dark"
                   onChange={(token: string | null) => { setCaptchaToken(token); setCaptchaError(''); }}
@@ -519,8 +578,7 @@ export default function ContactUsPage() {
               {captchaError && <p className={styles.captchaError}>{captchaError}</p>}
 
               <button type="submit" className={styles.submitButton}
-                disabled={!isFormValid || isSubmitting}
-                title={!isFormValid ? 'Please fix all errors before submitting' : ''}>
+                disabled={isSubmitting}>
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
 
