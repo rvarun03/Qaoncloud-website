@@ -4,12 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-icons/fi';
 import ReCAPTCHA from 'react-google-recaptcha';
-import emailjs from '@emailjs/browser';
 import styles from './CareerPage.module.css';
 import PageHeader from '../Common/PageHeader/PageHeader';
-
-// Initialize EmailJS
-emailjs.init('8VzXZD4Cz9LhSvU54');
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -204,108 +200,52 @@ export default function CareerPage() {
 
   const handleFile = (file: File | null) => {
     if (!file) return;
-    if (!file.name.toLowerCase().endsWith('.docx')) {
-    setFileError('Please upload only .docx file');
-    return;
-  }
-    if (file.size > 10 * 1024 * 1024) { alert('File exceeds 10 MB'); return; }
-    const allowed = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    if (!allowed.includes(file.type)) { alert('Only PDF or DOCX files accepted'); return; }
+    if (!/\.(pdf|docx)$/i.test(file.name)) {
+      setFile(null);
+      setFileError('Please upload only a PDF or DOCX file');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setFile(null);
+      setFileError('The resume must be 10 MB or smaller');
+      return;
+    }
     setFile(file);
+    setFileError('');
   };
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); setDragOver(false); handleFile(e.dataTransfer.files[0]);
   };
 
-  const toBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve((reader.result as string).split(',')[1]);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Debug logging for mobile
-    console.log('Form submission started');
-    console.log('Form data:', career);
-    console.log('File uploaded:', !!uploadedFile);
-    console.log('Privacy checked:', privacyChecked);
-    console.log('Captcha token:', !!captchaToken);
-    console.log('Form valid:', isFormValid);
-    
+
     setTouched({ firstName: true, lastName: true, email: true, phone: true });
     if (!isFormValid) {
-      console.log('Form validation failed:', { errors, hasErrors, uploadedFile: !!uploadedFile, privacyChecked, captchaToken: !!captchaToken });
-      return; // guard — button should already be disabled
+      return;
     }
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      console.log('Starting captcha verification...');
-      const captchaRes = await fetch('/api/verify-captcha', {
+      const application = new FormData();
+      application.append('firstName', career.firstName);
+      application.append('lastName', career.lastName);
+      application.append('email', career.email);
+      application.append('phone', career.phone);
+      application.append('captchaToken', captchaToken!);
+      application.append('resume', uploadedFile!);
+
+      const response = await fetch('/api/career', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: captchaToken }),
-      });
-      const captchaData = await captchaRes.json();
-      console.log('Captcha verification result:', captchaData);
-      
-      if (!captchaData.success) {
-        setCaptchaToken(null);
-        recaptchaRef.current?.reset();
-        setCaptchaError('reCAPTCHA verification failed. Please complete it again to submit.');
-        setIsSubmitting(false);
-        return;
-      }
-
-      const fullName   = `${career.firstName} ${career.lastName}`;
-      const resumeInfo = `${uploadedFile!.name} (${(uploadedFile!.size / 1024).toFixed(1)} KB)`;
-
-      // Upload resume to Cloudinary
-      const uploadForm = new FormData();
-      uploadForm.append("file", uploadedFile!);
-
-      const uploadRes = await fetch("/api/upload", {
-        method: "POST",
-        body: uploadForm,
+        body: application,
       });
 
-      const uploadData = await uploadRes.json();
-
-      if (!uploadData.url) {
-        throw new Error("Upload failed");
-      }
-
-      const document_link = uploadData.url;
-
-      // 1️⃣ Team notification — must succeed
-      await emailjs.send('service_ox6diqq', 'template_9f8xcmm', {
-        name: fullName, from_name: fullName, first_name: career.firstName,
-        last_name: career.lastName, email: career.email, from_email: career.email,
-        reply_to: career.email, phone: career.phone, to_name: 'QAonCloud Team',
-        resume: resumeInfo, resume_name: uploadedFile!.name,
-        file_url: document_link,
-        message: `New Career Application\n\nName: ${fullName}\nEmail: ${career.email}\nPhone: ${career.phone}\nResume: ${resumeInfo}\nDownload Link: ${document_link}`,
-      }, '8VzXZD4Cz9LhSvU54');
-
-      // 2️⃣ Applicant confirmation — failure here should NOT block success
-      try {
-        await emailjs.send('service_ox6diqq', 'template_3gsbsoi', {
-          name: fullName, from_name: fullName, first_name: career.firstName,
-          last_name: career.lastName, email: career.email, from_email: career.email,
-          to_email: career.email, reply_to: 'contactus@qaoncloud.com',
-          phone: career.phone, to_name: career.firstName,
-          message: `Thank you for your interest in QAonCloud! We have received your application and will review your resume shortly.\n\nBest regards,\nQAonCloud Team`,
-        }, '8VzXZD4Cz9LhSvU54');
-      } catch (confirmErr) {
-        // Confirmation failed — log but don't affect success state
-        console.warn('Confirmation email failed (non-critical):', confirmErr);
+      if (!response.ok) {
+        const result = await response.json().catch(() => null) as { error?: string } | null;
+        throw new Error(result?.error || 'Application submission failed');
       }
 
       setSubmitStatus('success');
@@ -317,10 +257,9 @@ export default function CareerPage() {
       if (fileInputRef.current) fileInputRef.current.value = '';
 
     } catch (error: unknown) {
-      console.error('EmailJS error:', error);
-      if (error && typeof error === 'object' && 'text' in error) {
-        console.error('EmailJS error detail:', (error as { text: string }).text);
-      }
+      console.error('Career application error:', error);
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -461,7 +400,7 @@ export default function CareerPage() {
 
               <div className={styles.uploadSection}>
                 <label className={styles.uploadLabel}>
-                  Upload Resume — .docx only (max 10MB) <span className={styles.req}>*</span>
+                  Upload Resume — PDF or DOCX (max 10MB) <span className={styles.req}>*</span>
                 </label>
                 <div
                   className={`${styles.dropZone} ${dragOver ? styles.dropZoneActive : ''}`}
@@ -483,7 +422,7 @@ export default function CareerPage() {
                     </>
                   )}
                   <input ref={fileInputRef} type="file"
-                    accept=".docx"
+                    accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     hidden 
                     onChange={e => handleFile(e.target.files?.[0] ?? null)}
                     capture={false}

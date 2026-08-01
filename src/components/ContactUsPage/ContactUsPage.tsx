@@ -4,11 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-icons/fi';
 import styles from './ContactUsPage.module.css';
-import emailjs from '@emailjs/browser';
 import ReCAPTCHA from 'react-google-recaptcha';
-
-// Initialize EmailJS
-emailjs.init('ud7uHNDNt2PuqT5zM');
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -181,11 +177,16 @@ export default function ContactUsPage() {
   /* ── File handling ── */
   const handleFile = (file: File | null) => {
     if (!file) return;
-    if (!file.name.toLowerCase().endsWith('.docx')) {
-    setFileError('Please upload only .docx file');
-    return;
-  }
-    if (file.size > 5 * 1024 * 1024) { setFileError('File exceeds 5 MB. Please upload a smaller file.'); return; }
+    if (!/\.(pdf|docx)$/i.test(file.name)) {
+      setFile(null);
+      setFileError('Please upload only a PDF or DOCX file');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setFile(null);
+      setFileError('File exceeds 5 MB. Please upload a smaller file.');
+      return;
+    }
     setFileError('');
     setFile(file);
   };
@@ -217,61 +218,29 @@ export default function ContactUsPage() {
 
     setIsSubmitting(true);
     try {
-      const captchaRes = await fetch('/api/verify-captcha', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: captchaToken }),
-      });
-      const captchaData = await captchaRes.json();
-      if (!captchaData.success) {
-        setCaptchaToken(null);
-        recaptchaRef.current?.reset();
-        setCaptchaError('reCAPTCHA verification failed. Please complete it again to submit.');
-        focusAndScrollTo(recaptchaWrapRef.current);
-        setIsSubmitting(false);
-        return;
-      }
+      const contactForm = new FormData();
+      contactForm.append('firstName', biz.firstName);
+      contactForm.append('lastName', biz.lastName);
+      contactForm.append('company', biz.company);
+      contactForm.append('designation', biz.designation);
+      contactForm.append('workEmail', biz.workEmail);
+      contactForm.append('phone', biz.phone);
+      contactForm.append('country', biz.country);
+      biz.services.forEach(service => contactForm.append('services', service));
+      contactForm.append('howHeard', biz.howHeard);
+      contactForm.append('budgetRange', biz.budgetRange);
+      contactForm.append('message', biz.message);
+      contactForm.append('captchaToken', captchaToken);
+      if (uploadedFile) contactForm.append('document', uploadedFile);
 
-      let fileUrl = '';
-
-      if (uploadedFile) {
-        const uploadForm = new FormData();
-        uploadForm.append('file', uploadedFile);
-
-        const uploadRes = await fetch('/api/upload', {
-          method: 'POST',
-          body: uploadForm,
-        });
-
-        const uploadData = await uploadRes.json();
-
-        if (uploadData.url) {
-          fileUrl = uploadData.url;
-        }
-      }
-
-      // 1️⃣ Team notification — must succeed
-      await emailjs.send('service_pe85kpk', 'template_lr226wc', {
-        name: biz.firstName,
-        from_name: `${biz.firstName} ${biz.lastName}`,
-        from_email: biz.workEmail,
-        company: biz.company || 'Not provided',
-        designation: biz.designation || 'Not provided',
-        phone: biz.phone,
-        country: biz.country || 'Not provided',
-        services: biz.services.join(', ') || 'Not provided',
-        how_heard: biz.howHeard || 'Not provided',
-        budget: biz.budgetRange || 'Not provided',
-        message: biz.message || 'No message',
-        file_url: fileUrl || 'No file uploaded',
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: contactForm,
       });
 
-      // 2️⃣ Confirmation to sender — failure here does not block success
-      try {
-        await emailjs.send('service_pe85kpk', 'template_2s7nubr', {
-          user_name: biz.firstName, user_email: biz.workEmail,
-        });
-      } catch (confirmErr) {
-        console.warn('Confirmation email failed (non-critical):', confirmErr);
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+        throw new Error(result?.error || 'Failed to send message');
       }
 
       setSubmitStatus('success');
@@ -282,7 +251,9 @@ export default function ContactUsPage() {
       if (fileInputRef.current) fileInputRef.current.value = '';
 
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Contact form error:', error);
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -310,7 +281,7 @@ export default function ContactUsPage() {
           <button type="button" className={styles.browseBtn} onClick={() => fileInputRef.current?.click()}>Browse File</button>
         </>
       )}
-      <input ref={fileInputRef} type="file" hidden
+      <input ref={fileInputRef} type="file" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden
         onChange={e => handleFile(e.target.files?.[0] ?? null)} />
     </div>
   );
@@ -548,7 +519,7 @@ export default function ContactUsPage() {
 
               {/* Upload */}
               <div className={styles.uploadSection}>
-                <label className={styles.uploadLabel}>Upload Document (.docx, max 5MB)</label>
+                <label className={styles.uploadLabel}>Upload Document (PDF or DOCX, max 5MB)</label>
                 <UploadZone />
                 {fileError && <p className={styles.fieldError}>{fileError}</p>}
               </div>

@@ -35,8 +35,8 @@ This project is the QAonCloud marketing website and service funnel. It is a cont
 - Renders SEO-oriented pages for core routes (`/`, `/How-we-work`, `/services`, industry pages, legal pages).
 - Collects business inquiries and career applications.
 - Verifies reCAPTCHA tokens server-side.
-- Uploads user documents to Cloudinary.
-- Sends email notifications through EmailJS (client-side) and optionally through server APIs (`/api/contact`, `/api/career`).
+- Attaches contact-form documents directly to Gmail SMTP emails and uploads career documents to Cloudinary.
+- Sends contact notifications through Gmail SMTP with an app password and career notifications through the existing EmailJS/server flows.
 
 ### Key business features implemented
 
@@ -110,9 +110,6 @@ npm install
 Detected from code and `.env.local` keys:
 
 ```bash
-# Contact API / Resend
-RESEND_API_KEY=
-
 # reCAPTCHA
 NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
 RECAPTCHA_SECRET_KEY=
@@ -122,11 +119,12 @@ CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
-# Career API (nodemailer route)
-SMTP_HOST=
-SMTP_PORT=
-SMTP_USER=
-SMTP_PASS=
+# Contact and career APIs (Gmail SMTP via nodemailer)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=varun@qaoncloud.com
+SMTP_PASS=your-google-app-password
+CONTACT_TO_EMAIL=varun@qaoncloud.com
 CAREER_TO_EMAIL=
 ```
 
@@ -208,14 +206,14 @@ No nested layout tree currently beyond root layout. Each route folder in `src/ap
 
 | Endpoint | File | Method | Behavior |
 |---|---|---|---|
-| `/api/contact` | `src/app/api/contact/route.ts` | POST | Accepts JSON inquiry payload and sends HTML email through Resend |
+| `/api/contact` | `src/app/api/contact/route.ts` | POST | Accepts multipart inquiry data, verifies reCAPTCHA, and sends team + customer emails with an optional PDF/DOCX attachment through Gmail SMTP |
 | `/api/career` | `src/app/api/career/route.ts` | POST | Accepts `formData`, optional resume attachment, sends team + applicant emails via nodemailer |
 | `/api/upload` | `src/app/api/upload/route.ts` | POST | Uploads received file to Cloudinary and returns `secure_url` |
 | `/api/verify-captcha` | `src/app/api/verify-captcha/route.ts` | POST | Sends token to Google reCAPTCHA verify endpoint and returns `{success}` |
 
 ### Request/response handling notes
 
-- Validation exists but is minimal in `/api/contact` and `/api/upload`.
+- `/api/contact` enforces required fields, email format, reCAPTCHA, attachment type, and a 5 MB attachment limit.
 - `/api/career` enforces required fields and sets `runtime = 'nodejs'`.
 - `/api/verify-captcha` handles missing token and secret misconfiguration explicitly.
 
@@ -268,10 +266,9 @@ No `middleware.ts` found.
 
 1. User enters form fields + reCAPTCHA.
 2. Client validates email/phone + required fields.
-3. Calls `POST /api/verify-captcha`.
-4. If file present, calls `POST /api/upload` to Cloudinary.
-5. Sends team email via EmailJS template.
-6. Sends confirmation email via EmailJS template.
+3. Sends all fields, the reCAPTCHA token, and an optional PDF/DOCX to `POST /api/contact`.
+4. The API verifies reCAPTCHA and sends the inquiry to the QAonCloud team through Gmail SMTP.
+5. The API sends a complete copy and the same attachment from `website@qaoncloud.com` to the submitted work email.
 
 #### Career form flow (`CareerPage`)
 
@@ -283,8 +280,7 @@ No `middleware.ts` found.
 
 ### Important architecture note
 
-- `/api/contact` and `/api/career` exist server-side but current UI forms are primarily wired to EmailJS + `/api/upload` + `/api/verify-captcha`.
-- This creates two parallel email delivery approaches in one codebase.
+- The contact UI uses `/api/contact`; the career UI retains its existing EmailJS + upload flow.
 
 ---
 
@@ -322,7 +318,7 @@ No `middleware.ts` found.
 
 ### 10.4 API route files
 
-- `src/app/api/contact/route.ts`: Resend-driven email dispatch endpoint.
+- `src/app/api/contact/route.ts`: Gmail SMTP contact dispatch with reCAPTCHA and attachment support.
 - `src/app/api/career/route.ts`: nodemailer endpoint with attachment support.
 - `src/app/api/upload/route.ts`: Cloudinary upload adapter.
 - `src/app/api/verify-captcha/route.ts`: server-side captcha verifier.
@@ -330,7 +326,7 @@ No `middleware.ts` found.
 ### 10.5 Critical UI/business components
 
 - `src/components/Navbar.tsx`: responsive navigation + industries dropdown logic.
-- `src/components/ContactUsPage/ContactUsPage.tsx`: full business inquiry workflow (validation, captcha, upload, EmailJS dispatch).
+- `src/components/ContactUsPage/ContactUsPage.tsx`: business inquiry workflow using the Gmail SMTP-backed contact API.
 - `src/components/CareerPage/CareerPage.tsx`: full hiring workflow (validation, captcha, upload, EmailJS dispatch).
 - `src/components/BlogPage/BlogPage.tsx`: case-study style content page.
 - `src/components/Policies/PrivacyPolicy.tsx`: legal sections + TOC scrolling.
@@ -478,7 +474,7 @@ These currently block `npm run lint` from succeeding.
 - Runtime access for:
   - Google reCAPTCHA verify endpoint
   - Cloudinary API
-  - Email providers (EmailJS client-side, Resend/Nodemailer if those APIs are used)
+  - Gmail SMTP and the existing career email provider
 
 ### Common production issues
 
@@ -516,8 +512,8 @@ Add a smoke test that submits mocked payloads to:
 
 ### Security and architecture observations
 
-- EmailJS public keys are hardcoded in client components; this is expected for EmailJS public keys, but review template/service IDs and abuse protections.
-- `/api/contact` and `/api/career` overlap with client EmailJS flow. Consider selecting one backend email strategy to simplify operations and observability.
+- EmailJS public keys remain in the career client component; review template/service IDs and abuse protections.
+- `SMTP_USER` must be a Google account with 2-Step Verification enabled, and `SMTP_PASS` must contain an app password for that account.
 
 ---
 
@@ -534,4 +530,3 @@ Then validate:
 - open `/Contact-us` and test captcha + upload pipeline
 - open `/Careers` and test resume upload path
 - run `npm run lint` and review known lint debt above
-
