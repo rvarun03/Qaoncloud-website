@@ -179,8 +179,7 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: `"QAonCloud Website" <${senderEmail}>`,
       to: [
-        "sushine@qaoncloud.com",
-        "udaya@qaoncloud.com",
+        "varun@qaoncloud.com"
       ],
       replyTo: details.workEmail,
       subject: `Business Enquiry from ${fullName}`,
