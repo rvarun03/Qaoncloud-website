@@ -119,7 +119,7 @@ Resume: ${resumeName} (${resumeSize}) — attached
 You can reply directly to this email to contact the applicant.`,
       html: `
         <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;padding:24px;background:#f8fafc;border-radius:8px;">
-          <p style="color:#222;line-height:1.6;">Hi Varun,</p>
+          <p style="color:#222;line-height:1.6;">Hi Team,</p>
           <p style="color:#222;line-height:1.6;">You have received a new career application from <strong>${escapeHtml(fullName)}</strong> through the QAonCloud careers page.</p>
           <table style="width:100%;border-collapse:collapse;margin-top:16px;">
             <tr><td style="width:140px;padding:8px 12px 8px 0;font-weight:600;color:#555;">First Name</td><td style="padding:8px 0;color:#222;">${escapeHtml(firstName)}</td></tr>
