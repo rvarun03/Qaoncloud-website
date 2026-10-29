@@ -11,8 +11,10 @@ import { FiMenu, FiX, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showIndustries, setShowIndustries] = useState(false);
+  const [showServices, setShowServices] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const industriesRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -23,8 +25,12 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (industriesRef.current && !industriesRef.current.contains(event.target as Node)) {
+      const clickedOutsideIndustries = !industriesRef.current?.contains(event.target as Node);
+      const clickedOutsideServices = !servicesRef.current?.contains(event.target as Node);
+
+      if (clickedOutsideIndustries && clickedOutsideServices) {
         setShowIndustries(false);
+        setShowServices(false);
       }
     };
 
@@ -32,6 +38,7 @@ const Navbar = () => {
       if (window.innerWidth > 950) {
         setIsOpen(false);
         setShowIndustries(false);
+        setShowServices(false);
         document.body.classList.remove('menu-open');
       }
     };
@@ -57,14 +64,27 @@ const Navbar = () => {
     setIsOpen(newIsOpen);
     if (!newIsOpen) {
       setShowIndustries(false);
+      setShowServices(false);
     }
   };
 
-  const toggleIndustries = (e: React.MouseEvent) => {
+  const toggleDropdown = (e: React.MouseEvent, dropdown: 'industries' | 'services') => {
     if (isMobile) {
       e.preventDefault();
-      setShowIndustries(!showIndustries);
+      if (dropdown === 'industries') {
+        setShowIndustries(!showIndustries);
+        setShowServices(false);
+      } else {
+        setShowServices(!showServices);
+        setShowIndustries(false);
+      }
     }
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+    setShowIndustries(false);
+    setShowServices(false);
   };
 
   return (
@@ -84,11 +104,32 @@ const Navbar = () => {
           </div>
 
           <div className={`${styles.navLinks} ${isOpen ? styles.mobileMenuOpen : ''}`}>
-            <div className={styles.navLeft}>
-              {/*<Link href="/services" className={styles.navLink} onClick={() => setIsOpen(false)}>
-                SERVICES
-              </Link>*/}
+          <div className={styles.navLeft}>
+              <div
+                className={styles.industriesDropdown}
+                ref={servicesRef}
+                onMouseEnter={() => !isMobile && setShowServices(true)}
+                onMouseLeave={() => !isMobile && setShowServices(false)}
+              >
+                <button
+                  className={styles.industriesButton}
+                  onClick={(event) => toggleDropdown(event, 'services')}
+                  aria-expanded={showServices}
+                >
+                  SERVICES
+                  <span className={styles.chevron}>
+                    {showServices ? <FiChevronUp size={16} /> : <FiChevronDown size={16} />}
+                  </span>
+                </button>
 
+                <div className={`${styles.industriesMenu} ${showServices ? styles.show : ''}`}>
+                  <Link href="/functional-testing-services" className={styles.industryLink} onClick={closeMenu}>
+                    Functional Testing
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className={styles.navLeft}>
               <div
                 className={styles.industriesDropdown}
                 ref={industriesRef}
@@ -97,7 +138,7 @@ const Navbar = () => {
               >
                 <button
                   className={styles.industriesButton}
-                  onClick={toggleIndustries}
+                  onClick={(event) => toggleDropdown(event, 'industries')}
                   aria-expanded={showIndustries}
                 >
                   INDUSTRIES
@@ -107,19 +148,19 @@ const Navbar = () => {
                 </button>
 
                 <div className={`${styles.industriesMenu} ${showIndustries ? styles.show : ''}`}>
-                  <Link href="/fintech-software-testing" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/fintech-software-testing" className={styles.industryLink} onClick={closeMenu}>
                     FinTech
                   </Link>
-                  <Link href="/healthtech-software-testing" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/healthtech-software-testing" className={styles.industryLink} onClick={closeMenu}>
                     HealthTech
                   </Link>
-                  <Link href="/saas-software-testing" className={styles.industryLink} onClick={() => { setIsOpen(false); setShowIndustries(false); }}>
+                  <Link href="/saas-software-testing" className={styles.industryLink} onClick={closeMenu}>
                     SaaS
                   </Link>
                   
                 </div>
               </div>
-              <Link href="/How-we-work" className={styles.navLink} onClick={() => setIsOpen(false)}>
+              <Link href="/How-we-work" className={styles.navLink} onClick={closeMenu}>
                HOW WE WORK
               </Link>
               {/* <Link href="/About-us" className={styles.navLink} onClick={() => setIsOpen(false)}>
@@ -163,7 +204,7 @@ const Navbar = () => {
       {isOpen && (
         <div
           className={styles.overlay}
-          onClick={() => { setIsOpen(false); setShowIndustries(false); }}
+          onClick={closeMenu}
         />
       )}
     </>
