@@ -52,7 +52,7 @@ export default function PartnershipSection() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <Button href="/how-we-work" variant="primary">
+        <Button href="/how-we-work" variant="primary" size="cta">
          Talk To An Expert 
       </Button>
       </div>

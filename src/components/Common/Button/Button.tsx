@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./Button.module.css";
 
 type ButtonVariant = "primary" | "secondary" | "heroPrimary";
-type ButtonSize = "default" | "small" | "content";
+type ButtonSize = "default" | "small" | "content" | "cta";
 
 interface ButtonProps {
   href: string;

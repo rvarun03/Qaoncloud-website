@@ -1,0 +1,151 @@
+.section {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--section-header-margin);
+  position: relative;
+  margin-bottom: 4rem;
+}
+
+.section::before {
+  content: "";
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 500px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(14, 165, 233, 0.19) 0%,
+        rgba(14, 165, 233, 0.12) 35%,
+        rgba(14, 165, 233, 0.04) 60%,
+        transparent 75%
+    );
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(80px);
+}
+
+.section h2 {
+  position: relative;
+  margin: 0 0 2rem;
+  text-align: center;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  padding: 1.875rem;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #0F0F0F;
+  border-radius: 20px;
+  border: 1px solid #292929;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 4 -2.4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat; 
+  mix-blend-mode: screen;
+  opacity: 0.1;
+  border-radius: 12px; 
+}
+.cardWide {
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, rgba(11, 25, 41, 0.95), rgba(12, 50, 122, 0.95));
+}
+
+.cardWithArtwork {
+  min-height: 12rem;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.cardWithArtwork .cardContent {
+  max-width: 95%;
+}
+
+.card h3,
+.card p {
+  margin: 0;
+}
+
+.card p {
+  margin-top: 1rem;
+}
+
+.artwork {
+  position: absolute;
+  right: -0.5rem;
+  bottom: -4rem;
+  width: 13rem;
+  height: 13rem;
+  pointer-events: none;
+}
+
+.artworkImage {
+  object-fit: contain;
+}
+
+@media (max-width: 1300px) {
+
+  .cardWithArtwork {
+    min-height: 11rem;
+  }
+  .artwork {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -3rem;
+    width: 9rem;
+    height: 9rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  
+
+  .cardWide {
+    grid-column: auto;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .cardWithArtwork {
+    min-height: 7rem;
+    padding-bottom: 5rem;
+  }
+
+  .cardWithArtwork .cardContent {
+    max-width: none;
+  }
+
+  .artwork {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -3rem;
+    width: 9rem;
+    height: 9rem;
+  }
+}

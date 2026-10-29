@@ -28,7 +28,7 @@ export default function HeroSection() {
             No chaos, no compromises.
           </p>
           <div className={styles.buttons}>
-            <Button href="/Contact-us" variant="heroPrimary" size="content">
+            <Button href="/Contact-us" variant="heroPrimary" size="cta">
               Talk To An Expert
             </Button>
             <NextLink href="/How-we-work" className={styles.btnSecondary}>

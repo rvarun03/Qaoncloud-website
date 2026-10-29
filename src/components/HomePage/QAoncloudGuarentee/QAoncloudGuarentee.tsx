@@ -49,7 +49,7 @@ function QAoncloudGuarentee() {
             />
         </div> */}
         <div className={styles.buttonContainer}>
-          <Button href="/Contact-us" variant="primary">
+          <Button href="/Contact-us" variant="primary" size="cta">
              Talk To An Expert 
           </Button>
         </div>

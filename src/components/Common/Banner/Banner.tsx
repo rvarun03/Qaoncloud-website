@@ -56,7 +56,11 @@ export const Banner: React.FC<BannerProps> = ({
 
         {!hidectaLabel && ctaLabel && (
           <div className={styles.buttonContainer}>
-            <Button href={ctaHref} variant="heroPrimary" size="content">
+            <Button
+              href={ctaHref}
+              variant="heroPrimary"
+              size={ctaLabel.trim().toLowerCase() === "talk to an expert" ? "cta" : "content"}
+            >
               {ctaLabel}
             </Button>
           </div>

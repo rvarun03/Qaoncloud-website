@@ -47,7 +47,7 @@ const Header = ({
         <p className={styles.description}>{description}</p>
 
         {/* Button */}
-        <Button href="/Contact-us" variant="heroPrimary" size="content">
+        <Button href="/Contact-us" variant="heroPrimary" size="cta">
                             Talk To An Expert
                           </Button>
 

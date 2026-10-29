@@ -31,7 +31,7 @@
   --text-h5: clamp(12px, 1.1vw, 18px);
   --text-body-lg: 1.125rem; /* 18px */
   --text-body: clamp(14px, 1.3vw, 20px);
-  --text-caption: 0.875rem; /* 14px */
+  --text-caption: 17px; /* 14px */
 
   /* ===== LINE HEIGHTS ===== */
   --line-tight: 1.2;

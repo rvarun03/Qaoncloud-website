@@ -1,8 +1,7 @@
-import React, { ReactNode } from "react";
+import { type ReactNode } from "react";
 import styles from "./IndustryPageHeader.module.css";
 import Image from "next/image";
 import Button from "../../../Common/Button/Button";
-import { Inter } from 'next/font/google'
 
 type IndustryPageHeaderProps = {
   tag: string
@@ -12,6 +11,8 @@ type IndustryPageHeaderProps = {
   imageAlt: string
   buttonText?: string
   buttonHref?: string
+  secondaryButtonText?: string
+  secondaryButtonHref?: string
 }
 
 
@@ -23,6 +24,8 @@ const IndustryPageHeader = ({
   imageAlt,
   buttonText = "Talk To An Expert",
   buttonHref = "/Contact-us",
+  secondaryButtonText,
+  secondaryButtonHref = "/How-we-work",
 }: IndustryPageHeaderProps) => {
   return (
     <section className={styles.section}>
@@ -53,10 +56,25 @@ const IndustryPageHeader = ({
         {/* Description */}
         <p className={styles.description}>{description}</p>
 
-        {/* Button */}
-        <Button href="/Contact-us" variant="heroPrimary" size="content">
-                            Talk To An Expert
-                          </Button>
+        <div className={styles.buttons}>
+          <Button
+            href={buttonHref}
+            variant="heroPrimary"
+            size="cta"
+          >
+            {buttonText}
+          </Button>
+          {secondaryButtonText && (
+            <Button
+              href={secondaryButtonHref}
+              variant="secondary"
+              size="cta"
+              className={styles.secondaryButton}
+            >
+              {secondaryButtonText}
+            </Button>
+          )}
+        </div>
 
       </div>
     </section>

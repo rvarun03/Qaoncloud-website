@@ -1,0 +1,177 @@
+.wrapper {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--section-header-margin);
+  position: relative;
+  margin-bottom: var(--padding-bottom);
+}
+
+.wrapper::before {
+  content: "";
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 500px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(14, 165, 233, 0.19) 0%,
+    rgba(14, 165, 233, 0.12) 35%,
+    rgba(14, 165, 233, 0.04) 60%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+.phaseBlock {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 76px;
+}
+
+.phaseBlock:last-child {
+  padding-bottom: 0;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.rowLeft {
+  justify-content: flex-start;
+}
+
+.rowRight {
+  justify-content: flex-end;
+}
+
+.cardOuter {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: min(48%, 620px);
+  min-width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.phaseLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  min-width: 40px;
+  padding: 16px 0;
+  color: #ffffff;
+  background: linear-gradient(253.33deg, #002a8d -29.66%, #090c0e 81.95%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.card {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 26px 24px;
+  background: linear-gradient(236deg, #2d2d2d -2%, #090c0e 100%);
+  border: 1px solid #2d3f55;
+  border-left: none;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 4 -2.4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: screen;
+  opacity: 0.15;
+}
+
+.cardTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.icon {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 auto;
+  color: #ff8641;
+  stroke-width: 2;
+}
+
+.card h3,
+.card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #ffffff;
+}
+
+.card h3 {
+  font-size: var(--text-h4);
+  line-height: 20px !important;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: normal;
+}
+
+.card p {
+  margin-top: 18px;
+  font-size: var(--text-h4);
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.connectorWrapper {
+  width: 100%;
+  box-sizing: border-box;
+  position: absolute;
+  top: 98px;
+  bottom: 32px;
+  overflow: visible;
+  z-index: 2;
+}
+
+.connectorSvg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 800px) {
+  .cardOuter {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .rowLeft,
+  .rowRight {
+    justify-content: center;
+  }
+
+  .connectorWrapper {
+    display: none;
+  }
+}
