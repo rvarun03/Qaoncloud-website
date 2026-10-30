@@ -13,9 +13,9 @@ export default function ClientLayout({
   return (
     <>
       <Navbar />
-      <main>
+      <div>
         {children}
-      </main>
+      </div>
     </>
   );
 }
