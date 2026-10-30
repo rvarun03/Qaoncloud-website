@@ -17,9 +17,9 @@ import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection from '@/components/Services/StepsSection'
 import WhatYouGetSection from '@/components/Services/WhatYouGetSection'
 
-const pageTitle = "FinTech Software Testing Services | QAonCloud";
+const pageTitle = "Functional Testing Services | QAonCloud";
 const pageDescription =
-  "QAonCloud provides fintech and banking software testing services including security, compliance, API, and performance testing for reliable financial applications.";
+  "QAonCloud's functional testing catches what manual QA misses. AI-powered test intelligence. Fewer escaped defects. Measurable outcomes.";
 const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
 
 export const metadata = {
