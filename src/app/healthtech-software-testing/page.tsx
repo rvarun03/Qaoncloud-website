@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: pageDescription,
   },
 }
-export const healthcareData = {
+const healthcareData = {
   title: "HealthTech teams",
   highlight: "ship faster with QAonCloud",
   featured: {
@@ -136,7 +136,7 @@ const WorkWellData = {
             { icon: ScanEye, title: '2. A focused Pilot', description: "We’ll start with a focused 1-month pilot. You'll see the 40% improvement on real work, with compliant processes from day one." },
             { icon: ChartTrendIcon, title: '3. Scale together', description: "We grow with you as your product grows. More surfaces, more integrations, more coverage. Same team that knows your product and your compliance needs." },
   ]}
-export const healthcareRows: ComparisonRow[] = [
+const healthcareRows: ComparisonRow[] = [
   {
     alternative: "In-house QA team",
     problem: "It takes 6+ months to hire, train and equip someone who understands HealthTech compliance. Then you have to worry about retaining them, too.",

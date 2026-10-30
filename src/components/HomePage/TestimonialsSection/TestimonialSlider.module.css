@@ -199,7 +199,7 @@
 
 /* ---------- Pagination — Figma style ---------- */
 
-:global(.swiper-pagination) {
+.sliderWrap :global(.swiper-pagination) {
   position: relative;
   margin-top: 28px;
   display: flex !important;
@@ -209,7 +209,7 @@
   bottom: unset !important;
 }
 
-:global(.swiper-pagination-bullet) {
+.sliderWrap :global(.swiper-pagination-bullet) {
   width: 10px;
   height: 10px;
   background: rgba(255, 255, 255, 0.25);
@@ -220,7 +220,7 @@
   flex-shrink: 0;
 }
 
-:global(.swiper-pagination-bullet-active) {
+.sliderWrap :global(.swiper-pagination-bullet-active) {
   width: 40px;
   height: 10px;
   background: #3b82f6;

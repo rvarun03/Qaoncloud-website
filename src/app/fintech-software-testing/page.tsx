@@ -139,7 +139,7 @@ const WorkWellData = {
   ]}
 
 
-export const fintechRows: ComparisonRow[] = [
+const fintechRows: ComparisonRow[] = [
   {
     alternative: "In-house QA team",
     problem: "It takes 6 months to hire and train someone who understands FinTech compliance.",

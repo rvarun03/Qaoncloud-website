@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const saasData = {
+const saasData = {
   title: "SaaS teams",
   highlight: "ship faster with confidence",
   featured: {
@@ -138,7 +138,7 @@ const WorkWellData = {
   ]}
 
   
-export const saasRows: ComparisonRow[] = [
+const saasRows: ComparisonRow[] = [
   {
     alternative: "In-house QA team",
     problem: "Takes 6+ months to hire and ramp. You're already behind by the time they're productive.",
