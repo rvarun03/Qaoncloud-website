@@ -20,7 +20,7 @@
   line-height: 100%;
 }
 
-/* ── Slider Container (arrows + marquee) ── */
+/* ── Slider Container (arrows + logos) ── */
 .sliderContainer {
   display: flex;
   align-items: center;
@@ -35,26 +35,14 @@
   flex: 1;
   overflow: hidden;
   position: relative;
+  min-width: 0;
 }
 
 .track {
   display: flex;
   gap: 40px;
   width: max-content;
-  animation: scroll 35s linear infinite;
-}
-
-.track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-33.33%);
-  }
+  transition: transform 0.4s ease;
 }
 
 /* ── Logo Card ── */
@@ -80,15 +68,40 @@
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-/* ── Arrow Buttons — hidden on desktop ── */
+/* ── Arrow Buttons ── */
 .arrowBtn {
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  flex-shrink: 0;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  color: #3b82f6;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.arrowBtn:hover:not(:disabled) {
+  background: #3b82f6;
+  color: white;
+}
+
+.arrowBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* ── Mobile ── */
 @media (max-width: 700px) {
   .sliderContainer {
-    
+    max-width: 440px;
+    margin: 0 auto;
     gap: 8px;
     overflow: hidden;
     justify-content: center;
@@ -99,30 +112,25 @@
   }
   .marquee {
     overflow: hidden;
-    flex: 1;
+    flex: 1 1 0;
     min-width: 0;
-    width: 0;
   }
 
   .track {
-    animation: none !important;
     gap: 0;
+    width: 100%;
     display: flex;
     flex-wrap: nowrap;
-    transition: transform 0.4s ease;
   }
 
-  /* 
-    card width = 100vw - (2×arrow 36px) - (2×gap 8px) - (2×padding 12px) = 100vw - 116px
-    this ensures card fits exactly with no bleed
-  */
-   .logoCard {
+  /* One full card is visible between the two navigation buttons. */
+  .logoCard {
     flex-shrink: 0;
     box-sizing: border-box;
-    width: calc(100vw - 80px);
-    min-width: unset;
-    height: 80px;
-    padding: 12px 20px;
+    width: 100%;
+    min-width: 100%;
+    height: 68px;
+    padding: 10px 16px;
   }
 
   .logo {
@@ -133,31 +141,4 @@
     filter: saturate(1.4) brightness(0.92);
   }
 
-  .arrowBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    min-width: 36px;
-    flex-shrink: 0;
-    background: rgba(59, 130, 246, 0.15);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    border-radius: 50%;
-    color: #3b82f6;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 2;
-  }
-
-  .arrowBtn:hover:not(:disabled) {
-    background: #3b82f6;
-    color: white;
-  }
-
-  .arrowBtn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
 }

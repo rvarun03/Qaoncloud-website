@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import classes from "./clientslider.module.css";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Indihood from "../../../assets/logos/indihood_logo.png";
 import avanti from "../../../assets/logos/avanti.png";
@@ -52,8 +52,6 @@ const clientLogos = [
   { id: 22, src: solidNetworks, alt: "Solid State Networks" },
 ];
 
-const SLIDE_BY = 180;
-
 type ClientSliderProps = {
   heading: string;
 };
@@ -61,36 +59,54 @@ type ClientSliderProps = {
 export default function ClientSlider({ heading }: ClientSliderProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [cardIndex, setCardIndex] = useState(0);
-  const [cardWidth, setCardWidth] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [step, setStep] = useState(0);
+  const [maxPosition, setMaxPosition] = useState(0);
 
   useEffect(() => {
-    const update = () => {
-      const mobile = window.innerWidth <= 700;
-      setIsMobile(mobile);
-      if (marqueeRef.current) {
-        setCardWidth(marqueeRef.current.offsetWidth);
-      }
+    const updateMeasurements = () => {
+      const marquee = marqueeRef.current;
+      const track = trackRef.current;
+      const cards = track?.children;
+
+      if (!marquee || !track || !cards?.length) return;
+
+      const firstCard = cards[0] as HTMLElement;
+      const secondCard = cards[1] as HTMLElement | undefined;
+      const nextStep = secondCard
+        ? secondCard.offsetLeft - firstCard.offsetLeft
+        : firstCard.offsetWidth;
+      const nextMaxPosition = Math.max(0, track.scrollWidth - marquee.clientWidth);
+
+      setStep((current) => (current === nextStep ? current : nextStep));
+      setMaxPosition((current) =>
+        current === nextMaxPosition ? current : nextMaxPosition,
+      );
+      setPosition((current) => Math.min(current, nextMaxPosition));
     };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+
+    const resizeObserver = new ResizeObserver(updateMeasurements);
+    if (marqueeRef.current) resizeObserver.observe(marqueeRef.current);
+    if (trackRef.current) resizeObserver.observe(trackRef.current);
+
+    updateMeasurements();
+    const animationFrame = window.requestAnimationFrame(updateMeasurements);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
+    };
   }, []);
 
-  const displayLogos = isMobile
-    ? clientLogos
-    : [...clientLogos, ...clientLogos, ...clientLogos];
-
-  const maxIndex = clientLogos.length - 1;
-
   const slide = (dir: "left" | "right") => {
-    setCardIndex((prev) => {
-      const next = dir === "right" ? prev + 1 : prev - 1;
-      return Math.max(0, Math.min(next, maxIndex));
+    setPosition((current) => {
+      const nextPosition = dir === "right" ? current + step : current - step;
+      return Math.max(0, Math.min(nextPosition, maxPosition));
     });
   };
 
+  const isBeginning = position <= 0;
+  const isEnd = position >= maxPosition - 1;
   return (
   <section className={classes.wrapper}>
     <div className={classes.container}>
@@ -104,23 +120,22 @@ export default function ClientSlider({ heading }: ClientSliderProps) {
       <button
         className={classes.arrowBtn}
         onClick={() => slide("left")}
-        disabled={cardIndex === 0}
+        disabled={isBeginning}
+        aria-label="Previous client logos"
       >
         ‹
       </button>
 
-      {/* Marquee */}
       <div className={classes.marquee} ref={marqueeRef}>
         <div
           ref={trackRef}
           className={classes.track}
-          style={isMobile ? { transform: `translateX(-${cardIndex * cardWidth}px)` } : undefined}
+          style={{ transform: `translateX(-${position}px)` }}
         >
-          {displayLogos.map((logo, index) => (
+          {clientLogos.map((logo) => (
             <div
-              key={index}
+              key={logo.id}
               className={classes.logoCard}
-              style={isMobile && cardWidth ? { width: `${cardWidth}px`, minWidth: `${cardWidth}px` } : undefined}
             >
               <Image src={logo.src} alt={logo.alt} width={180} height={60} className={classes.logo} />
             </div>
@@ -132,7 +147,8 @@ export default function ClientSlider({ heading }: ClientSliderProps) {
       <button
         className={classes.arrowBtn}
         onClick={() => slide("right")}
-        disabled={cardIndex === maxIndex}
+        disabled={isEnd}
+        aria-label="Next client logos"
       >
         ›
       </button>
