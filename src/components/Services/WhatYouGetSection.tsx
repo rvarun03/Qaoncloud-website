@@ -1,38 +1,24 @@
 import Image from "next/image";
 import styles from "./WhatYouGetSection.module.css";
 import SectionHeader from "@/components/Common/SectionHeader/SectionHeader";
-type Deliverable = {
+export type ServiceDeliverable = {
   title: string;
   description: string;
   imageSrc?: string;
+  isWide?: boolean;
 };
 
-const deliverables: Deliverable[] = [
-  {
-    title: "Test cases",
-    description:
-      "IDs, steps, test data, expected vs. actual results, and severity classification. Specific, reproducible, traceable.",
-    imageSrc: "/Images/FunctionalTesting/WhatYouGet/TestCases.png",
-  },
-  {
-    title: "Bug reports",
-    description:
-      "Exact steps to reproduce, screenshots, environment details, and impact assessment. No guesswork.",
-    imageSrc: "/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png",
-  },
-  {
-    title: "Weekly QA reports",
-    description:
-      "Pass/fail breakdown, defect distribution by module, coverage progress, risk flags, and recommendations for the next cycle.",
-  },
-];
+type WhatYouGetSectionProps = {
+  title: string;
+  deliverables: ServiceDeliverable[];
+};
 
-function DeliverableCard({ deliverable, isWide }: { deliverable: Deliverable; isWide: boolean }) {
+function DeliverableCard({ deliverable }: { deliverable: ServiceDeliverable }) {
   const hasArtwork = Boolean(deliverable.imageSrc);
 
   return (
     <article
-      className={`${styles.card} ${isWide ? styles.cardWide : ""} ${
+      className={`${styles.card} ${deliverable.isWide ? styles.cardWide : ""} ${
         hasArtwork ? styles.cardWithArtwork : ""
       }`}
     >
@@ -55,17 +41,13 @@ function DeliverableCard({ deliverable, isWide }: { deliverable: Deliverable; is
   );
 }
 
-export default function WhatYouGetSection() {
+export default function WhatYouGetSection({ title, deliverables }: WhatYouGetSectionProps) {
   return (
     <section className={styles.section} aria-labelledby="what-you-get-title">
-      <SectionHeader title="What you get" />
+      <SectionHeader title={title} />
       <div className={styles.grid}>
-        {deliverables.map((deliverable, index) => (
-          <DeliverableCard
-            key={deliverable.title}
-            deliverable={deliverable}
-            isWide={index === deliverables.length - 1}
-          />
+        {deliverables.map((deliverable) => (
+          <DeliverableCard key={deliverable.title} deliverable={deliverable} />
         ))}
       </div>
     </section>

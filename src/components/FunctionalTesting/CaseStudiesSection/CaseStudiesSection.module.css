@@ -1,0 +1,116 @@
+.section {
+  margin: var(--section-header-margin) auto 0;
+  margin-bottom: var(--padding-bottom);
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.caseStudyCard {
+  padding: 24px;
+  background: linear-gradient(260.89deg, #1A1B1D -37.57%, #0C0D0F 100%);
+  border: 1px solid #292929;
+  border-radius: 10px;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-Inter);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.5px;
+  line-height: var(--line-tight);
+}
+
+.cardTitleHighlight {
+  color: #ff8641;
+}
+
+.divider {
+  height: 1px;
+  margin: 20px 0;
+  background: #292929;
+}
+
+.cardContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(240px, 0.9fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.caseStudyDetails {
+  display: grid;
+  gap: 20px;
+}
+
+.detailLabel,
+.detailText,
+.outcomeLabel,
+.outcomeValue,
+.outcomeDescription {
+  margin: 0;
+}
+
+.detailLabel,
+.outcomeLabel {
+  color: #ffffff;
+  font-family: var(--font-Inter);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  line-height: var(--line-normal);
+}
+
+.detailText {
+  margin-top: 6px;
+  color: #b4b4b4;
+  font-family: var(--font-Inter);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-regular);
+  line-height: 1.55;
+}
+
+.outcomeCard {
+  padding: 16px;
+  background: linear-gradient(260.89deg, #002A8D -37.57%, #090C0E 100%);
+  border: 1px solid #203C60;
+  border-radius: 10px;
+}
+
+.outcomeValue {
+  margin-top: 6px;
+  color: #3093E8 !important;
+  font-family: var(--font-h1);
+  font-size: clamp(28px, 2.6vw, 38px);
+  font-weight: var(--weight-bold);
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
+
+.outcomeDescription {
+  margin-top: 6px;
+  color: #d5dbe3;
+  font-family: var(--font-Inter);
+  font-size: var(--text-caption);
+  line-height: var(--line-normal);
+}
+
+.outcomeHighlights {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 16px 0 0 16px;
+  border-top: 1px solid #203C60;
+  color: #d5dbe3;
+  font-family: var(--font-Inter);
+  font-size: var(--text-caption);
+  line-height: 1.55;
+}
+
+.outcomeHighlights li::marker {
+  color: #2196ff;
+}

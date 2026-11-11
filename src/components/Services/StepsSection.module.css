@@ -122,6 +122,11 @@
   stroke-width: 2;
 }
 
+.flowIcon {
+  width: 30px;
+  height: 30px;
+}
+
 .card h3,
 .card p {
   position: relative;

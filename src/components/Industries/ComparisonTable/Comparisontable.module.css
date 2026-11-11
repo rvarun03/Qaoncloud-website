@@ -65,15 +65,15 @@
 }
 
 .table colgroup col:nth-child(1) {
-  width: 25%;
+  width: 28%;
 }
 
 .table colgroup col:nth-child(2) {
-  width: 40%;
+  width: 35%;
 }
 
 .table colgroup col:nth-child(3) {
-  width: 40%;
+  width: 37%;
 }
 
 .theadRow {
@@ -118,6 +118,8 @@
   justify-content: center;
   margin-right: 10px;
   vertical-align: middle;
+  position: relative;
+  top: -2px;
   flex-shrink: 0;
 }
 

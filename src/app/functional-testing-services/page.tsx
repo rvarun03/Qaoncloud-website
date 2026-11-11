@@ -9,13 +9,15 @@ import { ComparisonRow } from '@/components/Industries/ComparisonTable/Compariso
 import ClientSlider from '@/components/Common/Slider/Slider'
 import ReleaseRegulations from '@/components/Industries/ReleaseRegulations/ReleaseRegulations'
 import WorkWell from '@/components/Industries/WorkWell/WorkWell'
-import { Headset, ScanEye } from 'lucide-react'
+import { Binoculars, FileChartColumn, Headset, Paintbrush, ScanEye } from 'lucide-react'
 import { forwardRef } from 'react'
 import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
-import StepSection from '@/components/Services/StepsSection'
-import WhatYouGetSection from '@/components/Services/WhatYouGetSection'
+import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
+import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
+import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
 const pageTitle = "Functional Testing Services | QAonCloud";
 const pageDescription =
@@ -81,26 +83,26 @@ const mistakesData = {
   highlight: "in production?",
   description: (
     <>
-      You built the feature. It passed the code review. It looked great in staging. Then a user hit an edge case no one thought 
+      You built the feature. It passed code review. It looked great in staging. Then a user hit an edge case no one thought of, and your support queue caught fire.
       
       of, and your support queue caught fire.
     </>
   ),
   cards: [
-    { title: "Coverage is shallow", description: "You’re testing the happy path and calling it done. But real users don’t follow the happy path. They enter unexpected inputs, skip steps, and use your product in ways no one anticipated." },
-    { title: "Engineers are testing their own code", description: `The same people who wrote the feature are testing it. That’s like proofreading your own essay — you’ll miss what you expect to see` },
-    { title: "Test cases are stale", description: "Requirements changed mid-sprint. Features evolved. But your test cases still reflect what the product looked like three months ago." },
+    { title: "Coverage is shallow", description: "You're testing the happy path and calling it done. Real users don't follow the happy path. They enter unexpected inputs, skip steps, and use your product in ways no one planned for. Without AI analysing where defects actually cluster, you're guessing what to test." },
+    { title: "Engineers are testing their own code", description: `That's like proofreading your own essay. They'll miss what they expect to see. And every hour they spend testing is an hour they're not shipping.` },
+    { title: "Test cases are stale", description: "Requirements changed mid-sprint. Features evolved. Your test cases still reflect what the product looked like three months ago. Stale tests give you false confidence — and real production bugs." },
   ],
 }
 
 const releaseRegulationsData = {
-  title: "Functional testing that covers ",
-  highlight: "what actually matters",
-  description: `We learn your product, map your critical user flows, and test every feature against what your users actually do. AI handles the volume. Engineers handle the judgment.`,
+  title: "AI-powered functional testing.  ",
+  highlight: "Outcomes, not effort",
+  description: `We don't sell you hours or headcount: We commit to outcomes — fewer escaped defects, higher coverage across critical flows, and production stability you can measure.`,
   cards: [
-    { title: "Scope that matches your product, not a template", description: "UI interactions, business logic, data validations, workflows, integrations, and edge cases. Nothing is assumed. Nothing is skipped." },
-    { title: "Test design rooted in real user behaviour", description: "We design test cases around real scenarios. Positive paths, negative paths, boundary values, and the weird stuff users do that no one planned for." },
-    { title: "Execution that keeps pace with your sprints", description: "AI runs high-volume test cycles across browsers and devices in parallel. Engineers focus on exploratory testing and the calls that algorithms can’t make." },
+    { title: "AI at the test design layer, not just execution", description: "Most testing tools automate execution — running the same scripts, just faster. We use AI where it actually matters: deciding what to test and why. Our models analyse your application, your defect history, and your code changes to generate test cases targeting the areas most likely to break." },
+    { title: "Coverage that's measured, not assumed", description: "We map every critical user flow and track coverage against it. Not lines of code — real user paths. You'll know exactly which flows are tested, where gaps exist, and where bugs are most likely to escape." },
+    { title: "Results you can see in your defect metrics", description: "Escaped defect rate. Production bug counts. Coverage percentages. The metrics that actually tell you whether testing is working — not timesheets." },
   ],
 }
 
@@ -140,27 +142,80 @@ const WorkWellData = {
             { icon: ChartTrendIcon, title: '3. Scale together', description: "We’ll grow with your product. More surfaces, more test coverage, more ownership." },
   ]}
 
+const functionalTestingSteps: ServiceStep[] = [
+  {
+    id: 1,
+    label: 'Step 1',
+    position: 'left',
+    title: 'Understand your product',
+    description: 'We learn your application inside out — features, user roles, business rules, integrations, and the edge cases that keep your team up at night. We define success metrics together: target defect rates, coverage thresholds, the flows that matter most.',
+    icon: Binoculars,
+  },
+  {
+    id: 2,
+    label: 'Step 2',
+    position: 'right',
+    title: 'Map critical user flows',
+    description: 'Every path a user can take, from onboarding to checkout. Each flow prioritised by business impact and historical defect density. Not guesswork — data.',
+    icon: FlowIcon,
+  },
+  {
+    id: 3,
+    label: 'Step 3',
+    position: 'left',
+    title: 'AI-powered test design + engineering review',
+    description: 'AI generates risk-weighted test cases across positive paths, negative paths, boundary values, and edge cases. Engineers review, refine, and add the domain-specific scenarios only someone who knows your product would think of.',
+    icon: Paintbrush,
+  },
+  {
+    id: 4,
+    label: 'Step 4',
+    position: 'right',
+    title: 'Execute, measure and improve',
+    description: 'Tests run against your staging environment every cycle. You get reporting — not just pass/fail, but coverage progress, defect trends, and risk flags. Each cycle feeds back into the AI, making coverage smarter over time.',
+    icon: FileChartColumn,
+  },
+]
+
+const functionalTestingDeliverables: ServiceDeliverable[] = [
+  {
+    title: 'Test cases',
+    description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
+    imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+  },
+  {
+    title: 'Bug reports',
+    description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
+    imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+  },
+  {
+    title: 'Coverage dashboards',
+    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
+    isWide: true,
+  },
+]
+
 
 const fintechRows: ComparisonRow[] = [
   {
     alternative: "In-house QA team",
-    problem: "Takes months to hire. Still misses bugs because they’re too close to the code.",
-    difference: "We’re productive in weeks. Fresh eyes, deep expertise, no blind spots.",
+    problem: "Takes months to hire. Still misses bugs because they're too close to the code. No AI layer to find the gaps.",
+    difference: "Productive in weeks. AI finds coverage gaps your team can't see. Measurable defect reduction from month one.",
   },
   {
     alternative: "Offshore QA vendors",
-    problem: "Junior testers following scripts blindly. They log failures, they don’t explain why it matters.",
-    difference: "Senior engineers who understand your product and tell you what’s at risk.",
+    problem: "Junior testers following scripts. They log what failed — they don't tell you what's at risk.",
+    difference: "Senior engineers backed by AI. We reduce your escaped defect rate and prove it in your metrics.",
   },
   {
     alternative: "AI testing tools alone",
     problem: "Great at generating test cases. Terrible at knowing which ones matter.",
-    difference: "AI handles volume. Engineers handle judgment. You get both",
+    difference: "AI handles test intelligence. Engineers handle judgment. You get both.",
   },
   {
     alternative: "Your engineers doing QA",
-    problem: "Your most expensive people doing work that isn’t their job. Features don’t ship.",
-    difference: "Free your engineers to build. We handle testing with people who do this all day",
+    problem: "Your most expensive people doing work that isn't their job. Features don't ship. Bugs still escape.",
+    difference: "Free your engineers to build. We deliver fewer production bugs and higher coverage — with people and AI built for it.",
   },
 ];
 
@@ -172,12 +227,12 @@ export default function page() {
           <div className={classes.homeHeroBg}>
             <IndustryPageHeader
               tag="Functional Testing Services | QAonCloud"
-              title="Every feature works. Every time"
+              title="Every feature works. Every edge case covered"
               description={
                 <>
-                  Your users don’t care how it was built. They care that it works. Our functional testing catches bugs, glitches, and broken flows before anyone outside your team sees them.
+                  Your users don't file bug reports — they leave. Our AI-powered functional testing catches the bugs, glitches, and broken flows that manual QA misses.
                   <span className={classes.brightBadges}>
-                    ✅ AI-accelerated     ✅ Expert-driven  ✅ 40% faster.
+                    ✅ Not faster testing     ✅ More effective testing  ✅ Measurably fewer bugs in production.
                   </span>
                 </>
                 
@@ -206,26 +261,37 @@ export default function page() {
             
           <ContentWrapper>
             
-           <StepSection />
+           <StepSection
+              title="How we design and execute "
+              highlight="functional tests"
+              steps={functionalTestingSteps}
+            />
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection />
+            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>
             <ComparisonTable title="Here’s why " highlight="teams choose us" rows={fintechRows} />
           </ContentWrapper>
-
+          <SectionDivider />
+          <ContentWrapper>
+            <CaseStudiesSection
+              heading="Real outcomes."
+              highlightedHeading="Real teams."
+              caseStudies={functionalTestingCaseStudies}
+            />
+          </ContentWrapper>
           <FAQs
             title="FAQs"
             highlight=""
             faqs={[
-              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, and enterprise applications. If it has features and users, we test it." },
-              { question: "Do you do both manual and automated functional testing?", answer: "Yes. AI-accelerated automation for repetitive, high-volume scenarios. Manual exploratory testing for edge cases and the things automation can’t catch." },
-              { question: "How quickly can you start?", answer: "Most teams are up and running within 2-3 weeks. You’ll see results within the first month." },
-              { question: "What tools do you work with?", answer: "We integrate with your existing stack — Jira, TestRail, Zephyr, GitHub, or whatever you use. We adapt to you." },
-              { question: 'How does pricing work? ', answer: "Depends on scope — number of features, release frequency, and complexity. Book a discovery call and we’ll give you a real number." },
+              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, enterprise applications. If it has features and users, we test it." },
+              { question: "How does AI make testing more effective?", answer: "AI analyses your app structure, defect history, and code changes to generate test cases weighted by risk — not just volume. It finds the gaps manual testing misses, prioritises what's most likely to break, and gets smarter every cycle." },
+              { question: "Do you do both manual and automated testing? ", answer: "Yes. AI-powered automation for intelligent test design and high-coverage execution. Manual exploratory testing for edge cases, business logic, and the things that require human judgment." },
+              { question: "How do you measure success?", answer: "Escaped defect rate, production bug counts, defect density by module, and coverage against critical user flows. Not timesheets — the metrics that tell you whether testing is actually working." },
+              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in your first month." },
             ]}
           />
           <ContentWrapper>
@@ -238,6 +304,8 @@ export default function page() {
               decorativeImage="/Images/Footer/HomePage.png"
             />
           </ContentWrapper>
+          <SectionDivider />
+          
         </div>
       </div>
     </div>
