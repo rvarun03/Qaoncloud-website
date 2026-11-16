@@ -126,6 +126,15 @@ const Navbar = () => {
                   <Link href="/functional-testing-services" className={styles.industryLink} onClick={closeMenu}>
                     Functional Testing
                   </Link>
+                  <Link href="/regression-testing-services" className={styles.industryLink} onClick={closeMenu}>
+                    Regression Testing
+                  </Link>
+                  <Link href="/cross-browser-testing-services" className={styles.industryLink} onClick={closeMenu}>
+                    Cross-Browser Testing
+                  </Link>
+                  <Link href="/cross-platform-testing-services" className={styles.industryLink} onClick={closeMenu}>
+                    Cross-Platform Testing
+                  </Link>
                 </div>
               </div>
             </div>

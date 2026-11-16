@@ -1,15 +1,20 @@
 .section {
   margin: var(--section-header-margin) auto 0;
   margin-bottom: var(--padding-bottom);
+  width: 100%;
+  min-width: 0;
 }
 
 .cards {
   display: grid;
   gap: 16px;
   margin-top: 32px;
+  min-width: 0;
 }
 
 .caseStudyCard {
+  box-sizing: border-box;
+  min-width: 0;
   padding: 24px;
   background: linear-gradient(260.89deg, #1A1B1D -37.57%, #0C0D0F 100%);
   border: 1px solid #292929;
@@ -24,6 +29,7 @@
   font-weight: var(--weight-bold);
   letter-spacing: -0.5px;
   line-height: var(--line-tight);
+  overflow-wrap: break-word;
 }
 
 .cardTitleHighlight {
@@ -41,11 +47,13 @@
   grid-template-columns: minmax(0, 1.65fr) minmax(240px, 0.9fr);
   gap: 32px;
   align-items: start;
+  min-width: 0;
 }
 
 .caseStudyDetails {
   display: grid;
   gap: 20px;
+  min-width: 0;
 }
 
 .detailLabel,
@@ -72,9 +80,12 @@
   font-size: var(--text-h5);
   font-weight: var(--weight-regular);
   line-height: 1.55;
+  overflow-wrap: break-word;
 }
 
 .outcomeCard {
+  box-sizing: border-box;
+  min-width: 0;
   padding: 16px;
   background: linear-gradient(260.89deg, #002A8D -37.57%, #090C0E 100%);
   border: 1px solid #203C60;
@@ -97,6 +108,7 @@
   font-family: var(--font-Inter);
   font-size: var(--text-caption);
   line-height: var(--line-normal);
+  overflow-wrap: break-word;
 }
 
 .outcomeHighlights {
@@ -113,4 +125,43 @@
 
 .outcomeHighlights li::marker {
   color: #2196ff;
+}
+
+.outcomeHighlights li {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 1200px) {
+  .cardContent {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .caseStudyCard {
+    padding: 20px;
+  }
+
+  .divider {
+    margin: 16px 0;
+  }
+
+  .caseStudyDetails {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .caseStudyCard {
+    padding: 16px;
+  }
+
+  .outcomeCard {
+    padding: 14px;
+  }
+
+  .outcomeHighlights {
+    padding-left: 14px;
+  }
 }
