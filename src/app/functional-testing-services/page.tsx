@@ -15,7 +15,8 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
-import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import WhatYouGetSection, { type FunctionalTestingDeliverable } from '@/components/FunctionalTesting/WhatYouGetSection/WhatYouGetSection'
+import AiTestingEffectivenessSection, { type AiTestingCapability } from '@/components/FunctionalTesting/AiTestingEffectivenessSection/AiTestingEffectivenessSection'
 import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
 import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
@@ -177,23 +178,53 @@ const functionalTestingSteps: ServiceStep[] = [
   },
 ]
 
-const functionalTestingDeliverables: ServiceDeliverable[] = [
+const functionalTestingDeliverables: FunctionalTestingDeliverable[] = [
   {
     title: 'Test cases',
     description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+    tone: 'dark',
   },
   {
     title: 'Bug reports',
     description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+    tone: 'dark',
   },
   {
-    title: 'Coverage dashboards',
-    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
-    isWide: true,
+    title: 'Weekly QA reports',
+    description: 'A clear view of completed testing, defects found, coverage progress, and the priorities for the next cycle.',
+    tone: 'blue',
   },
-]
+  {
+    title: 'Outcome reports',
+    description: 'Measurable progress against critical user flows, defect trends, and the outcomes that matter in production.',
+    tone: 'blue',
+  },
+];
+
+const aiTestingCapabilities: AiTestingCapability[] = [
+  {
+    number: '01',
+    title: 'Intelligent test case generation',
+    description: 'AI analyses your application structure, past defect patterns, and code change history to generate test cases weighted by risk. High-risk areas get deeper coverage. Stable areas get efficient regression checks. No manual prioritisation.',
+  },
+  {
+    number: '02',
+    title: 'Change-aware impact analysis',
+    description: 'Your team pushes a new build. AI maps which features and flows are affected. Tests re-prioritise automatically — the areas most likely to break get tested first, not after everything else.',
+  },
+  {
+    number: '03',
+    title: 'Defect pattern recognition',
+    description: 'AI learns from every bug found — across your product and across our entire client base. It spots where defects cluster (integration points, state transitions, boundary conditions) and generates targeted tests for similar risk areas in your product.',
+  },
+  {
+    number: '04',
+    title: 'Self-healing test maintenance',
+    description: "UI elements shift. Flows change. AI identifies broken test references and fixes them — so your test suite doesn't decay the way most do.",
+  },
+];
 
 
 const fintechRows: ComparisonRow[] = [
@@ -269,7 +300,11 @@ export default function page() {
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
+            <WhatYouGetSection deliverables={functionalTestingDeliverables} />
+          </ContentWrapper>
+          <SectionDivider />
+          <ContentWrapper>
+            <AiTestingEffectivenessSection capabilities={aiTestingCapabilities} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>

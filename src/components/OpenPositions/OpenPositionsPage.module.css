@@ -1,0 +1,28 @@
+.page {
+  min-height: 100vh;
+  background: #050505;
+}
+
+.section {
+  width: min(100% - 64px, var(--width-lg));
+  margin: var(--section-header-margin) auto 0;
+  padding-bottom: var(--padding-bottom);
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    width: min(100% - 40px, var(--width-lg));
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    width: min(100% - 32px, var(--width-lg));
+  }
+}

@@ -6,6 +6,7 @@ import { FiMapPin, FiPhone, FiMail, FiCheckCircle, FiXCircle, FiX } from 'react-
 import ReCAPTCHA from 'react-google-recaptcha';
 import styles from './CareerPage.module.css';
 import PageHeader from '../Common/PageHeader/PageHeader';
+import Button from '../Common/Button/Button';
 
 /* ─────────────────────────────────────────
    Status Dialog
@@ -332,6 +333,18 @@ export default function CareerPage() {
                   <FiMail className={styles.icon} />
                    <a href="mailto:contactus@qaoncloud.com" className={styles.contactValue} > contactus@qaoncloud.com </a>
                 </div>
+
+                <div className={styles.divider} />
+
+                <section className={styles.uploadSection} aria-labelledby="open-positions-heading">
+                  <h3 id="open-positions-heading" className={styles.cardTitle}>Explore Open Positions</h3>
+                  <p className={styles.contactValue}>
+                    Discover opportunities to grow your career with QAonCloud.
+                  </p>
+                  <Button href="/careers/open-positions" variant="heroPrimary" size="cta">
+                    View Open Positions
+                  </Button>
+                </section>
 
               </div>
             </div>

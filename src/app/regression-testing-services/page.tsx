@@ -77,19 +77,17 @@ const finTechData = {
 };
 
 const mistakesData = {
-  title: "Your features work in a demo. Do they work  ",
-  highlight: "in production?",
+  title: "You're shipping fixes that ",
+  highlight: "create new problems.",
   description: (
     <>
-      You built the feature. It passed code review. It looked great in staging. Then a user hit an edge case no one thought of, and your support queue caught fire.
-      
-      of, and your support queue caught fire.
+     You pushed a hotfix for checkout. Payments work now. But the discount code flow broke silently, and no one noticed until a customer screenshot landed in your support channel.
     </>
   ),
   cards: [
-    { title: "Coverage is shallow", description: "You're testing the happy path and calling it done. Real users don't follow the happy path. They enter unexpected inputs, skip steps, and use your product in ways no one planned for. Without AI analysing where defects actually cluster, you're guessing what to test." },
-    { title: "Engineers are testing their own code", description: `That's like proofreading your own essay. They'll miss what they expect to see. And every hour they spend testing is an hour they're not shipping.` },
-    { title: "Test cases are stale", description: "Requirements changed mid-sprint. Features evolved. Your test cases still reflect what the product looked like three months ago. Stale tests give you false confidence — and real production bugs." },
+    { title: "Your regression suite is bloated and blind", description: "You're running hundreds of test cases every release. Half of them test things that haven't changed. The other half miss the features that actually got affected by the new code. Volume without intelligence." },
+    { title: `"It worked before" isn't a test strategy`, description: `Your team assumes unchanged code stays unchanged. It doesn't. Dependencies shift, data flows change, side effects ripple. Without AI mapping the actual blast radius of every change, you're hoping — not testing.` },
+    { title: "Regression testing slows down releases", description: "Instead of protecting them, every release waits for a full regression pass. Most of those tests are irrelevant to the change. The ones that matter get the same priority as everything else. Your test cycle is long, but your confidence is still low." },
   ],
 }
 

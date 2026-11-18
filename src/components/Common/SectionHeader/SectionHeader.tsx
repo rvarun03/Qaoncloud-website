@@ -4,6 +4,7 @@ import classes from './SectionHeader.module.css';
 interface SectionHeaderProps {
   title: string;
   highlight?: string;
+  trailingText?: string;
   description?: ReactNode;
   subDescription?: string; // 👈 new optional para
   marginBottom?: number;
@@ -12,6 +13,7 @@ interface SectionHeaderProps {
 export default function SectionHeader({
   title,
   highlight,
+  trailingText,
   description,
   subDescription,
   marginBottom,
@@ -29,6 +31,7 @@ export default function SectionHeader({
       <h2 className={classes.sectionTitle} style={marginStyle}>
         {title}{" "}
         {highlight && <span className={classes.highlight}>{highlight}</span>}
+        {trailingText && <> {trailingText}</>}
       </h2>{
         description && <p className={classes.sectionDescription} style={marginStyle}>{description}</p>
       }
