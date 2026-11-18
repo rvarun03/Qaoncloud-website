@@ -4,16 +4,11 @@ import { jobs } from '@/data/jobs';
 
 export const runtime = 'nodejs';
 
-const MAX_RESUME_SIZE = 10 * 1024 * 1024;
+const MAX_RESUME_SIZE = 5 * 1024 * 1024;
 const ALLOWED_RESUMES: Record<string, string> = {
   '.pdf': 'application/pdf',
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
-
-function getText(formData: FormData, field: string) {
-  const value = formData.get(field);
-  return typeof value === 'string' ? value.trim() : '';
-}
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, character => ({
@@ -25,30 +20,50 @@ function escapeHtml(value: string) {
   })[character] as string);
 }
 
+function isValidName(value: string) {
+  return /^[a-zA-Z\s\-']{1,100}$/.test(value);
+}
+
+function getText(formData: FormData, field: string) {
+  const value = formData.get(field);
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
+    const firstName = getText(formData, 'firstName');
+    const lastName = getText(formData, 'lastName');
+    const email = getText(formData, 'email');
     const jobTitle = getText(formData, 'jobTitle');
     const resume = formData.get('resume');
     const job = jobs.find((opening) => opening.title === jobTitle);
 
+    if (!firstName || !lastName || !email || !jobTitle) {
+      return NextResponse.json({ error: 'First name, last name, email, and role are required.' }, { status: 400 });
+    }
+    if (!isValidName(firstName) || !isValidName(lastName)) {
+      return NextResponse.json({ error: 'Please enter a valid first and last name.' }, { status: 400 });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
+    }
     if (!job) {
-      return NextResponse.json({ error: 'Invalid job opening' }, { status: 400 });
+      return NextResponse.json({ error: 'Please select a current job opening.' }, { status: 400 });
     }
     if (!(resume instanceof File) || resume.size === 0) {
-      return NextResponse.json({ error: 'A resume is required' }, { status: 400 });
+      return NextResponse.json({ error: 'A resume is required.' }, { status: 400 });
     }
 
     const resumeName = resume.name.split(/[\\/]/).pop() || 'resume';
     const extensionIndex = resumeName.lastIndexOf('.');
     const extension = extensionIndex >= 0 ? resumeName.slice(extensionIndex).toLowerCase() : '';
     const contentType = ALLOWED_RESUMES[extension];
-
     if (!contentType) {
-      return NextResponse.json({ error: 'Only PDF or DOCX resumes are allowed' }, { status: 400 });
+      return NextResponse.json({ error: 'Only PDF and DOCX resumes are allowed.' }, { status: 400 });
     }
     if (resume.size > MAX_RESUME_SIZE) {
-      return NextResponse.json({ error: 'The resume must be 10 MB or smaller' }, { status: 400 });
+      return NextResponse.json({ error: 'Your resume must be 5 MB or smaller.' }, { status: 400 });
     }
 
     const smtpHost = process.env.SMTP_HOST;
@@ -67,12 +82,25 @@ export async function POST(request: NextRequest) {
       auth: { user: smtpUser, pass: smtpPass },
     });
 
+    const fullName = `${firstName} ${lastName}`;
     await transporter.sendMail({
       from: `"QAonCloud Careers" <${smtpUser}>`,
       to: 'varun@qaoncloud.com',
-      subject: `Application for ${job.title}`,
-      text: `Please find the attached resume for the ${job.title} position.`,
-      html: `<p>Please find the attached resume for the <strong>${escapeHtml(job.title)}</strong> position.</p>`,
+      replyTo: email,
+      subject: `New application: ${fullName} — ${job.title}`,
+      text: `A new QAonCloud application was submitted.\n\nName: ${fullName}\nEmail: ${email}\nRole: ${job.title}\nResume: ${resumeName} (attached)\n\nReply directly to this email to contact the applicant.`,
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;padding:24px;background:#f8fafc;border-radius:8px;">
+          <h2 style="color:#002A8D;">New career application</h2>
+          <p style="color:#222;line-height:1.6;">A candidate applied through the QAonCloud careers page.</p>
+          <table style="width:100%;border-collapse:collapse;margin-top:16px;">
+            <tr><td style="width:120px;padding:8px 12px 8px 0;font-weight:600;color:#555;">Name</td><td style="padding:8px 0;color:#222;">${escapeHtml(fullName)}</td></tr>
+            <tr><td style="padding:8px 12px 8px 0;font-weight:600;color:#555;">Email</td><td style="padding:8px 0;color:#222;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
+            <tr><td style="padding:8px 12px 8px 0;font-weight:600;color:#555;">Role</td><td style="padding:8px 0;color:#222;">${escapeHtml(job.title)}</td></tr>
+            <tr><td style="padding:8px 12px 8px 0;font-weight:600;color:#555;">Resume</td><td style="padding:8px 0;color:#222;">${escapeHtml(resumeName)} (attached)</td></tr>
+          </table>
+          <p style="margin-top:24px;color:#777;font-size:13px;">Reply directly to this email to contact the applicant.</p>
+        </div>`,
       attachments: [{
         filename: resumeName,
         content: Buffer.from(await resume.arrayBuffer()),
@@ -83,9 +111,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: 'Application sent successfully' });
   } catch (error) {
     console.error('[job-application] Failed to send application:', error);
-    return NextResponse.json(
-      { error: 'Failed to send your application. Please try again.' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to send your application. Please try again.' }, { status: 500 });
   }
 }
