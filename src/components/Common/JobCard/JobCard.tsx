@@ -28,6 +28,9 @@ const emptyApplication = (jobTitle: string): ApplicationDetails => ({
   jobTitle,
 });
 
+// Enable this after the reCAPTCHA site key is authorized for the deployed domain.
+const careersCaptchaEnabled = false;
+
 export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
   const contentId = `job-description-${job.id}`;
   const triggerId = `job-toggle-${job.id}`;
@@ -103,7 +106,7 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
       setResumeError('Please upload your resume.');
       return;
     }
-    if (!captchaToken) {
+    if (careersCaptchaEnabled && !captchaToken) {
       setCaptchaError('Please complete the reCAPTCHA.');
       return;
     }
@@ -118,7 +121,7 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
       formData.append('email', application.email);
       formData.append('jobTitle', application.jobTitle);
       formData.append('resume', resume);
-      formData.append('captchaToken', captchaToken);
+      if (careersCaptchaEnabled && captchaToken) formData.append('captchaToken', captchaToken);
       const response = await fetch('/api/job-application', {
         method: 'POST',
         body: formData,
@@ -225,16 +228,20 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
                   </label>
                   {resume && <p className={styles.fileName}>{resume.name}</p>}
                   {resumeError && <p className={styles.applicationError} role="alert">{resumeError}</p>}
-                  <div className={styles.recaptchaWrap}>
-                    <ReCAPTCHA
-                      ref={recaptchaRef}
-                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                      theme="dark"
-                      onChange={(token) => { setCaptchaToken(token); setCaptchaError(''); }}
-                      onExpired={() => { setCaptchaToken(null); setCaptchaError('reCAPTCHA expired. Please verify again.'); }}
-                    />
-                  </div>
-                  {captchaError && <p className={styles.applicationError} role="alert">{captchaError}</p>}
+                  {careersCaptchaEnabled && (
+                    <>
+                      <div className={styles.recaptchaWrap}>
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                          theme="dark"
+                          onChange={(token) => { setCaptchaToken(token); setCaptchaError(''); }}
+                          onExpired={() => { setCaptchaToken(null); setCaptchaError('reCAPTCHA expired. Please verify again.'); }}
+                        />
+                      </div>
+                      {captchaError && <p className={styles.applicationError} role="alert">{captchaError}</p>}
+                    </>
+                  )}
                   {applicationStatus === 'error' && <p className={styles.applicationError} role="alert">{submissionError}</p>}
                   <button type="submit" className={`${buttonStyles.button} ${buttonStyles.heroPrimary} ${buttonStyles.content} ${styles.submitButton}`} disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : 'Submit application'}

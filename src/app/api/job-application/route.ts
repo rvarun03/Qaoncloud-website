@@ -10,6 +10,9 @@ const ALLOWED_RESUMES: Record<string, string> = {
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
+// Keep validation disabled until the reCAPTCHA site key supports the deployed domain.
+const careersCaptchaEnabled = false;
+
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, character => ({
     '&': '&amp;',
@@ -55,8 +58,8 @@ export async function POST(request: NextRequest) {
     const resume = formData.get('resume');
     const job = jobs.find((opening) => opening.title === jobTitle);
 
-    if (!firstName || !lastName || !email || !jobTitle || !captchaToken) {
-      return NextResponse.json({ error: 'First name, last name, email, role, and reCAPTCHA are required.' }, { status: 400 });
+    if (!firstName || !lastName || !email || !jobTitle) {
+      return NextResponse.json({ error: 'First name, last name, email, and role are required.' }, { status: 400 });
     }
     if (!isValidName(firstName) || !isValidName(lastName)) {
       return NextResponse.json({ error: 'Please enter a valid first and last name.' }, { status: 400 });
@@ -67,7 +70,7 @@ export async function POST(request: NextRequest) {
     if (!job) {
       return NextResponse.json({ error: 'Please select a current job opening.' }, { status: 400 });
     }
-    if (!(await verifyCaptcha(captchaToken))) {
+    if (careersCaptchaEnabled && !(await verifyCaptcha(captchaToken))) {
       return NextResponse.json({ error: 'reCAPTCHA verification failed. Please try again.' }, { status: 400 });
     }
     if (!(resume instanceof File) || resume.size === 0) {
