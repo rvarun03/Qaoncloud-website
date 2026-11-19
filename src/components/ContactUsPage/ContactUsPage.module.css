@@ -258,10 +258,18 @@
  /* Phone icon + number row */
  .phoneRow {
    display: flex;
-   align-items: center;
+  align-items: flex-start;
    gap: 8px;
    margin-top: 4px;
  }
+
+.phoneList {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
 
  /* Divider  */
  .divider {

@@ -9,10 +9,144 @@
   padding-bottom: 96px;
 }
 
-.cards {
+.layout {
   display: grid;
-  gap: 16px;
+  grid-template-columns: minmax(300px, 368px) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 650px;
+  gap: 32px;
+}
+
+.contactPanel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   min-width: 0;
+  height: 100%;
+  padding: 30px;
+  gap: 50px;
+  color: #fff;
+  background: linear-gradient(312.51deg, #2d2d2d -29.25%, #090c0e 52.18%);
+  border: .5px solid #4f4a4a;
+  border-radius: 20px;
+}
+
+.contactTitle {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-Inter);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 34px;
+}
+
+.contactItems,
+.contactGroup,
+.phoneList {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactItems {
+  width: 100%;
+  gap: 24px;
+}
+
+.contactItem,
+.phoneRow {
+  display: flex;
+  align-items: flex-start;
+}
+
+.contactItem {
+  gap: 12px;
+  min-width: 0;
+}
+
+.contactGroup {
+  min-width: 0;
+  flex: 1;
+  gap: 6px;
+}
+
+.contactIcon {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  color: #ff8641;
+}
+
+.contactLabel {
+  color: #fff;
+  font-family: var(--font-Inter);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.contactValue {
+  display: block;
+  color: #fff;
+  font-family: var(--font-Inter);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -.5px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+a.contactValue:hover {
+  color: #54adf5;
+  text-decoration: underline;
+}
+
+.phoneRow {
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.phoneList {
+  gap: 4px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, .1);
+}
+
+.positions {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cards {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .contactPanel {
+    height: auto;
+  }
+
+  .cards {
+    gap: 16px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -21,6 +155,11 @@
     margin-top: 56px;
     padding-bottom: 64px;
   }
+
+  .contactPanel {
+    padding: 24px;
+    gap: 32px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -28,5 +167,18 @@
     width: min(100% - 32px, 1296px);
     margin-top: 40px;
     padding-bottom: 48px;
+  }
+
+  .contactPanel {
+    padding: 20px;
+    gap: 24px;
+  }
+
+  .contactItems {
+    gap: 18px;
+  }
+
+  .contactValue {
+    font-size: 14px;
   }
 }

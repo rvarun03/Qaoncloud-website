@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
         contentType,
       }],
     });
-
+    
     return NextResponse.json({ message: 'Application sent successfully' });
   } catch (error) {
     console.error('[job-application] Failed to send application:', error);

@@ -325,7 +325,11 @@ export default function ContactUsPage() {
                     </a>
                     <div className={styles.phoneRow}>
                       <FiPhone className={styles.icon} />
-                      <a href="tel:+15103192565" className={styles.contactValue}>+1 (415) 630-2109</a> 
+                      <div className={styles.phoneList}>
+                        
+                        <a href="tel:+16693365152" className={styles.contactValue}>+1 (669) 336-5152</a>
+                        <a href="tel:+16187496874" className={styles.contactValue}>+1 (618) 749-6874</a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -347,8 +351,10 @@ export default function ContactUsPage() {
                       Tharamani, Chennai, <br />Tamil Nadu 600113, India
                     </a>
                     <div className={styles.phoneRow}>
-                      <FiPhone className={styles.icon} /> 
-                      <a href="tel:+919884292684" className={styles.contactValue}>+91 98842 92684</a>
+                      <FiPhone className={styles.icon} />
+                      <div className={styles.phoneList}>
+                        <a href="tel:+919884292684" className={styles.contactValue}>+91 98842 92684</a>
+                      </div>
                     </div>
                   </div>
                 </div>
