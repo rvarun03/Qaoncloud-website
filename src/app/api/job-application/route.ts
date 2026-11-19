@@ -29,6 +29,21 @@ function getText(formData: FormData, field: string) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
+async function verifyCaptcha(token: string) {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  if (!secret) {
+    throw new Error('RECAPTCHA_SECRET_KEY is not configured');
+  }
+
+  const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ secret, response: token }),
+  });
+  const result = await response.json() as { success?: boolean };
+  return result.success === true;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
@@ -36,11 +51,12 @@ export async function POST(request: NextRequest) {
     const lastName = getText(formData, 'lastName');
     const email = getText(formData, 'email');
     const jobTitle = getText(formData, 'jobTitle');
+    const captchaToken = getText(formData, 'captchaToken');
     const resume = formData.get('resume');
     const job = jobs.find((opening) => opening.title === jobTitle);
 
-    if (!firstName || !lastName || !email || !jobTitle) {
-      return NextResponse.json({ error: 'First name, last name, email, and role are required.' }, { status: 400 });
+    if (!firstName || !lastName || !email || !jobTitle || !captchaToken) {
+      return NextResponse.json({ error: 'First name, last name, email, role, and reCAPTCHA are required.' }, { status: 400 });
     }
     if (!isValidName(firstName) || !isValidName(lastName)) {
       return NextResponse.json({ error: 'Please enter a valid first and last name.' }, { status: 400 });
@@ -50,6 +66,9 @@ export async function POST(request: NextRequest) {
     }
     if (!job) {
       return NextResponse.json({ error: 'Please select a current job opening.' }, { status: 400 });
+    }
+    if (!(await verifyCaptcha(captchaToken))) {
+      return NextResponse.json({ error: 'reCAPTCHA verification failed. Please try again.' }, { status: 400 });
     }
     if (!(resume instanceof File) || resume.size === 0) {
       return NextResponse.json({ error: 'A resume is required.' }, { status: 400 });
@@ -107,6 +126,25 @@ export async function POST(request: NextRequest) {
         contentType,
       }],
     });
+
+    try {
+      await transporter.sendMail({
+        from: `"QAonCloud" <${smtpUser}>`,
+        to: email,
+        replyTo: 'contactus@qaoncloud.com',
+        subject: `We received your application, ${firstName}!`,
+        text: `Hi ${firstName},\n\nThank you for applying for the ${job.title} role at QAonCloud. We have received your application and will review your resume shortly. We will be in touch soon.\n\nRegards,\nQAonCloud Team`,
+        html: `
+          <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto;padding:24px;background:#f8fafc;border-radius:8px;">
+            <h2 style="color:#002A8D;">Thanks for applying, ${escapeHtml(firstName)}!</h2>
+            <p style="color:#333;line-height:1.6;">We have received your application for the <strong>${escapeHtml(job.title)}</strong> role and will review your resume shortly.</p>
+            <p style="color:#333;line-height:1.6;">We will be in touch soon.</p>
+            <p style="color:#888;font-size:13px;margin-top:32px;">— QAonCloud Team</p>
+          </div>`,
+      });
+    } catch (confirmationError) {
+      console.warn('[job-application] Applicant confirmation email failed:', confirmationError);
+    }
     
     return NextResponse.json({ message: 'Application sent successfully' });
   } catch (error) {

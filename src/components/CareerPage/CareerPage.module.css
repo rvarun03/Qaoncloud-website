@@ -13,7 +13,7 @@
   display: grid;
   grid-template-columns: minmax(300px, 368px) minmax(0, 1fr);
   align-items: stretch;
-  min-height: 650px;
+  min-height: 600px;
   gap: 32px;
 }
 
@@ -74,8 +74,8 @@
 
 .contactIcon {
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   color: #ff8641;
 }
 
@@ -92,10 +92,10 @@
   display: block;
   color: #fff;
   font-family: var(--font-Inter);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  letter-spacing: -.5px;
-  line-height: 1.55;
+  letter-spacing: -1px;
+  line-height: 1.5;
   overflow-wrap: anywhere;
   text-decoration: none;
 }
@@ -126,12 +126,70 @@ a.contactValue:hover {
   min-width: 0;
 }
 
+.positions > :first-child {
+  margin-bottom: 32px;
+}
+
 .cards {
   display: flex;
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
   min-width: 0;
+}
+
+/* Keeps the full careers row within shorter desktop viewports, including 125% zoom. */
+@media (min-width: 1025px) and (max-height: 800px) {
+  .section {
+    margin-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .layout {
+    min-height: 500px;
+    gap: 24px;
+  }
+
+  .contactPanel {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .contactTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .contactItems {
+    gap: 12px;
+  }
+
+  .contactValue {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .contactLabel {
+    font-size: 15px;
+  }
+
+  .contactIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .phoneRow {
+    gap: 6px;
+    margin-top: 0;
+  }
+
+  .positions > :first-child {
+    margin-bottom: 20px;
+  }
+
+  .cards > article {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -179,6 +237,15 @@ a.contactValue:hover {
   }
 
   .contactValue {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .contactLabel {
+    font-size: 13px;
+  }
+
+  .contactIcon {
+    width: 20px;
+    height: 20px;
   }
 }

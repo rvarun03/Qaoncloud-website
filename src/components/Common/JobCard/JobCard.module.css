@@ -31,9 +31,10 @@
 .fieldLabel input:focus, .fieldLabel select:focus { border-color: #3093e8; box-shadow: 0 0 0 3px rgba(48, 147, 232, .16); }
 .applicationError { max-width: none; margin: 0; color: #ff8e8e !important; font-size: 14px; }
 .fileName { max-width: none; margin: -10px 0 0; color: #b4b4b4 !important; font-size: 13px; overflow-wrap: anywhere; }
+.recaptchaWrap { min-height: 78px; }
 .submitButton { width: 100%; margin-top: 6px; border: 0; }
 .submitButton:disabled { cursor: wait; opacity: .65; }
 .successState { display: grid; gap: 24px; padding: 8px 0; text-align: center; }
 .successState .button { justify-self: center; }
 @media (max-width: 768px) { .card { padding: 20px; } .content { gap: 16px; margin-top: 16px; padding-top: 16px; } .modal { padding: 36px 24px 28px; } }
-@media (max-width: 480px) { .card { padding: 16px; } .trigger { gap: 12px; } .modalBackdrop { padding: 16px; } .modal { max-height: calc(100dvh - 32px); padding: 36px 20px 24px; border-radius: 16px; } .nameFields { grid-template-columns: 1fr; gap: 18px; } }
+@media (max-width: 480px) { .card { padding: 16px; } .trigger { gap: 12px; } .modalBackdrop { padding: 16px; } .modal { max-height: calc(100dvh - 32px); padding: 36px 20px 24px; border-radius: 16px; } .nameFields { grid-template-columns: 1fr; gap: 18px; } .recaptchaWrap { transform: scale(.82); transform-origin: left top; margin-bottom: -14px; } }

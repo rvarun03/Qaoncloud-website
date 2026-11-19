@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { FiChevronDown, FiX } from 'react-icons/fi';
+import ReCAPTCHA from 'react-google-recaptcha';
 import type { Job } from '@/data/jobs';
 import { jobs } from '@/data/jobs';
 import buttonStyles from '@/components/Common/Button/Button.module.css';
@@ -38,6 +39,9 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
   const [resume, setResume] = useState<File | null>(null);
   const [resumeError, setResumeError] = useState('');
   const resumeInputRef = useRef<HTMLInputElement>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState('');
 
   const closeApplication = () => {
     if (!isSubmitting) setIsApplicationOpen(false);
@@ -64,6 +68,9 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
     setSubmissionError('');
     setResume(null);
     setResumeError('');
+    setCaptchaToken(null);
+    setCaptchaError('');
+    recaptchaRef.current?.reset();
     if (resumeInputRef.current) resumeInputRef.current.value = '';
     setIsApplicationOpen(true);
   };
@@ -96,6 +103,10 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
       setResumeError('Please upload your resume.');
       return;
     }
+    if (!captchaToken) {
+      setCaptchaError('Please complete the reCAPTCHA.');
+      return;
+    }
     setIsSubmitting(true);
     setApplicationStatus('idle');
     setSubmissionError('');
@@ -107,6 +118,7 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
       formData.append('email', application.email);
       formData.append('jobTitle', application.jobTitle);
       formData.append('resume', resume);
+      formData.append('captchaToken', captchaToken);
       const response = await fetch('/api/job-application', {
         method: 'POST',
         body: formData,
@@ -119,6 +131,8 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
       console.error('Job application error:', error);
       setSubmissionError(error instanceof Error ? error.message : 'Failed to send your application. Please try again.');
       setApplicationStatus('error');
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
     } finally {
       setIsSubmitting(false);
     }
@@ -211,6 +225,16 @@ export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
                   </label>
                   {resume && <p className={styles.fileName}>{resume.name}</p>}
                   {resumeError && <p className={styles.applicationError} role="alert">{resumeError}</p>}
+                  <div className={styles.recaptchaWrap}>
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                      theme="dark"
+                      onChange={(token) => { setCaptchaToken(token); setCaptchaError(''); }}
+                      onExpired={() => { setCaptchaToken(null); setCaptchaError('reCAPTCHA expired. Please verify again.'); }}
+                    />
+                  </div>
+                  {captchaError && <p className={styles.applicationError} role="alert">{captchaError}</p>}
                   {applicationStatus === 'error' && <p className={styles.applicationError} role="alert">{submissionError}</p>}
                   <button type="submit" className={`${buttonStyles.button} ${buttonStyles.heroPrimary} ${buttonStyles.content} ${styles.submitButton}`} disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : 'Submit application'}
