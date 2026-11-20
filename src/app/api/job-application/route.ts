@@ -10,8 +10,7 @@ const ALLOWED_RESUMES: Record<string, string> = {
   '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
-// Keep validation disabled until the reCAPTCHA site key supports the deployed domain.
-const careersCaptchaEnabled = false;
+const careersCaptchaEnabled = true;
 
 function escapeHtml(value: string) {
   return value.replace(/[&<>'"]/g, character => ({

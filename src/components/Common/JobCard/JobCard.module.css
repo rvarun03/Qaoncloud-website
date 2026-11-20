@@ -38,3 +38,37 @@
 .successState .button { justify-self: center; }
 @media (max-width: 768px) { .card { padding: 20px; } .content { gap: 16px; margin-top: 16px; padding-top: 16px; } .modal { padding: 36px 24px 28px; } }
 @media (max-width: 480px) { .card { padding: 16px; } .trigger { gap: 12px; } .modalBackdrop { padding: 16px; } .modal { max-height: calc(100dvh - 32px); padding: 36px 20px 24px; border-radius: 16px; } .nameFields { grid-template-columns: 1fr; gap: 18px; } .recaptchaWrap { transform: scale(.82); transform-origin: left top; margin-bottom: -14px; } }
+
+/* High browser zoom reduces the effective viewport height on laptops. */
+@media (min-width: 481px) and (max-height: 700px) {
+  .modalBackdrop { padding: 12px; }
+  .modal { max-height: calc(100dvh - 24px); overflow-y: hidden; padding: 20px 28px 18px; border-radius: 16px; }
+  .closeButton { top: 10px; right: 10px; width: 32px; height: 32px; }
+  .modalHeader { margin-bottom: 14px; }
+  .modalHeader h2, .successState h2 { margin-bottom: 6px; font-size: 28px; }
+  .eyebrow { margin-bottom: 4px !important; }
+  .applicationForm { gap: 12px; }
+  .nameFields { gap: 12px; }
+  .fieldLabel { gap: 6px; }
+  .fieldLabel input, .fieldLabel select { min-height: 42px; padding: 9px 12px; }
+  .submitButton { min-height: 42px; margin-top: 0; }
+}
+
+/* At very high zoom, preserve access to every required field instead of clipping the form. */
+@media (min-width: 481px) and (max-height: 560px) {
+  .modal { overflow-y: auto; }
+}
+
+/* Fits the complete application form, including reCAPTCHA, at 150% zoom. */
+@media (min-width: 481px) and (max-height: 650px) {
+  .modal { padding: 12px 28px; }
+  .closeButton { top: 8px; right: 8px; }
+  .modalHeader { margin-bottom: 10px; }
+  .modalHeader h2, .successState h2 { margin-bottom: 4px; font-size: 26px; }
+  .applicationForm { gap: 8px; }
+  .nameFields { gap: 10px; }
+  .fieldLabel { gap: 4px; }
+  .fieldLabel input, .fieldLabel select { min-height: 38px; padding: 7px 10px; }
+  .recaptchaWrap { min-height: 70px; margin-bottom: -8px; transform: scale(.9); transform-origin: left top; }
+  .submitButton { min-height: 38px; }
+}

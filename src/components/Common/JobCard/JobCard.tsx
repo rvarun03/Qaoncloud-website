@@ -28,8 +28,7 @@ const emptyApplication = (jobTitle: string): ApplicationDetails => ({
   jobTitle,
 });
 
-// Enable this after the reCAPTCHA site key is authorized for the deployed domain.
-const careersCaptchaEnabled = false;
+const careersCaptchaEnabled = true;
 
 export default function JobCard({ job, isOpen, onToggle }: JobCardProps) {
   const contentId = `job-description-${job.id}`;

@@ -108,8 +108,8 @@ export const jobs: Job[] = [
     id: 'qa-interns',
     slug: 'qa-interns',
     title: 'QA Interns',
+    experience: '0-1 Year',
     workMode: 'Hybrid',
-    location: 'Tamil Nadu',
     sections: [
       {
         title: 'Skills Required',
