@@ -15,11 +15,14 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
-import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import WhatYouGetSection, { type FunctionalTestingDeliverable } from '@/components/FunctionalTesting/WhatYouGetSection/WhatYouGetSection'
+import AiTestingEffectivenessSection, { type AiTestingCapability } from '@/components/FunctionalTesting/AiTestingEffectivenessSection/AiTestingEffectivenessSection'
+import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
+import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
-const pageTitle = "Functional Testing Services | QAonCloud";
+const pageTitle = "Regression Testing Services | QAonCloud";
 const pageDescription =
-  "QAonCloud's functional testing catches what manual QA misses. AI-powered test intelligence. Fewer escaped defects. Measurable outcomes.";
+  "QAonCloud's AI-powered regression testing catches the bugs your updates introduce. Smarter test selection, fewer escaped defects, no release-day surprises.";
 const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
 
 export const metadata = {
@@ -77,28 +80,28 @@ const finTechData = {
 };
 
 const mistakesData = {
-  title: "You're shipping fixes that ",
-  highlight: "create new problems.",
+  title: "You're shipping fixes that create ",
+  highlight: "new problems.",
   description: (
     <>
-     You pushed a hotfix for checkout. Payments work now. But the discount code flow broke silently, and no one noticed until a customer screenshot landed in your support channel.
+      You pushed a hotfix for checkout. Payments work now. But the discount code flow broke silently, and no one noticed until a customer screenshot landed in your support channel.
     </>
   ),
   cards: [
     { title: "Your regression suite is bloated and blind", description: "You're running hundreds of test cases every release. Half of them test things that haven't changed. The other half miss the features that actually got affected by the new code. Volume without intelligence." },
-    { title: `"It worked before" isn't a test strategy`, description: `Your team assumes unchanged code stays unchanged. It doesn't. Dependencies shift, data flows change, side effects ripple. Without AI mapping the actual blast radius of every change, you're hoping — not testing.` },
-    { title: "Regression testing slows down releases", description: "Instead of protecting them, every release waits for a full regression pass. Most of those tests are irrelevant to the change. The ones that matter get the same priority as everything else. Your test cycle is long, but your confidence is still low." },
+    { title: "It worked before isn't a test strategy", description: `Your team assumes unchanged code stays unchanged. It doesn't. Dependencies shift, data flows change, side effects ripple. Without AI mapping the actual blast radius of every change, you're hoping — not testing.` },
+    { title: "Regression testing slows down releases instead of protecting them", description: "Every release waits for a full regression pass. Most of those tests are irrelevant to the change. The ones that matter get the same priority as everything else. Your test cycle is long, but your confidence is still low." },
   ],
 }
 
 const releaseRegulationsData = {
-  title: "AI-powered functional testing.  ",
-  highlight: "Outcomes, not effort",
-  description: `We don't sell you hours or headcount: We commit to outcomes — fewer escaped defects, higher coverage across critical flows, and production stability you can measure.`,
+  title: "AI-powered regression testing.",
+  highlight: "Test what matters, not everything.",
+  description: `We don't run your entire test suite and call it regression. AI analyses every code change to identify exactly which features, flows, and integrations are at risk — then tests those with precision. The result: higher defect catch rates with fewer irrelevant tests.`,
   cards: [
-    { title: "AI at the test design layer, not just execution", description: "Most testing tools automate execution — running the same scripts, just faster. We use AI where it actually matters: deciding what to test and why. Our models analyse your application, your defect history, and your code changes to generate test cases targeting the areas most likely to break." },
-    { title: "Coverage that's measured, not assumed", description: "We map every critical user flow and track coverage against it. Not lines of code — real user paths. You'll know exactly which flows are tested, where gaps exist, and where bugs are most likely to escape." },
-    { title: "Results you can see in your defect metrics", description: "Escaped defect rate. Production bug counts. Coverage percentages. The metrics that actually tell you whether testing is working — not timesheets." },
+    { title: "AI selects the right tests for every release", description: "Our AI maps the impact of each code change across your application. It identifies affected user flows, dependent modules, and integration points — then selects and prioritises the test cases that actually matter for that specific build. Not a static suite. A targeted one." },
+    { title: "Coverage that adapts to your product", description: "Your product isn't the same as it was last quarter. Our regression coverage evolves with it. AI detects new risk areas, retires tests for stable modules, and surfaces untested paths as your application grows. No stale suites. No manual maintenance." },
+    { title: "Outcomes, not hours We measure success by what reaches production — or doesn't.", description: "Escaped defect rate, regression defects caught pre-release, mean time to detect regressions. The numbers that tell you whether your releases are actually protected." },
   ],
 }
 
@@ -143,74 +146,104 @@ const functionalTestingSteps: ServiceStep[] = [
     id: 1,
     label: 'Step 1',
     position: 'left',
-    title: 'Understand your product',
-    description: 'We learn your application inside out — features, user roles, business rules, integrations, and the edge cases that keep your team up at night. We define success metrics together: target defect rates, coverage thresholds, the flows that matter most.',
+    title: 'Map your application and its risk surface',
+    description: ' We learn your product — features, dependencies, integrations, data flows, and release patterns. AI maps the full risk surface so every future change can be traced to what it affects.',
     icon: Binoculars,
   },
   {
     id: 2,
     label: 'Step 2',
     position: 'right',
-    title: 'Map critical user flows',
-    description: 'Every path a user can take, from onboarding to checkout. Each flow prioritised by business impact and historical defect density. Not guesswork — data.',
+    title: 'Build an intelligent regression suite',
+    description: ' AI generates test cases covering critical user flows, integration points, and historically defect-prone areas. Engineers review and add the domain-specific cases that need product knowledge. The suite is weighted by risk from day one.',
     icon: FlowIcon,
   },
   {
     id: 3,
     label: 'Step 3',
     position: 'left',
-    title: 'AI-powered test design + engineering review',
-    description: 'AI generates risk-weighted test cases across positive paths, negative paths, boundary values, and edge cases. Engineers review, refine, and add the domain-specific scenarios only someone who knows your product would think of.',
+    title: 'Run targeted regression every release',
+    description: `Each build triggers AI-powered impact analysis. The regression suite adapts — selecting, re-prioritising, and running only the tests relevant to that change. Full coverage where it matters, no wasted cycles where it doesn't.`,
     icon: Paintbrush,
   },
   {
     id: 4,
     label: 'Step 4',
     position: 'right',
-    title: 'Execute, measure and improve',
-    description: 'Tests run against your staging environment every cycle. You get reporting — not just pass/fail, but coverage progress, defect trends, and risk flags. Each cycle feeds back into the AI, making coverage smarter over time.',
+    title: 'Report, learn, improve',
+    description: `Every cycle delivers detailed reporting — what passed, what failed, what's at risk. Defect patterns feed back into the AI. Coverage gaps get flagged. The suite gets smarter with every release.`,
     icon: FileChartColumn,
   },
 ]
 
-const functionalTestingDeliverables: ServiceDeliverable[] = [
+const functionalTestingDeliverables: FunctionalTestingDeliverable[] = [
   {
-    title: 'Test cases',
-    description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
+    title: 'Targeted regression suite',
+    description: 'AI-selected, risk-weighted test cases tailored to your product. Traceable to the user flows and integration points they protect.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+    tone: 'dark',
   },
   {
-    title: 'Bug reports',
-    description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
+    title: 'Regression bug reports',
+    description: ' Exact steps to reproduce, screenshots, environment details, and impact assessment. Clear enough for your engineers to fix without a back-and-forth.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+    tone: 'dark',
   },
   {
-    title: 'Coverage dashboards',
-    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
-    isWide: true,
+    title: 'Impact analysis reports',
+    description: `Every release mapped to the features and flows it affects. You'll know what's at risk before a single test runs.`,
+    tone: 'blue',
   },
-]
+  {
+    title: 'Outcome dashboards',
+    description: 'Escaped regression rate, defects caught per cycle, suite health, and coverage trends. The metrics that tell you whether your releases are actually protected — not how many tests ran.',
+    tone: 'blue',
+  },
+];
+
+const aiTestingCapabilities: AiTestingCapability[] = [
+  {
+    number: '01',
+    title: 'Change impact analysis',
+    description: `Every commit, every PR — AI traces the ripple effects through your codebase and maps which user flows, modules, and integrations are affected. Tests get selected based on actual risk, not a checklist someone wrote six months ago.`
+  },
+  {
+    number: '02',
+    title: 'Risk-weighted test prioritisation',
+    description: 'Not all regressions are equal. A broken checkout is worse than a misaligned tooltip. AI ranks test cases by business impact and defect probability, so the highest-risk areas get validated first — every cycle.',
+  },
+  {
+    number: '03',
+    title: 'Defect pattern learning',
+    description: ' AI learns from every regression bug found — across your product and our client base. Where do regressions cluster? Integration boundaries. Shared state. Data migrations. AI generates targeted tests for these patterns in your product before the bugs show up.',
+  },
+  {
+    number: '04',
+    title: 'Smart suite maintenance',
+    description: "Test suites decay. Selectors break, flows change, new features go untested. AI identifies broken tests, flags gaps in coverage, and suggests new cases — so your regression suite stays current without manual upkeep.",
+  },
+];
 
 
 const fintechRows: ComparisonRow[] = [
   {
-    alternative: "In-house QA team",
-    problem: "Takes months to hire. Still misses bugs because they're too close to the code. No AI layer to find the gaps.",
-    difference: "Productive in weeks. AI finds coverage gaps your team can't see. Measurable defect reduction from month one.",
+    alternative: "Re-running the full suite every release",
+    problem: "Slow, expensive, and most tests are irrelevant to the change. You're wasting cycles and still missing regressions.",
+    difference: "AI selects only the tests that matter for each build. Higher catch rate, fewer wasted tests.",
   },
   {
-    alternative: "Offshore QA vendors",
-    problem: "Junior testers following scripts. They log what failed — they don't tell you what's at risk.",
-    difference: "Senior engineers backed by AI. We reduce your escaped defect rate and prove it in your metrics.",
+    alternative: "In-house regression testing",
+    problem: "Same team, same blind spots. Suite maintenance gets deprioritised. Stale tests give false confidence.",
+    difference: "Fresh perspective, AI-maintained suite, and engineers who do this all day. No stale tests. No blind spots.",
   },
   {
-    alternative: "AI testing tools alone",
-    problem: "Great at generating test cases. Terrible at knowing which ones matter.",
-    difference: "AI handles test intelligence. Engineers handle judgment. You get both.",
+    alternative: "Record-and-replay tools",
+    problem: "They break every time your UI changes. Maintenance eats the time they were supposed to save.",
+    difference: "AI handles suite maintenance and adapts tests to product changes. Engineers focus on the regressions that need judgment.",
   },
   {
-    alternative: "Your engineers doing QA",
-    problem: "Your most expensive people doing work that isn't their job. Features don't ship. Bugs still escape.",
+    alternative: "Your engineers doing regression",
+    problem: "Your most expensive people running repetitive tests instead of building features. Regressions still escape.",
     difference: "Free your engineers to build. We deliver fewer production bugs and higher coverage — with people and AI built for it.",
   },
 ];
@@ -222,11 +255,11 @@ export default function page() {
         <div className={classes.pageContent}>
           <div className={classes.homeHeroBg}>
             <IndustryPageHeader
-              tag="Functional Testing Services | QAonCloud"
-              title="Every feature works. Every edge case covered"
+              tag="Regression Testing Services | QAonCloud"
+              title="New code ships. Old features don't break."
               description={
                 <>
-                  Your users don't file bug reports — they leave. Our AI-powered functional testing catches the bugs, glitches, and broken flows that manual QA misses.
+                  Every release is a risk. New code can quietly break what was already working — and your users will find it before your team does. Our AI-powered regression testing identifies exactly what's at risk with every change and tests it before anything reaches production. No bloated test suites. No guesswork. Just the right tests, every time.
                   <span className={classes.brightBadges}>
                     ✅ Not faster testing     ✅ More effective testing  ✅ Measurably fewer bugs in production.
                   </span>
@@ -258,29 +291,43 @@ export default function page() {
           <ContentWrapper>
             
            <StepSection
-              title="How we design and execute "
-              highlight="functional tests"
+              title="How we build and run  "
+              highlight="regression testing"
               steps={functionalTestingSteps}
             />
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
+            <WhatYouGetSection deliverables={functionalTestingDeliverables} />
+          </ContentWrapper>
+          <SectionDivider />
+          <ContentWrapper>
+            <AiTestingEffectivenessSection capabilities={aiTestingCapabilities} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>
             <ComparisonTable title="Here’s why " highlight="teams choose us" rows={fintechRows} />
           </ContentWrapper>
-
+          <SectionDivider />
+          <ContentWrapper>
+            <CaseStudiesSection
+              heading="Real outcomes."
+              highlightedHeading="Real teams."
+              caseStudies={functionalTestingCaseStudies}
+            />
+          </ContentWrapper>
           <FAQs
             title="FAQs"
             highlight=""
             faqs={[
-              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, enterprise applications. If it has features and users, we test it." },
-              { question: "How does AI make testing more effective?", answer: "AI analyses your app structure, defect history, and code changes to generate test cases weighted by risk — not just volume. It finds the gaps manual testing misses, prioritises what's most likely to break, and gets smarter every cycle." },
-              { question: "Do you do both manual and automated testing? ", answer: "Yes. AI-powered automation for intelligent test design and high-coverage execution. Manual exploratory testing for edge cases, business logic, and the things that require human judgment." },
-              { question: "How do you measure success?", answer: "Escaped defect rate, production bug counts, defect density by module, and coverage against critical user flows. Not timesheets — the metrics that tell you whether testing is actually working." },
-              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in your first month." },
+              { question: "What's the difference between functional testing and regression testing?", answer: " Functional testing validates that features work correctly. Regression testing makes sure they keep working after new code ships. We do both — often together." },
+              { question: "How does AI improve regression testing?", answer: "AI maps the impact of every code change to identify which features and flows are at risk. Instead of re-running everything, it selects and prioritises the tests that matter for that specific release. Smarter selection, higher catch rate, no wasted cycles." },
+              { question: "Can you work with our existing test suite? ", answer: "Yes. We'll assess what's working, fix what's broken, fill the gaps, and layer AI-driven test selection on top. We're not here to throw out what you've built." },
+              { question: "How do you handle fast release cycles? Daily releases? Weekly?", answer: "We adapt. AI-powered test selection means your regression pass scales with your cadence — not against it." },
+              { question: 'How do you measure success? ', answer: "Escaped regression rate, defects caught per cycle, suite health, and coverage against critical flows. The metrics that tell you releases are protected — not how many tests ran." },
+              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in regression defect rates within the first month." },
+              { question: 'How does pricing work? ', answer: "Based on scope and outcomes — product complexity, release cadence, number of critical flows. Not headcount. Book a discovery call and we'll give you a real number." },
+              
             ]}
           />
           <ContentWrapper>
@@ -293,6 +340,8 @@ export default function page() {
               decorativeImage="/Images/Footer/HomePage.png"
             />
           </ContentWrapper>
+          <SectionDivider />
+          
         </div>
       </div>
     </div>

@@ -15,13 +15,14 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
-import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import WhatYouGetSection, { type FunctionalTestingDeliverable } from '@/components/FunctionalTesting/WhatYouGetSection/WhatYouGetSection'
+import AiTestingEffectivenessSection, { type AiTestingCapability } from '@/components/FunctionalTesting/AiTestingEffectivenessSection/AiTestingEffectivenessSection'
 import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
 import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
-const pageTitle = "Functional Testing Services | QAonCloud";
+const pageTitle = "Integration & API Testing Services | QAonCloud";
 const pageDescription =
-  "QAonCloud's functional testing catches what manual QA misses. AI-powered test intelligence. Fewer escaped defects. Measurable outcomes.";
+  "QAonCloud's AI-powered integration and API testing catches the failures that happen between systems. Smarter coverage across endpoints, data flows, and third-party dependencies.";
 const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
 
 export const metadata = {
@@ -147,75 +148,105 @@ const functionalTestingSteps: ServiceStep[] = [
     id: 1,
     label: 'Step 1',
     position: 'left',
-    title: 'Understand your product',
-    description: 'We learn your application inside out — features, user roles, business rules, integrations, and the edge cases that keep your team up at night. We define success metrics together: target defect rates, coverage thresholds, the flows that matter most.',
+    title: 'Map your integration landscape',
+    description: 'We learn your architecture — services, APIs, third-party dependencies, data flows, and the integration points that carry the most risk. AI builds a dependency map. We define success metrics together: target integration defect rate, critical paths, coverage thresholds.',
     icon: Binoculars,
   },
   {
     id: 2,
     label: 'Step 2',
     position: 'right',
-    title: 'Map critical user flows',
-    description: 'Every path a user can take, from onboarding to checkout. Each flow prioritised by business impact and historical defect density. Not guesswork — data.',
+    title: 'Build an intelligent integration test suite',
+    description: 'AI generates test scenarios based on your dependency graph, API contracts, and historical defect data. Engineers review and add domain-specific scenarios — the business-critical chains and edge cases that need product context.',
     icon: FlowIcon,
   },
   {
     id: 3,
     label: 'Step 3',
     position: 'left',
-    title: 'AI-powered test design + engineering review',
-    description: 'AI generates risk-weighted test cases across positive paths, negative paths, boundary values, and edge cases. Engineers review, refine, and add the domain-specific scenarios only someone who knows your product would think of.',
+    title: 'Run targeted integration tests every release',
+    description: 'Each build triggers AI-powered impact analysis. When a service changes, AI identifies which integrations and downstream flows are affected. Only the relevant test scenarios run — targeted coverage, no wasted cycles.',
     icon: Paintbrush,
   },
   {
     id: 4,
     label: 'Step 4',
     position: 'right',
-    title: 'Execute, measure and improve',
-    description: 'Tests run against your staging environment every cycle. You get reporting — not just pass/fail, but coverage progress, defect trends, and risk flags. Each cycle feeds back into the AI, making coverage smarter over time.',
+    title: 'Monitor, report, improve',
+    description: ` Continuous API monitoring between releases. Detailed reporting every cycle — contract violations, integration failures, third-party anomalies, and coverage trends. Each cycle makes the AI smarter about where your integrations are most likely to fail.`,
     icon: FileChartColumn,
   },
 ]
 
-const functionalTestingDeliverables: ServiceDeliverable[] = [
+const functionalTestingDeliverables: FunctionalTestingDeliverable[] = [
   {
-    title: 'Test cases',
-    description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
+    title: 'Cross platform test suite',
+    description: 'AI-generated scenarios covering feature parity, data sync, platform-specific behaviour, and device-OS combinations. Weighted by your actual install base.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+    tone: 'dark',
   },
   {
-    title: 'Bug reports',
-    description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
+    title: 'Platform parity reports',
+    description: 'Feature-by-feature comparison across platforms. Where behaviour is consistent. Where it diverges. Prioritised by user impact.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+    tone: 'dark',
   },
   {
-    title: 'Coverage dashboards',
-    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
-    isWide: true,
+    title: 'Cross platform bug reports ',
+    description: 'Exact platform, device, OS version, reproduction steps, and root cause. Your team can fix without spending hours reproducing.',
+    tone: 'blue',
   },
-]
+  {
+    title: 'Outcome dashboards ',
+    description: 'Platform-specific defect rate, parity gaps by feature, cross platform regression trends, and device coverage by user impact tier.',
+    tone: 'blue',
+  },
+];
+
+const aiTestingCapabilities: AiTestingCapability[] = [
+  {
+    number: '01',
+    title: 'Build your test matrix from real data',
+    description: 'We analyse your user analytics — traffic by browser, device, OS, and screen size. AI builds a prioritised test matrix weighted by your actual user base. No generic lab. A matrix built for your product.',
+  },
+  {
+    number: '02',
+    title: 'Identify high-risk pages and components',
+    description: 'AI analyses your frontend — CSS features, layout patterns, interactive elements, responsive breakpoints — and flags the pages and components most likely to render inconsistently across browsers. These get deeper coverage.',
+  },
+  {
+    number: '03',
+    title: 'Run AI-powered cross browser validation',
+    description: 'Visual and functional tests run across your prioritised matrix every release. AI compares rendering, detects anomalies, and flags cross browser inconsistencies. Engineers validate the complex cases and investigate browser-specific behaviour issues.',
+  },
+  {
+    number: '04',
+    title: 'Report, prioritise, improve',
+    description: "Every cycle delivers reporting — which browsers have issues, which pages are affected, severity by user impact. Coverage trends track improvements over time. The matrix evolves as your traffic patterns change.",
+  },
+];
 
 
 const fintechRows: ComparisonRow[] = [
   {
-    alternative: "In-house QA team",
-    problem: "Takes months to hire. Still misses bugs because they're too close to the code. No AI layer to find the gaps.",
-    difference: "Productive in weeks. AI finds coverage gaps your team can't see. Measurable defect reduction from month one.",
+    alternative: "Testing APIs in isolation",
+    problem: "Individual endpoints pass. Integrations fail. You're testing the pieces, not how they work together.",
+    difference: "AI maps dependencies and tests the full interaction chain. We catch the failures that happen between systems.",
   },
   {
-    alternative: "Offshore QA vendors",
-    problem: "Junior testers following scripts. They log what failed — they don't tell you what's at risk.",
-    difference: "Senior engineers backed by AI. We reduce your escaped defect rate and prove it in your metrics.",
+    alternative: "Manual integration testing",
+    problem: "Too slow to keep up with microservices and frequent releases. Engineers build Postman collections that go stale in a week.",
+    difference: "AI-generated scenarios that evolve with your architecture. No stale collections. No manual maintenance.",
   },
   {
-    alternative: "AI testing tools alone",
-    problem: "Great at generating test cases. Terrible at knowing which ones matter.",
-    difference: "AI handles test intelligence. Engineers handle judgment. You get both.",
+    alternative: "Contract testing tools alone",
+    problem: "Catches schema mismatches but misses behavioural failures — timeouts, race conditions, data corruption across services.",
+    difference: "Contract validation plus AI-powered scenario testing and anomaly detection. Schema and behaviour, not just schema.",
   },
   {
-    alternative: "Your engineers doing QA",
-    problem: "Your most expensive people doing work that isn't their job. Features don't ship. Bugs still escape.",
-    difference: "Free your engineers to build. We deliver fewer production bugs and higher coverage — with people and AI built for it.",
+    alternative: "Your engineers doing integration QA",
+    problem: "They wrote the services. They'll miss the assumptions baked into the integration. And they should be building, not testing.",
+    difference: "Fresh eyes backed by AI. We find the integration gaps your team can't see — and prove it in your defect metrics.",
   },
 ];
 
@@ -226,11 +257,11 @@ export default function page() {
         <div className={classes.pageContent}>
           <div className={classes.homeHeroBg}>
             <IndustryPageHeader
-              tag="Functional Testing Services | QAonCloud"
-              title="Every feature works. Every edge case covered"
+              tag="Integration & API Testing Services | QAonCloud"
+              title="Your features work alone. Do they work together?"
               description={
                 <>
-                  Your users don't file bug reports — they leave. Our AI-powered functional testing catches the bugs, glitches, and broken flows that manual QA misses.
+                  Most bugs don't live inside a single module. They live in the gaps — where your frontend talks to your backend, your backend talks to a payment gateway, and a third-party API changes its response format without telling you. Our AI-powered integration and API testing finds the failures that happen between systems, before your users do.
                   <span className={classes.brightBadges}>
                     ✅ Not faster testing     ✅ More effective testing  ✅ Measurably fewer bugs in production.
                   </span>
@@ -262,14 +293,18 @@ export default function page() {
           <ContentWrapper>
             
            <StepSection
-              title="How we design and execute "
-              highlight="functional tests"
+              title="How we test your "
+              highlight="integrations and APIs"
               steps={functionalTestingSteps}
             />
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
+            <WhatYouGetSection deliverables={functionalTestingDeliverables} />
+          </ContentWrapper>
+          <SectionDivider />
+          <ContentWrapper>
+            <AiTestingEffectivenessSection capabilities={aiTestingCapabilities} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>
@@ -287,11 +322,13 @@ export default function page() {
             title="FAQs"
             highlight=""
             faqs={[
-              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, enterprise applications. If it has features and users, we test it." },
-              { question: "How does AI make testing more effective?", answer: "AI analyses your app structure, defect history, and code changes to generate test cases weighted by risk — not just volume. It finds the gaps manual testing misses, prioritises what's most likely to break, and gets smarter every cycle." },
-              { question: "Do you do both manual and automated testing? ", answer: "Yes. AI-powered automation for intelligent test design and high-coverage execution. Manual exploratory testing for edge cases, business logic, and the things that require human judgment." },
-              { question: "How do you measure success?", answer: "Escaped defect rate, production bug counts, defect density by module, and coverage against critical user flows. Not timesheets — the metrics that tell you whether testing is actually working." },
-              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in your first month." },
+              { question: "What's the difference between API testing and integration testing?", answer: "API testing validates individual endpoints — request, response, status codes. Integration testing validates how those APIs work together — data flowing between services, contract compatibility, failure handling across system boundaries. We do both." },
+              { question: "Do you test third-party integrations?", answer: "Yes. Payment gateways, identity providers, CRMs, notification services — if your product depends on it, we test and monitor it. AI baselines their behaviour and flags changes before they break your flows." },
+              { question: "Can you work with our existing API tests? ", answer: " Absolutely. We assess what you have, fill the gaps, and layer AI-driven scenario generation and monitoring on top. We build on what's working, not throw it out." },
+              { question: "How do you handle microservices architectures?", answer: "AI maps the dependency graph across your services and identifies the highest-risk integration points. Test scenarios cover the full interaction chains — not just individual service endpoints. Each deployment triggers targeted tests for the services affected by the change." },
+              { question: 'How do you measure success?', answer: " Integration defect rate, API failures caught pre-release, contract violations detected, third-party incidents prevented. The metrics that tell you your systems actually work together — not just that individual endpoints return 200." },
+              { question: 'How quickly can you start?', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in integration defect rates within the first month." },
+              { question: 'How does pricing work?', answer: "Based on scope and outcomes — number of services, integration complexity, third-party dependencies, release cadence. Not headcount. Book a discovery call and we'll give you a real number."},
             ]}
           />
           <ContentWrapper>

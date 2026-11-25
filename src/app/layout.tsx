@@ -1,28 +1,10 @@
 import type { Metadata } from "next";
-import { Raleway, Poppins, Inter } from 'next/font/google';
 import "./globals.css";
 import ClientLayout from './ClientLayout';
 import Footer from "@/components/Common/Footer/Footer";
 import Script from 'next/script';
 import BackToTop from "@/components/Common/BackToTop/BackToTop";
 
-const raleway = Raleway({
-  subsets: ['latin'],
-  weight: ['200', '400', '500', '700'],
-  variable: '--font-raleway',
-});
-
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-poppins',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-inter',
-});
 
 export const metadata: Metadata = {
   title: "QAonCloud - Quality Assurance Solutions",
@@ -78,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${raleway.variable} ${poppins.variable} ${inter.variable}`}>
+    <html lang="en">
     <head>
       <meta property="og:image" content="/og-image.png" />
         {/* Google Tag Manager Script */}

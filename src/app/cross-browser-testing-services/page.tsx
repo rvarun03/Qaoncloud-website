@@ -15,7 +15,8 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
-import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import WhatYouGetSection, { type FunctionalTestingDeliverable } from '@/components/FunctionalTesting/WhatYouGetSection/WhatYouGetSection'
+import AiTestingEffectivenessSection, { type AiTestingCapability } from '@/components/FunctionalTesting/AiTestingEffectivenessSection/AiTestingEffectivenessSection'
 import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
 import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
@@ -177,45 +178,75 @@ const functionalTestingSteps: ServiceStep[] = [
   },
 ]
 
-const functionalTestingDeliverables: ServiceDeliverable[] = [
+const functionalTestingDeliverables: FunctionalTestingDeliverable[] = [
   {
-    title: 'Test cases',
-    description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
+    title: 'Prioritised test matrix',
+    description: 'Built from your actual user analytics. Browser-device-OS combinations ranked by traffic volume and risk. Updated as your user base evolves.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+    tone: 'dark',
   },
   {
-    title: 'Bug reports',
-    description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
+    title: 'Cross browser bug reports',
+    description: 'Exact browser, device, OS, and viewport. Screenshots, reproduction steps, and root cause analysis. Your frontend team can fix without guessing.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+    tone: 'dark',
   },
   {
-    title: 'Coverage dashboards',
-    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
-    isWide: true,
+    title: 'Visual comparison reports',
+    description: 'Side-by-side rendering across browsers with anomalies flagged. Meaningful differences highlighted, noise filtered out.',
+    tone: 'blue',
   },
-]
+  {
+    title: 'Outcome dashboards ',
+    description: 'Cross browser defects caught pre-release, browser-specific escape rate, coverage by traffic tier, and consistency trends. The metrics that tell you your users are getting the same experience regardless of browser.',
+    tone: 'blue',
+  },
+];
+
+const aiTestingCapabilities: AiTestingCapability[] = [
+  {
+    number: '01',
+    title: 'Build your test matrix from real data',
+    description: 'We analyse your user analytics — traffic by browser, device, OS, and screen size. AI builds a prioritised test matrix weighted by your actual user base. No generic lab. A matrix built for your product.',
+  },
+  {
+    number: '02',
+    title: 'Identify high-risk pages and components',
+    description: 'AI analyses your frontend — CSS features, layout patterns, interactive elements, responsive breakpoints — and flags the pages and components most likely to render inconsistently across browsers. These get deeper coverage.',
+  },
+  {
+    number: '03',
+    title: 'Run AI-powered cross browser validation',
+    description: 'Visual and functional tests run across your prioritised matrix every release. AI compares rendering, detects anomalies, and flags cross browser inconsistencies. Engineers validate the complex cases and investigate browser-specific behaviour issues.',
+  },
+  {
+    number: '04',
+    title: 'Report, prioritise, improve',
+    description: "Every cycle delivers reporting — which browsers have issues, which pages are affected, severity by user impact. Coverage trends track improvements over time. The matrix evolves as your traffic patterns change.",
+  },
+];
 
 
 const fintechRows: ComparisonRow[] = [
   {
-    alternative: "In-house QA team",
-    problem: "Takes months to hire. Still misses bugs because they're too close to the code. No AI layer to find the gaps.",
-    difference: "Productive in weeks. AI finds coverage gaps your team can't see. Measurable defect reduction from month one.",
+    alternative: "Manual cross browser spot-checks",
+    problem: "You'll catch the obvious breaks. You'll miss the subtle ones. It doesn't scale past three browsers.",
+    difference: "AI-powered visual and functional validation across your full prioritised matrix. Catches what eyeballing misses.",
   },
   {
-    alternative: "Offshore QA vendors",
-    problem: "Junior testers following scripts. They log what failed — they don't tell you what's at risk.",
-    difference: "Senior engineers backed by AI. We reduce your escaped defect rate and prove it in your metrics.",
+    alternative: "BrowserStack / LambdaTest alone",
+    problem: "Great infrastructure. No intelligence about what to test or what matters. You still need someone to design, run, and interpret the tests.",
+    difference: "We use the infrastructure. AI decides what to test and where to focus. Engineers investigate the complex cases. You get coverage, not just access to browsers.",
   },
   {
-    alternative: "AI testing tools alone",
-    problem: "Great at generating test cases. Terrible at knowing which ones matter.",
-    difference: "AI handles test intelligence. Engineers handle judgment. You get both.",
+    alternative: "Your frontend team doing cross browser QA",
+    problem: "They're debugging CSS instead of building features. They test on their own devices and call it done.",
+    difference: "Free your frontend team. We deliver cross browser consistency across the combinations your users actually use — with AI that finds what humans miss.",
   },
   {
-    alternative: "Your engineers doing QA",
-    problem: "Your most expensive people doing work that isn't their job. Features don't ship. Bugs still escape.",
-    difference: "Free your engineers to build. We deliver fewer production bugs and higher coverage — with people and AI built for it.",
+    alternative: "Pixel-perfect visual regression tools",
+    problem: "Too many false positives. Your team spends more time dismissing noise than fixing real bugs.",
+    difference: "Intelligent anomaly detection. AI learns which differences matter and which don't. Fewer false positives. More real catches.",
   },
 ];
 
@@ -269,7 +300,11 @@ export default function page() {
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
+            <WhatYouGetSection deliverables={functionalTestingDeliverables} />
+          </ContentWrapper>
+          <SectionDivider />
+          <ContentWrapper>
+            <AiTestingEffectivenessSection capabilities={aiTestingCapabilities} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>
@@ -287,11 +322,13 @@ export default function page() {
             title="FAQs"
             highlight=""
             faqs={[
-              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, enterprise applications. If it has features and users, we test it." },
-              { question: "How does AI make testing more effective?", answer: "AI analyses your app structure, defect history, and code changes to generate test cases weighted by risk — not just volume. It finds the gaps manual testing misses, prioritises what's most likely to break, and gets smarter every cycle." },
-              { question: "Do you do both manual and automated testing? ", answer: "Yes. AI-powered automation for intelligent test design and high-coverage execution. Manual exploratory testing for edge cases, business logic, and the things that require human judgment." },
-              { question: "How do you measure success?", answer: "Escaped defect rate, production bug counts, defect density by module, and coverage against critical user flows. Not timesheets — the metrics that tell you whether testing is actually working." },
-              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in your first month." },
+              { question: "Which browsers and devices do you test on?", answer: "The ones your users actually use. We build your test matrix from your analytics data — real traffic, real devices, real browsers. Not a generic list." },
+              { question: "Do you do visual testing or functional testing across browsers?", answer: "Both. Visual comparison catches layout and rendering inconsistencies. Functional validation catches the buttons that don't fire, forms that don't submit, and interactions that break on specific browsers. Cross browser bugs aren't just visual." },
+              { question: "How does AI improve cross browser testing? ", answer: "AI prioritises which browser-device combinations matter most, identifies CSS and layout features with known compatibility risks, and detects rendering anomalies intelligently — filtering noise and surfacing real bugs. Smarter coverage, not just more screenshots." },
+              { question: "Can you test responsive designs?", answer: "Yes. AI maps your responsive breakpoints and tests each one across relevant device-browser combinations. Layout shifts, overflow, touch targets, viewport-specific bugs — all covered." },
+              { question: 'How do you handle browser updates?', answer: "Browsers update constantly. AI monitors which versions your users migrate to and adjusts the test matrix automatically. When a new browser version ships, we validate your critical flows against it before your users encounter issues." },
+              { question: 'How quickly can you start?', answer: "Most teams are up and running within 2–3 weeks. You'll see cross browser defects dropping within the first sprint." },
+              { question: 'How does pricing work?', answer: "Based on scope and outcomes — number of critical pages, complexity of your frontend, and the breadth of your user base's browser distribution. Not headcount. Book a discovery call and we'll give you a real number."},
             ]}
           />
           <ContentWrapper>

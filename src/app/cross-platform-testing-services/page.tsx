@@ -15,13 +15,14 @@ import Mistakes from '@/components/Industries/Mistakes/Mistakes'
 import IndustryPageHeader from '@/components/Industries/FinTech/Header/IndustryPageHeader'
 import SectionDivider from '@/components/Common/SectionDivider/SectionDivider'
 import StepSection, { FlowIcon, type ServiceStep } from '@/components/Services/StepsSection'
-import WhatYouGetSection, { type ServiceDeliverable } from '@/components/Services/WhatYouGetSection'
+import WhatYouGetSection, { type FunctionalTestingDeliverable } from '@/components/FunctionalTesting/WhatYouGetSection/WhatYouGetSection'
+import AiTestingEffectivenessSection, { type AiTestingCapability } from '@/components/FunctionalTesting/AiTestingEffectivenessSection/AiTestingEffectivenessSection'
 import CaseStudiesSection from '@/components/FunctionalTesting/CaseStudiesSection/CaseStudiesSection'
 import { functionalTestingCaseStudies } from '@/data/functionalTestingCaseStudies'
 
-const pageTitle = "Functional Testing Services | QAonCloud";
+const pageTitle = " Cross Platform Testing Services | QAonCloud";
 const pageDescription =
-  "QAonCloud's functional testing catches what manual QA misses. AI-powered test intelligence. Fewer escaped defects. Measurable outcomes.";
+  "QAonCloud's AI-powered cross platform testing ensures your product works consistently across iOS, Android, web, and desktop. Real devices. Real outcomes. No platform-specific surprises.";
 const socialTitle = pageTitle.endsWith(" | QAonCloud") ? pageTitle : `${pageTitle} | QAonCloud`;
 
 export const metadata = {
@@ -147,75 +148,105 @@ const functionalTestingSteps: ServiceStep[] = [
     id: 1,
     label: 'Step 1',
     position: 'left',
-    title: 'Understand your product',
-    description: 'We learn your application inside out — features, user roles, business rules, integrations, and the edge cases that keep your team up at night. We define success metrics together: target defect rates, coverage thresholds, the flows that matter most.',
+    title: 'Map your platform landscape',
+    description: 'We learn your product across every platform you support — iOS, Android, web, desktop. Features, user journeys, data flows, and the platform-specific behaviours that differ. AI builds a cross platform risk map. We define success metrics together.',
     icon: Binoculars,
   },
   {
     id: 2,
     label: 'Step 2',
     position: 'right',
-    title: 'Map critical user flows',
-    description: 'Every path a user can take, from onboarding to checkout. Each flow prioritised by business impact and historical defect density. Not guesswork — data.',
+    title: 'Build a platform-aware test suite',
+    description: 'AI generates test scenarios that validate feature parity, data consistency, and platform-specific behaviour across your supported platforms. Engineers add the scenarios that need domain knowledge — the business-critical flows where platform consistency matters most.',
     icon: FlowIcon,
   },
   {
     id: 3,
     label: 'Step 3',
     position: 'left',
-    title: 'AI-powered test design + engineering review',
-    description: 'AI generates risk-weighted test cases across positive paths, negative paths, boundary values, and edge cases. Engineers review, refine, and add the domain-specific scenarios only someone who knows your product would think of.',
+    title: 'Run targeted cross platform tests every release',
+    description: 'Each build triggers AI-powered analysis. Changed a feature? AI validates it across all platforms. Updated one platform? AI checks for regressions on the others. Targeted testing on the combinations that matter.',
     icon: Paintbrush,
   },
   {
     id: 4,
     label: 'Step 4',
     position: 'right',
-    title: 'Execute, measure and improve',
-    description: 'Tests run against your staging environment every cycle. You get reporting — not just pass/fail, but coverage progress, defect trends, and risk flags. Each cycle feeds back into the AI, making coverage smarter over time.',
+    title: 'Report, track parity, improve',
+    description: ` Every cycle delivers reporting — parity gaps, platform-specific defects, device coverage by user impact, and consistency trends. You'll see exactly where platforms diverge and which gaps are closing.`,
     icon: FileChartColumn,
   },
 ]
 
-const functionalTestingDeliverables: ServiceDeliverable[] = [
+const functionalTestingDeliverables: FunctionalTestingDeliverable[] = [
   {
-    title: 'Test cases',
-    description: 'Risk-weighted, AI-generated. IDs, steps, test data, expected vs. actual results, severity classification. Traceable to the user flow it covers.',
+    title: 'Cross platform test suite',
+    description: 'AI-generated scenarios covering feature parity, data sync, platform-specific behaviour, and device-OS combinations. Weighted by your actual install base.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/TestCases.png',
+    tone: 'dark',
   },
   {
-    title: 'Bug reports',
-    description: 'Exact steps to reproduce, screenshots, environment details, impact assessment. No guesswork for your engineering team.',
+    title: 'Platform parity reports',
+    description: 'Feature-by-feature comparison across platforms. Where behaviour is consistent. Where it diverges. Prioritised by user impact.',
     imageSrc: '/Images/FunctionalTesting/WhatYouGet/BugReports_Matched.png',
+    tone: 'dark',
   },
   {
-    title: 'Coverage dashboards',
-    description: 'Which critical flows are covered. Where gaps exist. How coverage is trending cycle over cycle.',
-    isWide: true,
+    title: 'Cross platform bug reports ',
+    description: 'Exact platform, device, OS version, reproduction steps, and root cause. Your team can fix without spending hours reproducing.',
+    tone: 'blue',
   },
-]
+  {
+    title: 'Outcome dashboards ',
+    description: 'Platform-specific defect rate, parity gaps by feature, cross platform regression trends, and device coverage by user impact tier.',
+    tone: 'blue',
+  },
+];
+
+const aiTestingCapabilities: AiTestingCapability[] = [
+  {
+    number: '01',
+    title: 'Build your test matrix from real data',
+    description: 'We analyse your user analytics — traffic by browser, device, OS, and screen size. AI builds a prioritised test matrix weighted by your actual user base. No generic lab. A matrix built for your product.',
+  },
+  {
+    number: '02',
+    title: 'Identify high-risk pages and components',
+    description: 'AI analyses your frontend — CSS features, layout patterns, interactive elements, responsive breakpoints — and flags the pages and components most likely to render inconsistently across browsers. These get deeper coverage.',
+  },
+  {
+    number: '03',
+    title: 'Run AI-powered cross browser validation',
+    description: 'Visual and functional tests run across your prioritised matrix every release. AI compares rendering, detects anomalies, and flags cross browser inconsistencies. Engineers validate the complex cases and investigate browser-specific behaviour issues.',
+  },
+  {
+    number: '04',
+    title: 'Report, prioritise, improve',
+    description: "Every cycle delivers reporting — which browsers have issues, which pages are affected, severity by user impact. Coverage trends track improvements over time. The matrix evolves as your traffic patterns change.",
+  },
+];
 
 
 const fintechRows: ComparisonRow[] = [
   {
-    alternative: "In-house QA team",
-    problem: "Takes months to hire. Still misses bugs because they're too close to the code. No AI layer to find the gaps.",
-    difference: "Productive in weeks. AI finds coverage gaps your team can't see. Measurable defect reduction from month one.",
+    alternative: "Each platform team testing their own",
+    problem: "iOS team tests iOS. Android team tests Android. Nobody tests parity. Cross-cutting bugs live in production.",
+    difference: "We test across platforms. AI validates that features, data, and behaviour are consistent everywhere. One team, full picture.",
   },
   {
-    alternative: "Offshore QA vendors",
-    problem: "Junior testers following scripts. They log what failed — they don't tell you what's at risk.",
-    difference: "Senior engineers backed by AI. We reduce your escaped defect rate and prove it in your metrics.",
+    alternative: "Testing on emulators only",
+    problem: "Emulators miss device-specific bugs — manufacturer skins, hardware quirks, real-world memory and network conditions.",
+    difference: "Real devices, prioritised by your install base. AI targets the device-OS combinations where bugs actually cluster.",
   },
   {
-    alternative: "AI testing tools alone",
-    problem: "Great at generating test cases. Terrible at knowing which ones matter.",
-    difference: "AI handles test intelligence. Engineers handle judgment. You get both.",
+    alternative: "Manual cross platform spot-checks",
+    problem: "You'll catch the missing feature. You'll miss the subtle data sync issue, the gesture that doesn't register, the notification that doesn't fire.",
+    difference: "AI-powered parity validation catches the inconsistencies manual testing misses — functional, visual, and data-level.",
   },
   {
-    alternative: "Your engineers doing QA",
-    problem: "Your most expensive people doing work that isn't their job. Features don't ship. Bugs still escape.",
-    difference: "Free your engineers to build. We deliver fewer production bugs and higher coverage — with people and AI built for it.",
+    alternative: "Your engineers doing cross platform QA",
+    problem: "They know one platform deeply. They spot-check the others. Platform-specific bugs escape because nobody has the full picture.",
+    difference: "Dedicated cross platform coverage. AI finds the divergences. Engineers investigate the complex ones. Your devs build.",
   },
 ];
 
@@ -226,11 +257,11 @@ export default function page() {
         <div className={classes.pageContent}>
           <div className={classes.homeHeroBg}>
             <IndustryPageHeader
-              tag="Functional Testing Services | QAonCloud"
-              title="Every feature works. Every edge case covered"
+              tag="Cross Platform Testing Services | QAonCloud"
+              title="Built for one platform. Works on all of them."
               description={
                 <>
-                  Your users don't file bug reports — they leave. Our AI-powered functional testing catches the bugs, glitches, and broken flows that manual QA misses.
+                  Your app works on iOS. Does it work on Android? Your web app works on desktop. Does it work on tablet? Cross platform bugs are silent — features that behave differently, data that syncs wrong, gestures that don't respond. Our AI-powered cross platform testing catches the inconsistencies across every platform your users are on.
                   <span className={classes.brightBadges}>
                     ✅ Not faster testing     ✅ More effective testing  ✅ Measurably fewer bugs in production.
                   </span>
@@ -262,14 +293,18 @@ export default function page() {
           <ContentWrapper>
             
            <StepSection
-              title="How we design and execute "
-              highlight="functional tests"
+              title="How we test "
+              highlight="across platforms"
               steps={functionalTestingSteps}
             />
             </ContentWrapper>
            <SectionDivider />
           <ContentWrapper>
-            <WhatYouGetSection title="What you get" deliverables={functionalTestingDeliverables} />
+            <WhatYouGetSection deliverables={functionalTestingDeliverables} />
+          </ContentWrapper>
+          <SectionDivider />
+          <ContentWrapper>
+            <AiTestingEffectivenessSection capabilities={aiTestingCapabilities} />
           </ContentWrapper>
           <SectionDivider />
            <ContentWrapper>
@@ -287,11 +322,13 @@ export default function page() {
             title="FAQs"
             highlight=""
             faqs={[
-              { question: "What types of applications do you test?", answer: "Web apps, mobile apps, SaaS platforms, APIs, enterprise applications. If it has features and users, we test it." },
-              { question: "How does AI make testing more effective?", answer: "AI analyses your app structure, defect history, and code changes to generate test cases weighted by risk — not just volume. It finds the gaps manual testing misses, prioritises what's most likely to break, and gets smarter every cycle." },
-              { question: "Do you do both manual and automated testing? ", answer: "Yes. AI-powered automation for intelligent test design and high-coverage execution. Manual exploratory testing for edge cases, business logic, and the things that require human judgment." },
-              { question: "How do you measure success?", answer: "Escaped defect rate, production bug counts, defect density by module, and coverage against critical user flows. Not timesheets — the metrics that tell you whether testing is actually working." },
-              { question: 'How quickly can you start? ', answer: "Most teams are up and running within 2–3 weeks. You'll see measurable improvement in your first month." },
+              { question: "What platforms do you test?", answer: "iOS, Android, web, and desktop — native apps, hybrid apps, PWAs, and responsive web apps. If your users are on it, we test it." },
+              { question: "What's the difference between cross browser and cross platform testing?", answer: "Cross browser testing validates your web app across different browsers (Chrome, Safari, Firefox, Edge). Cross platform testing validates your product across different platforms entirely — iOS vs Android vs web vs desktop. Different operating systems, different app builds, different user experiences. We do both." },
+              { question: "Do you test on real devices or emulators? ", answer: " Real devices, prioritised by your install base. Emulators miss device-specific bugs — manufacturer skins, hardware quirks, real-world performance conditions. We use emulators for initial coverage and real devices for validation." },
+              { question: "How do you handle device fragmentation on Android?", answer: "AI analyses your install base and prioritises the device-manufacturer-OS combinations that carry the most user impact. Samsung on Android 13 behaves differently from Xiaomi on Android 14. We test the combinations your users actually use, not a generic device list." },
+              { question: 'How do you measure success?', answer: "Platform-specific defect rate, parity gaps closed, cross platform regression catch rate, and device coverage by user impact tier. The metrics that tell you your users are getting the same experience regardless of platform." },
+              { question: 'How quickly can you start?', answer: "Most teams are up and running within 2–3 weeks. You'll see platform-specific defects dropping within the first month." },
+              { question: 'How does pricing work?', answer: "Based on scope and outcomes — number of platforms, device complexity, feature breadth, and release cadence. Not headcount. Book a discovery call and we'll give you a real number."},
             ]}
           />
           <ContentWrapper>

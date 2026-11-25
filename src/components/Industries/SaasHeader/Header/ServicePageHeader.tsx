@@ -2,11 +2,8 @@ import React from "react";
 import styles from "./ServicePageHeader.module.css";
 import Image from "next/image";
 import Button from "../../../Common/Button/Button"; 
-import { Inter } from 'next/font/google'
 import Link from "next/link";
   
-
-const inter = Inter({ subsets: ['latin'] })
 
 const ServicePageHeader = () => {
     return (
